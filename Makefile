@@ -2,6 +2,7 @@
 NAME	= minishell
 CFLAGS	= -Wall -Wextra -Werror -g3 -lreadline
 OBJ_D	= ./objects
+HEADER	= ./Include/minishell.h
 
 #--MANDATORY--
 SRC_D	= ./src/
