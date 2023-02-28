@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/02/27 19:50:32 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/02/27 21:25:22 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,26 +62,80 @@ char	*read_line(char **envp)
 	if (ft_strlen(line))
 	{
 		add_history(line);
-		ft_printf("%s\n", line);//teste
 		return (line);
 	}
 	else
 		return (NULL);
 }
 
-int	main(int argc, char **argv, char **envp)
+void	show_display_prompt(t_data *data, char **envp)
 {
-	char *line;
-	
 	if (show_display() == -1)
 		return (-1);
 	while (1)
 	{
-		line = ft_strdup(read_line(envp));
-		if (ft_strlen(line) != 0)
+		data->line = ft_strdup(read_line(envp));
+		if (ft_strlen(data->line) != 0)
 		{
-			
+			if (ft_strnstr("exit", data->line, 4) != 0)
+				return (EXIT_CODE);
+			else
+				ft_printf(">%s\n", data->line); //teste
 		}		
 	}
+}
+
+int	test_cmd(t_data *data, char **argvn)
+{
+	char	*tmp;
+	int index;
+	
+	index = -1;
+	while (data->paths[++index])
+	{
+		tmp = ft_strjoin(data->paths[index], "/");
+		data->cmd = ft_strjoin(tmp, argvn[0]);
+		if (access(data->cmd, X_OK) == 0)
+		{
+			free (tmp);
+			return (0);
+		}
+		free (data->cmd);
+		free (tmp);
+	}
+	data->cmd = NULL;
+	ft_printf("%s: command not found\n", argvn[0]);
+	return (127);
+}
+
+int	count_cmd_len(char *line)
+{
+	int index;
+	
+	index = -1;
+	while (line[++index] != 0 && line[index] != ' ')
+		index++;
+	return (index);
+}
+
+void	get_cmd(t_data *data)
+{
+	
+}
+
+void	parser(char *line)
+{
+	char *cmd;
+	
+	
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_data data;
+	show_display_promt(&data, envp);
+	//parse
+	//execute
+	
 	return (0);
 }
