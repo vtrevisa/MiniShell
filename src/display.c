@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/02/27 21:25:22 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/02/27 21:52:23 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*read_line(char **envp)
 		return (NULL);
 }
 
-void	show_display_prompt(t_data *data, char **envp)
+int	show_display_prompt(t_data *data, char **envp)
 {
 	if (show_display() == -1)
 		return (-1);
@@ -85,56 +85,11 @@ void	show_display_prompt(t_data *data, char **envp)
 	}
 }
 
-int	test_cmd(t_data *data, char **argvn)
-{
-	char	*tmp;
-	int index;
-	
-	index = -1;
-	while (data->paths[++index])
-	{
-		tmp = ft_strjoin(data->paths[index], "/");
-		data->cmd = ft_strjoin(tmp, argvn[0]);
-		if (access(data->cmd, X_OK) == 0)
-		{
-			free (tmp);
-			return (0);
-		}
-		free (data->cmd);
-		free (tmp);
-	}
-	data->cmd = NULL;
-	ft_printf("%s: command not found\n", argvn[0]);
-	return (127);
-}
-
-int	count_cmd_len(char *line)
-{
-	int index;
-	
-	index = -1;
-	while (line[++index] != 0 && line[index] != ' ')
-		index++;
-	return (index);
-}
-
-void	get_cmd(t_data *data)
-{
-	
-}
-
-void	parser(char *line)
-{
-	char *cmd;
-	
-	
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	t_data data;
-	show_display_promt(&data, envp);
-	//parse
+	show_display_prompt(&data, envp);
+	/* parser(&data); */
 	//execute
 	
 	return (0);
