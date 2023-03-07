@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/02/27 21:52:23 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/03/06 20:52:37 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,23 @@ int	show_display(void)
 	return (fd);
 }
 
-char	*read_line(char **envp)
+//char	*read_line(char **envp, t_data data)
+void	*read_line(char **envp, t_data *data)
 {
-	char *line;
+	//char *line;
 
+	data->linetyped = 0;
 	print_user_dir(envp); //errors with the history, it erases the userdir
-	line = readline("$ ");
-	if (ft_strlen(line))
+	data->line = readline("$ ");
+	if (ft_strlen(data->line))
 	{
-		add_history(line);
-		return (line);
+		add_history(data->line);
+		data->linetyped = 1;
+		//return ;
 	}
 	else
-		return (NULL);
+		free(data->line);
+		//return ;
 }
 
 int	show_display_prompt(t_data *data, char **envp)
@@ -74,14 +78,18 @@ int	show_display_prompt(t_data *data, char **envp)
 		return (-1);
 	while (1)
 	{
-		data->line = ft_strdup(read_line(envp));
-		if (ft_strlen(data->line) != 0)
+		read_line(envp, data);
+		//data->line = ft_strdup(read_line(envp));
+		if (data->linetyped == 1)
 		{
 			if (ft_strnstr("exit", data->line, 4) != 0)
 				return (EXIT_CODE);
 			else
 				ft_printf(">%s\n", data->line); //teste
-		}		
+			free(data->line);
+		}	
+		else
+			printf("\n");
 	}
 }
 

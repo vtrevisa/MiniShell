@@ -1,0 +1,3 @@
+*.old
+*.o
+minishell
