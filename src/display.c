@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/03/06 20:52:37 by romachad         ###   ########.fr       */
+/*   Updated: 2023/03/06 21:10:07 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	show_display_prompt(t_data *data, char **envp)
 			free(data->line);
 		}	
 		else
-			printf("\n");
+			printf("");
 	}
 }
 
