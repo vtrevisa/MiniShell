@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:21:05 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/03/07 16:52:45 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/03/07 18:40:35 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ void	tolkenizer(t_data *data)
 		if(test_cmd(data, data->line_splitted[index]))
 		{
 			data->parsed_class[index] == 1;
-			ft_printf("%s: is a cmd\n", data->line_splitted);
+			ft_printf("%s: is a cmd\n", data->line_splitted[index]);
 		}
 		else
-			ft_printf("%s: not a cmd\n", data->line_splitted);
+			ft_printf("%s: not a cmd\n", data->line_splitted[index]);
 		//else if (/*isarg*/)
 		//	data->parsed_class[index] == 2;
 		//else if (/*issimble*/)

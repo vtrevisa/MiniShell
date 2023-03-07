@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/03/07 17:57:04 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/03/07 18:38:04 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,23 @@ int	show_display(void)
 
 int	prompt_loop(t_data *data)
 {
-	char	*line;
-	char	**args;
 	int		status;
 
 	status = 1;
 	while (status)
 	{
 		ft_printf("> ");
-		line = read_line(data);
-		if (ft_strnstr("exit", line, 4) != 0)
+		data->line = read_line(data);
+		if (ft_strnstr("exit", data->line, 4) != 0)
 			{
-				free(line);
+				free(data->line);
 				return (EXIT_CODE);
 			}
 			else
-				ft_printf(">%s\n", line); //teste
-		/* args = split_line(line); */
+				ft_printf(">%s\n", data->line); //teste
+		parser(data);
 		/* status = execute(args); */
-		free (line);
+		free (data->line);
 		/* free (args); */
 	}
 }

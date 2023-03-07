@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/03/07 17:32:14 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/03/07 18:39:05 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ typedef struct  s_data
 {
 	char	**paths;
 	char	*user;
+	char	*line;
+	char	**line_splitted;
+	char	*parsed;
+	int		*parsed_class;
 }	t_data;
 
 /*INIT*/
@@ -34,4 +38,7 @@ void	init_data(t_data *data, char **envp);
 
 /*READ_LINE*/
 char	*read_line(t_data *data);
+
+/*PARSER*/
+void	parser(t_data *data);
 #endif
