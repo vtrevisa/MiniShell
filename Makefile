@@ -6,7 +6,7 @@ HEADER	= ./Include/minishell.h
 
 #--MANDATORY--
 SRC_D	= ./src/
-SRC		= display.c
+SRC		= display.c signals.c
 OBJ		= $(addprefix $(OBJ_D)/, $(SRC:.c=.o))
 
 #--LIBFT--

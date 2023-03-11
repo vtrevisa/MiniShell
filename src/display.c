@@ -6,11 +6,12 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/03/06 21:10:07 by romachad         ###   ########.fr       */
+/*   Updated: 2023/03/11 19:10:50 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
+//t_data	data;
 
 char	*userfinder(char *envp[])
 {
@@ -54,49 +55,68 @@ int	show_display(void)
 }
 
 //char	*read_line(char **envp, t_data data)
-void	*read_line(char **envp, t_data *data)
+void	*read_line(char **envp, t_data *dataaa)
+//void	*read_line(char **envp)
 {
 	//char *line;
 
-	data->linetyped = 0;
+	//data.linetyped = 0;
+	dataaa->linetyped = 0;
 	print_user_dir(envp); //errors with the history, it erases the userdir
-	data->line = readline("$ ");
-	if (ft_strlen(data->line))
+	//data.line = readline("$ ");
+	dataaa->line = readline("$ ");
+	//if (ft_strlen(data.line))
+	if (ft_strlen(dataaa->line))
 	{
-		add_history(data->line);
-		data->linetyped = 1;
+		//add_history(data.line);
+		add_history(dataaa->line);
+		//data.linetyped = 1;
+		dataaa->linetyped = 1;
 		//return ;
 	}
 	else
-		free(data->line);
+		//free(data.line);
+		free(dataaa->line);
 		//return ;
 }
 
-int	show_display_prompt(t_data *data, char **envp)
+int	show_display_prompt(t_data *dataaa, char **envp)
+//int	show_display_prompt(char **envp)
 {
 	if (show_display() == -1)
 		return (-1);
 	while (1)
 	{
-		read_line(envp, data);
+		read_line(envp, dataaa);
 		//data->line = ft_strdup(read_line(envp));
-		if (data->linetyped == 1)
+		//if (data.linetyped == 1)
+		if (dataaa->linetyped == 1)
 		{
-			if (ft_strnstr("exit", data->line, 4) != 0)
+			//if (ft_strnstr("exit", data.line, 4) != 0)
+			if (ft_strnstr("exit", dataaa->line, 4) != 0)
 				return (EXIT_CODE);
 			else
-				ft_printf(">%s\n", data->line); //teste
-			free(data->line);
+				//ft_printf(">%s\n", data.line); //teste
+				ft_printf(">%s\n", dataaa->line); //teste
+			//free(data.line);
+			free(dataaa->line);
 		}	
 		else
 			printf("");
 	}
 }
 
+
+t_data	global_var;
+
 int	main(int argc, char **argv, char **envp)
 {
-	t_data data;
-	show_display_prompt(&data, envp);
+	t_data dataaa;
+
+	global_var.local_envp = envp;
+	signal(SIGINT, sigint_handler);
+
+	show_display_prompt(&global_var, envp);
 	/* parser(&data); */
 	//execute
 	
