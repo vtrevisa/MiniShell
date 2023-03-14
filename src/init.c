@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:13 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/03/07 17:34:17 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/03/14 16:21:39 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,5 @@ void	init_data(t_data *data, char **envp)
 {
 	data->paths = ft_split(pathfinder(envp), ':');
 	data->user = ft_strdup(userfinder(envp));
+	data->file_fds_index = 0;
 }

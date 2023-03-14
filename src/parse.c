@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:21:05 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/03/09 15:00:44 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/03/14 17:16:02 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,32 @@ int	isarg(t_data *data, char *line_splitted)
 	int index;
 
 	index = 0;
-	if (line_splitted[0] == '-')
+	if (line_splitted[0] == '-' || line_splitted[0] == '"')
 		return (1);
+	else
+		return (0);
+}
+
+int	issimble(t_data *data, char *line_splitted)
+{
+	if (line_splitted[0] == '$')
+		return (3);
+	else if (line_splitted[0] == '>')
+	{
+		data->file_fds_index++;
+		if (line_splitted[1] == '>')
+			return (4);
+		return (5);
+	}
+	else if (line_splitted[0] == '<')
+	{
+		data->file_fds_index++;
+		if (line_splitted[1] == '<')
+			return (6);
+		return (7);
+	}
+	else if (line_splitted[0] == '|')
+		return (8);
 	else
 		return (0);
 }
@@ -84,10 +108,10 @@ void	tolkenizer(t_data *data)
 {
 	int	index;
 	int	max_index;
-
+	//GOTTA THINK ABAOUT ISSPACE (TYPED ONLYSPACE AND ENTER = SEGFAULT)
 	max_index = count_splitted(data);
 	data->parsed_class = malloc(sizeof (int) * max_index);
-	ft_bzero(data->parsed_class, max_index-1);
+	ft_bzero(data->parsed_class, max_index);
 	index = 0;
 	while (index <= max_index)
 	{
@@ -102,18 +126,44 @@ void	tolkenizer(t_data *data)
 			ft_printf("%s: is arg: %d\n", data->line_splitted[index], data->parsed_class[index]);
 		}
 		else
-			ft_printf("%s: not a cmd nor arg: %d\n", data->line_splitted[index], data->parsed_class[index]);
-		//else if (/*issimble*/)
-	//		data->parsed_class[index] = 3;
+		{
+			data->parsed_class[index] = issimble(data, data->line_splitted[index]);
+			if (data->parsed_class[index] == 3)
+				ft_printf("%s: is a var: %d\n", data->line_splitted[index], data->parsed_class[index]);
+			else if (data->parsed_class[index] == 4 || data->parsed_class[index] == 5)
+				ft_printf("%s: is a redir out: %d\n", data->line_splitted[index], data->parsed_class[index]);
+			else if (data->parsed_class[index] == 6 || data->parsed_class[index] == 7)
+				ft_printf("%s: is a redir in: %d\n", data->line_splitted[index], data->parsed_class[index]);
+			else if (data->parsed_class[index] == 8)
+				ft_printf("%s: is a pipe: %d\n", data->line_splitted[index], data->parsed_class[index]);
+			else
+				ft_printf("%s: not a cmd nor arg: %d\n", data->line_splitted[index], data->parsed_class[index]);
+		}
 		index++;
+	}
+}
+
+int	openfiles(t_data *data)
+{
+	int	index;
+	int	fd;
+
+	index = -1;
+	data->file_fds = malloc (sizeof (int) * data->file_fds_index);
+	while (++index < data->file_fds_index)
+	{
+		if (data->parsed_class[index] >= 4 && data->parsed_class[index] <= 7)
+			data->file_fds[fd] = open (data->line_splitted[index + 1], O_CREAT, S_IRWXU);
 	}
 }
 
 void	parser(t_data *data)
 {
 	//lexing string
+	
 	data->line_splitted = ft_split(space_to_nonprint(data->line), -1);
 	//tolkenizing string
 	tolkenizer(data);
 	//parsing tring
+	
 }

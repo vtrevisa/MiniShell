@@ -15,7 +15,7 @@ LPATH	= ./Libft/
 
 all: $(NAME)
 
-$(NAME): $(LIB) $(OBJ)
+$(NAME): $(LIB) $(OBJ) $(HEADER)
 	cc $(OBJ) $(LIB) $(CFLAGS) -o $(NAME)
 
 $(LIB): 
