@@ -6,7 +6,7 @@ HEADER	= ./Include/minishell.h
 
 #--MANDATORY--
 SRC_D	= ./src/
-SRC		= main.c read_line.c init.c parse.c
+SRC		= main.c read_line.c init.c lexer.c lexer_utils.c lexer_utils_2.c
 OBJ		= $(addprefix $(OBJ_D)/, $(SRC:.c=.o))
 
 #--LIBFT--

@@ -6,23 +6,11 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/03/07 18:38:04 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/03/17 14:16:05 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
-
-void	free_all(char **str)
-{
-	int	i;
-
-	if (!str)
-		return ;
-	i = 0;
-	while (str[i])
-		free(str[i++]);
-	free(str);
-}
 
 int	show_display(void)
 {
@@ -45,8 +33,8 @@ int	prompt_loop(t_data *data)
 {
 	int		status;
 
-	status = 1;
-	while (status)
+	status = 0;
+	while (1)
 	{
 		ft_printf("> ");
 		data->line = read_line(data);
@@ -57,11 +45,23 @@ int	prompt_loop(t_data *data)
 			}
 			else
 				ft_printf(">%s\n", data->line); //teste
-		parser(data);
+		lexer(data);
 		/* status = execute(args); */
 		free (data->line);
 		/* free (args); */
 	}
+}
+
+void	free_all(char **str)
+{
+	int	i;
+
+	if (!str)
+		return ;
+	i = 0;
+	while (str[i])
+		free(str[i++]);
+	free(str);
 }
 
 int	main(int argc, char **argv, char **envp)
