@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/03/17 14:16:05 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/03/22 17:26:33 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ int	prompt_loop(t_data *data)
 			}
 			else
 				ft_printf(">%s\n", data->line); //teste
+		data->index = 0;
 		lexer(data);
-		/* status = execute(args); */
+		/* status = execute(data); */
 		free (data->line);
-		/* free (args); */
 	}
 }
 

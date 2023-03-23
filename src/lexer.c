@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:21:05 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/03/17 14:16:18 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/03/23 19:51:09 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,33 +26,34 @@ void	tolkenizer(t_data *data)
 		if(iscmd(data, data->line_splitted[index]))
 		{
 			data->lexed_class[index] = 1;
-			ft_printf("%s: is a cmd: %d\n", data->line_splitted[index], data->lexed_class[index]);
+			data->count_cmd++;
+			ft_printf("%s: is a cmd: %d[%d]\n", data->line_splitted[index], data->lexed_class[index], index);//teste
 		}
 		else if (isarg(data, data->line_splitted[index]))
 		{
 			data->lexed_class[index] = 2;
-			ft_printf("%s: is arg: %d\n", data->line_splitted[index], data->lexed_class[index]);
+			ft_printf("%s: is arg: %d\n", data->line_splitted[index], data->lexed_class[index]);//teste
 		}
 		else
 		{
 			data->lexed_class[index] = issimble(data, data->line_splitted[index]);
 			if (data->lexed_class[index] == 3)
-				ft_printf("%s: is a var: %d\n", data->line_splitted[index], data->lexed_class[index]);
+				ft_printf("%s: is a var: %d\n", data->line_splitted[index], data->lexed_class[index]); //teste
 			else if (data->lexed_class[index] == 4 || data->lexed_class[index] == 5)
-				ft_printf("%s: is a redir out: %d\n", data->line_splitted[index], data->lexed_class[index]);
+				ft_printf("%s: is a redir out: %d\n", data->line_splitted[index], data->lexed_class[index]);//teste
 			else if (data->lexed_class[index] == 6 || data->lexed_class[index] == 7)
-				ft_printf("%s: is a redir in: %d\n", data->line_splitted[index], data->lexed_class[index]);
+				ft_printf("%s: is a redir in: %d\n", data->line_splitted[index], data->lexed_class[index]);//teste
 			else if (data->lexed_class[index] == 8)
-				ft_printf("%s: is a pipe: %d\n", data->line_splitted[index], data->lexed_class[index]);
+				ft_printf("%s: is a pipe: %d\n", data->line_splitted[index], data->lexed_class[index]);//teste
 			else
 			{
 				if ((data->lexed_class[index - 1] >= 4 && data->lexed_class[index - 1] <= 7) && index > 0)
 					{
 						data->lexed_class[index] = 9;
-						ft_printf("%s: is a filename: %d\n", data->line_splitted[index], data->lexed_class[index]);
+						ft_printf("%s: is a filename: %d\n", data->line_splitted[index], data->lexed_class[index]);//teste
 					}
 				else
-					ft_printf("%s: not a cmd nor arg: %d\n", data->line_splitted[index], data->lexed_class[index]);
+					ft_printf("%s: not a cmd nor arg: %d\n", data->line_splitted[index], data->lexed_class[index]);//teste
 
 			}
 		}
@@ -62,8 +63,19 @@ void	tolkenizer(t_data *data)
 
 void	lexer(t_data *data)
 {
-	//lexing string
-	data->line_splitted = ft_split(space_to_nonprint(data->line), -1);
-	tolkenizer(data);
-	openfiles(data);
+	char	**args;
+	int		index;
+	
+	index = 0;
+	args = ft_split(data->line, '|');
+	while (args[index])
+	{
+		data->line_splitted = ft_split(space_to_nonprint(args[index++]), -1);
+		ft_printf("LEXER: Line_splitted[0]: %s | Line_splitted[1]: %s\n", data->line_splitted[0], data->line_splitted[1]);
+		tolkenizer(data);
+		
+		openfiles(data);
+		/* write(1, "ok\n", 3); */
+		execute(data, args);
+	}
 }
