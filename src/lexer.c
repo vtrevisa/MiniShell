@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:21:05 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/03/23 19:51:09 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:32:05 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ void	tolkenizer(t_data *data)
 				ft_printf("%s: is a redir out: %d\n", data->line_splitted[index], data->lexed_class[index]);//teste
 			else if (data->lexed_class[index] == 6 || data->lexed_class[index] == 7)
 				ft_printf("%s: is a redir in: %d\n", data->line_splitted[index], data->lexed_class[index]);//teste
-			else if (data->lexed_class[index] == 8)
-				ft_printf("%s: is a pipe: %d\n", data->line_splitted[index], data->lexed_class[index]);//teste
 			else
 			{
 				if ((data->lexed_class[index - 1] >= 4 && data->lexed_class[index - 1] <= 7) && index > 0)
@@ -61,21 +59,38 @@ void	tolkenizer(t_data *data)
 	}
 }
 
+void	count_pipe(t_data *data)
+{
+	int	index;
+
+	index = 0;
+/* 	write(1, "ok\n", 3); */
+	while (data->line[index])
+	{
+		if (data->line[index] == '|')
+			data->count_pipe++;
+		index++;
+	}
+/* 	write(1, "ok\n", 3); */
+}
+
 void	lexer(t_data *data)
 {
 	char	**args;
 	int		index;
 	
 	index = 0;
+	count_pipe(data);
 	args = ft_split(data->line, '|');
 	while (args[index])
 	{
-		data->line_splitted = ft_split(space_to_nonprint(args[index++]), -1);
-		ft_printf("LEXER: Line_splitted[0]: %s | Line_splitted[1]: %s\n", data->line_splitted[0], data->line_splitted[1]);
+		data->line_splitted = ft_split(space_to_nonprint(args[index]), -1);
+		/* ft_printf("LEXER: Line_splitted[0]: %s | Line_splitted[1]: %s\n", data->line_splitted[0], data->line_splitted[1]); */
 		tolkenizer(data);
-		
+		/* write(1, "ok\n", 3); */
 		openfiles(data);
 		/* write(1, "ok\n", 3); */
 		execute(data, args);
+		index++;
 	}
 }
