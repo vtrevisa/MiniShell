@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:35:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/03/29 11:34:12 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:19:45 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,6 @@ char **getcmd(t_data *data, char **args)
 
 static int	child(t_data *data)
 {
-	/* if (data->count_pipe)
-	{
-		
-	}	 */
 	if (data->cmd)
 		execve(data->cmd_path, data->line_splitted, data->envp);
 	return (0);
@@ -51,10 +47,28 @@ static int	child(t_data *data)
 int	execute (t_data *data, char **args)
 {
 	int	pid;
-	
+	int	situation;
+
+	situation = 1;
+	data->pipes = 0;
 	data->cmd = getcmd(data, args);
 	/* ft_printf("EXECUTE: cmd_path: %s | cmd: %s | arg: %s\n", data->cmd_path, data->line_splitted[0], data->line_splitted[1]); */
-	pid = fork();
-	if (pid == 0)
+	if (data->count_pipe)
+	{
+		child_1(data);
+		data->pipes++;
+		while (data->pipes < data->count_pipe) // THIS THING IST HERE
+		{
+			child_2(data);
+			data->pipes++;
+		}
+		child_3(data);
+		data->pipes++;
+	}
+	else
+	{	
+		pid = fork();
+		if (pid == 0)
 		child(data);
+	}
 }

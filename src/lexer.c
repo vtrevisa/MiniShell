@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:21:05 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/03/29 11:32:05 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:20:23 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	lexer(t_data *data)
 		/* write(1, "ok\n", 3); */
 		openfiles(data);
 		/* write(1, "ok\n", 3); */
+		/*PIPES TREATMENT SHOULD BE HERE*/
 		execute(data, args);
 		index++;
 	}

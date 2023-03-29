@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/03/29 11:34:34 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:18:11 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ typedef struct  s_data
 	
 	/*EXEC*/
 	char	**envp; //gets the entire envp content at init
-	int		*fd[2]; //get piped at execute
+	int		fd[2]; //get piped at execute
 	int		fd_in; //get the infile fd at lexer_utils_2
 	int		fd_out; //get the outfile fd at lexer_utils_2
-	
+	int		pipes; //count the pipe creation
 }	t_data;
 
 /*INIT*/
@@ -79,4 +79,7 @@ void	lexer(t_data *data);
 
 /*EXEC*/
 int		execute(t_data *data, char **args);
+int		child_2(t_data *data);
+int		child_3(t_data *data);
+int		child_1(t_data *data);
 #endif
