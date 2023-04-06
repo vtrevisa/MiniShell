@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:35:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/03/29 18:19:45 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/04/06 15:44:16 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,25 +50,33 @@ int	execute (t_data *data, char **args)
 	int	situation;
 
 	situation = 1;
+	/* ft_printf("pipes: %d\n", data->count_pipe); */
 	data->pipes = 0;
 	data->cmd = getcmd(data, args);
 	/* ft_printf("EXECUTE: cmd_path: %s | cmd: %s | arg: %s\n", data->cmd_path, data->line_splitted[0], data->line_splitted[1]); */
 	if (data->count_pipe)
 	{
+		/* if (pipe(data->fd) == -1)
+			return (0);
+		ft_printf("child1\n");
 		child_1(data);
+		waitpid(pid1);
 		data->pipes++;
 		while (data->pipes < data->count_pipe) // THIS THING IST HERE
 		{
+			ft_printf("child2\n");
 			child_2(data);
 			data->pipes++;
 		}
+		ft_printf("child3\n");
 		child_3(data);
-		data->pipes++;
+		data->pipes++; */
+		
 	}
 	else
 	{	
 		pid = fork();
 		if (pid == 0)
-		child(data);
+			child(data);
 	}
 }
