@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:21:05 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/04/12 22:08:46 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:20:40 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,19 +79,22 @@ void	lexer(t_data *data)
 	char	**args;
 	int		index;
 
-	index = 0;
-	count_pipe(data);
-	args = ft_split(data->line, '|');
-	while (args[index])
+	if (data->line != NULL)
 	{
-		/* ft_printf("ARGS[%d]: %s\n", index, args[index]); */
-		data->line_splitted = ft_split(space_to_nonprint(args[index]), -1);
-		/* ft_printf("LEXER: Line_splitted[0]: %s | Line_splitted[1]: %s\n", data->line_splitted[0], data->line_splitted[1]); */
-		tolkenizer(data);
-		/* write(1, "ok\n", 3); */
-		openfiles(data);
-		/* write(1, "ok\n", 3); */
-		execute(data, args);
-		index++;
+		index = 0;
+		count_pipe(data);
+		args = ft_split(data->line, '|');
+		while (args[index])
+		{
+			/* ft_printf("ARGS[%d]: %s\n", index, args[index]); */
+			data->line_splitted = ft_split(space_to_nonprint(args[index]), -1);
+			/* ft_printf("LEXER: Line_splitted[0]: %s | Line_splitted[1]: %s\n", data->line_splitted[0], data->line_splitted[1]); */
+			tolkenizer(data);
+			/* write(1, "ok\n", 3); */
+			openfiles(data);
+			/* write(1, "ok\n", 3); */
+			execute(data, args);
+			index++;
+		}
 	}
 }
