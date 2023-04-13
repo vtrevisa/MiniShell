@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/03/29 18:18:11 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:44:14 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int		issimble(t_data *data, char *line_splitted);
 char	*space_to_nonprint(char *str);
 int		count_splitted(t_data *data);
 int		openfiles(t_data *data);
+char	*remove_space(t_data *data);
 
 /*LEXER*/
 void	lexer(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:38:39 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/03/23 15:01:07 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:52:46 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,22 @@ int	openfiles(t_data *data)
 			data->fd_in = data->file_fds[fd];
 		}
 	}
+}
+
+char	*remove_space(t_data *data)
+{
+	int		index;
+	char	*str;
+	int		size;
+	
+	
+	index = 0;
+	size = ft_strlen(data->line);
+	while (data->line[index] == ' ')
+		index++;
+	str = malloc (sizeof (ft_strlen(data->line + index)));
+/* 	write(1, "ok\n", 3); */
+	ft_strlcpy(str, data->line + index, size);
+	/* write(1, "ok\n", 3); */
+	return (str);
 }

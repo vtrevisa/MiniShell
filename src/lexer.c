@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:21:05 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/04/13 17:20:40 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:55:10 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,19 +78,24 @@ void	lexer(t_data *data)
 {
 	char	**args;
 	int		index;
-
+	
+	if (data->line == NULL)
+		return (NULL);
+	if (data->line[0] == ' ')
+		data->line = remove_space(data);
 	if (data->line != NULL)
 	{
 		index = 0;
 		count_pipe(data);
 		args = ft_split(data->line, '|');
+		/* write(1, "ok\n", 3); */
 		while (args[index])
 		{
 			/* ft_printf("ARGS[%d]: %s\n", index, args[index]); */
 			data->line_splitted = ft_split(space_to_nonprint(args[index]), -1);
-			/* ft_printf("LEXER: Line_splitted[0]: %s | Line_splitted[1]: %s\n", data->line_splitted[0], data->line_splitted[1]); */
+			/* ft_printf("LEXER: Line_splitted[0]: %s | Line_splitted[1]: %s\n", data->line_splitted[0], data->line_splitted[1]);*/
 			tolkenizer(data);
-			/* write(1, "ok\n", 3); */
+			write(1, "ok\n", 3);
 			openfiles(data);
 			/* write(1, "ok\n", 3); */
 			execute(data, args);
