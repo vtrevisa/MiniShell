@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:21:05 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/04/06 15:42:40 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/04/12 22:08:46 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	lexer(t_data *data)
 {
 	char	**args;
 	int		index;
-	
+
 	index = 0;
 	count_pipe(data);
 	args = ft_split(data->line, '|');
