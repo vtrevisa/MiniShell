@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/04/13 17:44:14 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/04/17 22:43:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-typedef struct  s_data
+typedef struct s_data
 {
-	
 	/*PROMPT_LOOP*/
 	char	*line; //get the line readed from read_line
-	
 	/*LEXER*/
 	char	**line_splitted; //get the line splitted
 	int		file_fds_index; //getds the number of files issimble
@@ -41,15 +39,12 @@ typedef struct  s_data
 	int		count_cmd; // count the nbr of cmd's in the string at lexer
 	int		count_pipe; //count the amount of pipes in the string
 	char	*cmd_path; //get the path of the bin in iscmd
-
 	/*TOLKENIZER*/
 	int		*lexed_class; //gets each type of each string part
 	char	**paths; //get from envp at init, used in iscmd
 	char	**cmd; //get the cmd and the args at iscmd
-
 	/*PRINT_USER_DIR*/
 	char	*user; //get from envp at init, used on read_line
-	
 	/*EXEC*/
 	char	**envp; //gets the entire envp content at init
 	int		fd[2]; //get piped at execute

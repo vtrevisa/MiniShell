@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/04/13 17:19:36 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/04/17 22:35:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	show_display(void)
 {
-	int	fd;
-	char *line;
+	int		fd;
+	char	*line;
 
 	fd = open ("./src/display", O_RDONLY);
 	while (fd != -1)
@@ -32,7 +32,7 @@ int	show_display(void)
 int	prompt_loop(t_data *data)
 {
 	int		status;
-	
+
 	status = 0;
 	while (1)
 	{
@@ -44,10 +44,7 @@ int	prompt_loop(t_data *data)
 			return (EXIT_CODE);
 		}
 		else
-			ft_printf(">%s\n", data->line); //teste
-		/* write(1, "ok\n", 3); */
-		lexer(data);
-		/* status = execute(data); */
+			lexer(data);
 		free (data->line);
 	}
 }
@@ -65,18 +62,13 @@ void	free_all(char **str)
 }
 
 int	main(int argc, char **argv, char **envp)
-{	
-	// Load config files, if any.
+{
 	t_data	data;
-	
+
 	show_display();
 	init_data(&data, envp);
-	// Run command loop.
 	prompt_loop(&data);
-
-	// Perform any shutdown/cleanup.
 	free (data.user);
 	free_all (data.paths);
-
 	return (0);
 }

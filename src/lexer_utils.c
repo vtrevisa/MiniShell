@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:38:39 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/04/13 17:32:28 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/04/17 22:38:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@ int	iscmd(t_data *data, char *line_splitted)
 {
 	char	*tmp;
 	int		index;
-	
+
 	index = -1;
 	while (data->paths[++index])
 	{
 		tmp = ft_strjoin(data->paths[index], "/");
 		data->cmd_path = ft_strjoin(tmp, line_splitted);
-		/* ft_printf("%s\n", data->cmd_path); */
 		if (access(data->cmd_path, X_OK) == 0)
 		{
 			free (tmp);
@@ -36,7 +35,7 @@ int	iscmd(t_data *data, char *line_splitted)
 
 int	isarg(t_data *data, char *line_splitted)
 {
-	int index;
+	int	index;
 
 	index = 0;
 	if (line_splitted[0] == '-' || line_splitted[0] == '"')
