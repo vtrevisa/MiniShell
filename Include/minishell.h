@@ -27,13 +27,15 @@
 # include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <unistd.h>
+# include <limits.h>
 
 typedef struct  s_data
 {
-	
+
 	/*PROMPT_LOOP*/
 	char	*line; //get the line readed from read_line
-	
+
 	/*LEXER*/
 	char	**line_splitted; //get the line splitted
 	int		file_fds_index; //getds the number of files issimble
@@ -49,7 +51,7 @@ typedef struct  s_data
 
 	/*PRINT_USER_DIR*/
 	char	*user; //get from envp at init, used on read_line
-	
+
 	/*EXEC*/
 	char	**envp; //gets the entire envp content at init
 	int		fd[2]; //get piped at execute
@@ -82,4 +84,15 @@ int		execute(t_data *data, char **args);
 int		child_2(t_data *data);
 int		child_3(t_data *data);
 int		child_1(t_data *data);
+
+/*BUILTINS*/
+int		echo_n(char **text);
+int		change_directory(char *path, char **envp);
+int		pwd(void);
+void	env(char **envp);
+char	**export(char **envp, char **str);
+char	**prep_unset(char **envpl, const char **str);
+char	**unset(char **envpl, const char *str);
+void	error_exit(char *str);
+
 #endif

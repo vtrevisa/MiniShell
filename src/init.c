@@ -12,6 +12,30 @@
 
 #include "../Include/minishell.h"
 
+static char	**copy_env_var(char **envp)
+{
+	int	count;
+	int	i;
+	char	**copy;
+
+	copy = envp - 1;
+	count = 0;
+	while (*++copy != NULL)
+		count++;
+	copy = (char **)malloc((count + 1) * sizeof(envp[0]));
+	if (copy == NULL)
+		error_exit("env malloc");
+	i = -1;
+	while (++i < count)
+	{
+		copy[i] = ft_strdup(envp[i]);
+		if (copy[i] == NULL)
+			error_exit("env strdup");
+	}
+	copy[count] = NULL;
+	return (copy);
+}
+
 char	*pathfinder(char *envp[])
 {
 	int	index;
@@ -38,7 +62,8 @@ void	init_data(t_data *data, char **envp)
 	data->user = ft_strdup(userfinder(envp));
 	data->file_fds_index = 0;
 	data->cmd = malloc (sizeof (char *) * 3);
-	data->envp = envp;
+	//data->envp = envp; Removido pq o envp sera copiado!
+	data->envp = copy_env_var(envp);
 	data->count_cmd = 0;
 	data->fd_in = 0;
 	data->fd_out = 0;

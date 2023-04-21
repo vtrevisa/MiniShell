@@ -6,7 +6,7 @@ HEADER	= ./Include/minishell.h
 
 #--MANDATORY--
 SRC_D	= ./src/
-SRC		= main.c read_line.c init.c lexer.c lexer_utils.c lexer_utils_2.c exec.c child_and_pipes.c
+SRC		= main.c read_line.c init.c lexer.c lexer_utils.c lexer_utils_2.c exec.c child_and_pipes.c echo.c change_dir.c pwd.c env.c export.c unset.c error_exit.c
 OBJ		= $(addprefix $(OBJ_D)/, $(SRC:.c=.o))
 
 #--LIBFT--
@@ -18,7 +18,7 @@ all: $(NAME)
 $(NAME): $(LIB) $(OBJ) $(HEADER)
 	cc $(OBJ) $(LIB) $(CFLAGS) -o $(NAME)
 
-$(LIB): 
+$(LIB):
 	$(MAKE)	-C $(LPATH)
 
 $(OBJ_D)/%.o: $(SRC_D)/%.c
