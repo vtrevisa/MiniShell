@@ -39,17 +39,27 @@ static char	*home_search(char *envp[])
 int	change_directory(char *path, char **envp)
 {
 	char	cwd[PATH_MAX];
+	char	flag;
 
+	flag = 0;
 	if (path == NULL)
+	{
 		path = home_search(envp);
+		if (path)
+			flag = 1;
+	}
 	//printf("Current directory: %s\n", cwd);*/
 	if (chdir(path) == -1)
 	{
 		perror("chdir");
 		//free(cwd);
+		if (flag)
+			free(path);
 		return (1);
 	}
 	//printf("Changed to directory: %s\n", cwd);
+	if (flag)
+		free(path);
 	return (0);
 }
 
