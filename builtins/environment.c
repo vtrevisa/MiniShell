@@ -49,6 +49,7 @@ char	**unset(char **envpl, const char *str)
 	if (i_to_remove == -1)
 		return (envpl);
 	copy = (char **)malloc((count) * sizeof(envpl[0]));
+	memset(copy, 0, count * sizeof(envpl[0]));
 	if (copy == NULL)
 		error_exit("unset env malloc");
 	if (count == 1)
