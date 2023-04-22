@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/03/29 18:15:09 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/04/22 21:52:27 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,18 @@ int	show_display(void)
 	return (fd);
 }
 
+void	free_all(char **str)
+{
+	int	i;
+
+	if (!str)
+		return ;
+	i = 0;
+	while (str[i])
+		free(str[i++]);
+	free(str);
+}
+
 int	prompt_loop(t_data *data)
 {
 	int		status;
@@ -41,6 +53,7 @@ int	prompt_loop(t_data *data)
 		if (ft_strnstr("exit", data->line, 4) != 0)
 			{
 				free(data->line);
+				free_all(data->envp);
 				return (EXIT_CODE);
 			}
 			else
@@ -50,18 +63,6 @@ int	prompt_loop(t_data *data)
 		/* status = execute(data); */
 		free (data->line);
 	}
-}
-
-void	free_all(char **str)
-{
-	int	i;
-
-	if (!str)
-		return ;
-	i = 0;
-	while (str[i])
-		free(str[i++]);
-	free(str);
 }
 
 int	main(int argc, char **argv, char **envp)
