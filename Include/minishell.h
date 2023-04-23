@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/03/29 18:18:11 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/04/23 03:01:36 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ typedef struct  s_data
 
 	/*PROMPT_LOOP*/
 	char	*line; //get the line readed from read_line
+	char	linetyped; //bool to check if someting was typed
+
+	/*PARSER*/
+	//char	**cmds; //get the line splitted
 
 	/*LEXER*/
 	char	**line_splitted; //get the line splitted
@@ -60,11 +64,26 @@ typedef struct  s_data
 	int		pipes; //count the pipe creation
 }	t_data;
 
+typedef struct	p_pipe
+{
+	char	**argv;
+	char	*cmd_str;
+	char	**cmd_args;
+	char	*fpath;
+	int		*pid;
+	int		*pipes;
+	int		flag;
+	int		qtd_cmd;
+	int		cmd_n;
+	int		pipe_i;
+}	t_pipe;
+
 /*INIT*/
 void	init_data(t_data *data, char **envp);
 
 /*READ_LINE*/
-char	*read_line(t_data *data);
+//char	*read_line(t_data *data);
+void	*read_line(t_data *data);
 
 /*LEXER_UTILS*/
 int		iscmd(t_data *data, char *line_splitted);
@@ -94,5 +113,15 @@ char	**export(char **envp, char **str);
 char	**prep_unset(char **envpl, const char **str);
 char	**unset(char **envpl, const char *str);
 void	error_exit(char *str);
+
+/*UTILS*/
+void	free_char_array(char **array);
+
+/*PARSER*/
+void	parser(t_data *data);
+
+/*PIPE Functions*/
+char	**treat_str(char *str);
+char	*path_search(char *envp[], const char *cmd);
 
 #endif

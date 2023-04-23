@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/04/22 21:52:27 by romachad         ###   ########.fr       */
+/*   Updated: 2023/04/22 23:26:20 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,28 @@ int	prompt_loop(t_data *data)
 	status = 0;
 	while (1)
 	{
-		ft_printf("> ");
-		data->line = read_line(data);
-		if (ft_strnstr("exit", data->line, 4) != 0)
+		printf("> ");
+		read_line(data);
+		if (data->linetyped == 1)
+		{
+			if (ft_strnstr("exit", data->line, 4) != 0)
 			{
 				free(data->line);
+				free(data->cmd);
 				free_all(data->envp);
 				return (EXIT_CODE);
 			}
 			else
-				ft_printf(">%s\n", data->line); //teste
+				parser(data);
+				//ft_printf(">%s\n", data->line); //teste
+			free(data->line);
+
+		}
 		/* write(1, "ok\n", 3); */
-		lexer(data);
+		//lexer(data);
 		/* status = execute(data); */
-		free (data->line);
+		else
+			printf("");
 	}
 }
 
