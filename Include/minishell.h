@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/04/23 03:01:36 by romachad         ###   ########.fr       */
+/*   Updated: 2023/04/24 02:02:59 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <readline/history.h>
 # include <unistd.h>
 # include <limits.h>
+# include <errno.h>
 
 typedef struct  s_data
 {
@@ -67,7 +68,7 @@ typedef struct  s_data
 typedef struct	p_pipe
 {
 	char	**argv;
-	char	*cmd_str;
+	//char	*cmd_str; Legacy, used only in pipex
 	char	**cmd_args;
 	char	*fpath;
 	int		*pid;
@@ -123,5 +124,8 @@ void	parser(t_data *data);
 /*PIPE Functions*/
 char	**treat_str(char *str);
 char	*path_search(char *envp[], const char *cmd);
+int		child_prog(t_pipe *args, t_data *data);
+void	free_args(t_pipe *args);
+void	close_pipes(t_pipe *args);
 
 #endif
