@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 22:49:22 by romachad          #+#    #+#             */
-/*   Updated: 2023/04/24 02:20:24 by romachad         ###   ########.fr       */
+/*   Updated: 2023/04/25 03:48:03 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	child_start(t_pipe *args, t_data *data)
 	if (args->qtd_cmd > 1) //Por essa regiao sera necessario verificar se ha infile...
 	{
 		dup2(args->pipes[1], STDOUT_FILENO);
-		close_pipes(args);
+		close_pipes(args); //Deveria estar fora do if??
 	}
 	execve(args->fpath, args->cmd_args, data->envp);
 	free(args->fpath);
