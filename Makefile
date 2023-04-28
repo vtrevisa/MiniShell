@@ -6,7 +6,7 @@ HEADER	= ./Include/minishell.h
 
 #--MANDATORY--
 SRC_D	= ./src/
-SRC		= main.c read_line.c init.c lexer.c lexer_utils.c lexer_utils_2.c exec.c child_and_pipes.c echo.c change_dir.c pwd.c env.c export.c unset.c error_exit.c utils.c pipe_input.c args_str_treatment.c path_search.c child.c
+SRC		= main.c read_line.c init.c lexer.c lexer_utils.c lexer_utils_2.c exec.c child_and_pipes.c echo.c change_dir.c pwd.c env.c export.c unset.c error_exit.c utils.c pipe_input.c args_str_treatment.c path_search.c child.c builtin_checker.c
 OBJ		= $(addprefix $(OBJ_D)/, $(SRC:.c=.o))
 
 #--LIBFT--

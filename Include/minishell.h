@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/04/24 02:02:59 by romachad         ###   ########.fr       */
+/*   Updated: 2023/04/28 02:16:33 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,12 @@ typedef struct  s_data
 	int		fd_in; //get the infile fd at lexer_utils_2
 	int		fd_out; //get the outfile fd at lexer_utils_2
 	int		pipes; //count the pipe creation
+
+	/*Roger check antes de exece*/
+	char	**cmd_split;
+	int		builtin;
+
+
 }	t_data;
 
 typedef struct	p_pipe
@@ -73,6 +79,7 @@ typedef struct	p_pipe
 	char	*fpath;
 	int		*pid;
 	int		*pipes;
+	int		builtin;
 	int		flag;
 	int		qtd_cmd;
 	int		cmd_n;
@@ -118,8 +125,12 @@ void	error_exit(char *str);
 /*UTILS*/
 void	free_char_array(char **array);
 
-/*PARSER*/
-void	parser(t_data *data);
+/*Roger EXEC*/
+int	builtin_exec_main(t_data *data);
+int	is_there_pipes(char *str);
+
+/*PIPER*/
+void	piper(t_data *data);
 
 /*PIPE Functions*/
 char	**treat_str(char *str);
@@ -127,5 +138,9 @@ char	*path_search(char *envp[], const char *cmd);
 int		child_prog(t_pipe *args, t_data *data);
 void	free_args(t_pipe *args);
 void	close_pipes(t_pipe *args);
+/*PIPE Functions for builtins*/
+int		builtin_checker(char *str);
+int		builtin_exec_pipe(t_pipe *args, t_data *data);
+
 
 #endif

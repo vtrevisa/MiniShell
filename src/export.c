@@ -83,7 +83,7 @@ char	**export(char **envp, char **str)
 			if (valid > 0)
 			{
 				replace = ft_calloc(valid , str[i][0]);
-				ft_strlcpy(replace, str[i], valid); //antes usava o strncpy
+				ft_strlcpy(replace, str[i], valid + 1); //antes usava o strncpy
 				envp = unset(envp, replace);
 				free(replace);
 			}

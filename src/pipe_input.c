@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 22:54:48 by romachad          #+#    #+#             */
-/*   Updated: 2023/04/24 01:48:28 by romachad         ###   ########.fr       */
+/*   Updated: 2023/04/27 02:31:33 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,10 @@ static int	call_fork(t_pipe *args, t_data *data)
 	{
 		args->pid[args->cmd_n] = child_prog(args, data);
 		free_args(args);
-		printf("\ndeu falha no child?\n");
 		free_char_array(data->envp);// Realmente necessario?
-		exit(args->pid[args->cmd_n]); // caso de falha do child... 
+		printf("\ndeu falha no child?\n");
+		exit (0);
+		//exit(args->pid[args->cmd_n]); // caso de falha do child... args->pid foi feito free acima... 
 	}
 	if (args->pid[args->cmd_n] > 0)
 		return (0);
@@ -110,7 +111,7 @@ static int	main_fork(t_pipe *args, t_data *data)
 	return (0);
 }
 
-void	parser(t_data *data)
+void	piper(t_data *data)
 {
 	t_pipe args;
 

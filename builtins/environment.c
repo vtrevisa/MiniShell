@@ -1,7 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+//#include <string.h>
 #include <ctype.h>
 //UTILS
 void	free_char_array(char **array)
@@ -34,12 +34,12 @@ char	**unset(char **envpl, const char *str)
 	{
 		//printf("currentl envpl[%i] is: %s\n",count, envpl[count]);
 		//printf("str e strlen: %s e %i\n",str, strlen(str));
-		if(strncmp(envpl[count], str, strlen(str)) == 0)
+		if(ft_strncmp(envpl[count], str, ft_strlen(str)) == 0)
 		{
 			//printf("strncmp foi igual a zero!\n");
 			//printf("Temos envpl[%i] = %s\n", count, envpl[count]);
 			//printf("str e strlen sao: %s e %i\n", str, strlen(str));
-			if (envpl[count][strlen(str)] == '=')
+			if (envpl[count][ft_strlen(str)] == '=')
 			{
 				i_to_remove = count;
 			}
@@ -49,15 +49,15 @@ char	**unset(char **envpl, const char *str)
 	if (i_to_remove == -1)
 		return (envpl);
 	copy = (char **)malloc((count) * sizeof(envpl[0]));
-	memset(copy, 0, count * sizeof(envpl[0]));
+	ft_memset(copy, 0, count * sizeof(envpl[0]));
 	if (copy == NULL)
 		error_exit("unset env malloc");
 	if (count == 1)
 		copy[0] = NULL;
 	else
 	{
-		memcpy(copy, envpl, i_to_remove * sizeof(envpl[0]));
-		memcpy(copy + i_to_remove, envpl + i_to_remove + 1, (count - i_to_remove - 1) * sizeof(envpl[0]));
+		ft_memcpy(copy, envpl, i_to_remove * sizeof(envpl[0]));
+		ft_memcpy(copy + i_to_remove, envpl + i_to_remove + 1, (count - i_to_remove - 1) * sizeof(envpl[0]));
 	}
 	free(envpl[i_to_remove]);
 	free(envpl);
@@ -91,8 +91,8 @@ char	**add_new_var(char **envpl, char *str)
 	copy = (char **)malloc((count + 2) * sizeof(envpl[0]));
 	if (copy == NULL)
 		error_exit("new env malloc");
-	memcpy(copy, envpl, count * sizeof(envpl[0]));
-	copy[count] = strdup(str);
+	ft_memcpy(copy, envpl, count * sizeof(envpl[0]));
+	copy[count] = ft_strdup(str);
 	copy[count + 1] = NULL;
 	free(envpl);
 	return (copy);
@@ -103,10 +103,10 @@ int	check_export_str(const char *str)
 {
 	if (!str || !*str)
 		return (1);
-	if (!isalpha(*str) && *str != '_')
+	if (!ft_isalpha(*str) && *str != '_')
 		return (1);
 	str++;
-	while (isalnum(*str) || *str == '_')
+	while (ft_isalnum(*str) || *str == '_')
 		str++;
 	if (!*str)
 		return (2);
@@ -130,7 +130,7 @@ int	check_exists(char **envpl, char *str)
 	{
 		//printf("\nOK lets check if exists!\n");
 		//printf("envpl[%i] = %s\nstr = %s\neq is: %i\n", i, envpl[i], str, eq);
-		if (strncmp(envpl[i], str, eq) == 0)
+		if (ft_strncmp(envpl[i], str, eq) == 0)
 			return (eq);
 		//printf("If we are still here then NOPE, no MATCH! FTS\n");
 	}
@@ -166,8 +166,8 @@ char	**export(char **envpl, char **str)
 				//printf("REPETIDO ENCONTRADO VER ACAO!!!!!!!\n");
 				//printf("valid is: %i\n",valid);
 				//printf("str[%i] = %s\n",i, str[i]);
-				replace = calloc(valid , str[i][0]);
-				strncpy(replace, str[i], valid);
+				replace = ft_calloc(valid , str[i][0]);
+				ft_strlcpy(replace, str[i], valid);
 				//printf("This is the replace str and size: %s size: %i\n", replace,strlen(replace));
 				envpl = unset(envpl, replace);
 				free(replace);
@@ -207,7 +207,7 @@ char	**copy_env_var(char **envp)
 	i = -1;
 	while (++i < count)
 	{
-		copy[i] = strdup(envp[i]);
+		copy[i] = ft_strdup(envp[i]);
 		if (copy[i] == NULL)
 			error_exit("env strdup");
 	}

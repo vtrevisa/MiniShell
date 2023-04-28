@@ -25,6 +25,7 @@ int	change_directory(char *path, char **envp)
 	char	cwd[PATH_MAX];
 	char	flag;
 
+	//printf("Hellcome to CD cmd, this is the path: %s\n", path);
 	flag = 0;
 	if (path == NULL)
 	{
@@ -32,7 +33,7 @@ int	change_directory(char *path, char **envp)
 		if (path)
 			flag = 1;
 	}
-	//printf("Current directory: %s\n", cwd);*/
+	//printf("Current directory: %s\n", cwd);
 	if (chdir(path) == -1)
 	{
 		perror("chdir");
