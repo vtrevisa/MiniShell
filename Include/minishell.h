@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/04/28 02:16:33 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/05 06:14:51 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,26 @@
 # include <limits.h>
 # include <errno.h>
 
+/*Structs and ENUM for PARSER*/
+typedef enum
+{
+	NORMAL,
+	ESPACE,
+	SINGLE_QUOTE,
+	DOUBLE_QUOTE,
+	VARIABLE,
+	VARIABLE_IN_DQ,
+}	state;
+
+typedef struct	s_parser
+{
+	int		i;
+	int		pipe_i;
+	char	**full_cmd;
+	state	st;
+}	t_parser;
+
+
 typedef struct  s_data
 {
 
@@ -40,6 +60,7 @@ typedef struct  s_data
 
 	/*PARSER*/
 	//char	**cmds; //get the line splitted
+	char	*tmp;
 
 	/*LEXER*/
 	char	**line_splitted; //get the line splitted
@@ -141,6 +162,10 @@ void	close_pipes(t_pipe *args);
 /*PIPE Functions for builtins*/
 int		builtin_checker(char *str);
 int		builtin_exec_pipe(t_pipe *args, t_data *data);
+
+/*Roger Parser*/
+void	parser(char *str, t_data *data);
+char	**split_pipes(char *str);
 
 
 #endif
