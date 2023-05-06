@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 22:33:51 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/05 06:45:29 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/07 00:00:12 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ char	*find_variable(char *var, t_data *data)
 	return (NULL);
 }
 
-int	replace_var(char *str, int i, t_data *data, int index)
+//int	replace_var(char *str, int i, t_data *data, int index)
+void	replace_var(t_parser *p, t_data *data, int index)
 {
 	int	var_len;
 	char	*var_name;
@@ -101,57 +102,70 @@ int	replace_var(char *str, int i, t_data *data, int index)
 	char	*new_str;
 
 	var_len =0;
-	while (str[i + 1 + var_len] && (ft_isalnum(str[i + 1 + var_len]) || str[i + 1 + var_len] == '_'))
+	while (p->str[p->i + 1 + var_len] && (ft_isalnum(p->str[p->i + 1 + var_len]) || p->str[p->i + 1 + var_len] == '_'))
 		var_len++;
-	var_name = ft_substr(str, i + 1, var_len);
+	var_name = ft_substr(p->str, p->i + 1, var_len);
 	var_value = find_variable(var_name, data);
 	free(var_name);
 	if (var_value)
 	{
-		new_str = malloc((i + ft_strlen(var_value) + (ft_strlen(str) - i - var_len)) * sizeof(str));
-		ft_strlcpy(new_str, str, i + 1);
-		ft_strlcpy(new_str + i, var_value, ft_strlen(var_value) + 1);
-		ft_strlcpy(new_str + i + ft_strlen(var_value), str + i + var_len + 1, ft_strlen(str + i + var_len) + 1);
+		//new_str = malloc((p->i + ft_strlen(var_value) + (ft_strlen(p->str) - p->i - var_len)) * sizeof(p->str));
+		new_str = ft_calloc((p->i + ft_strlen(var_value) + (ft_strlen(p->str) - p->i - var_len)), sizeof(p->str));
+		ft_strlcpy(new_str, p->str, p->i + 1);
+		ft_strlcpy(new_str + p->i, var_value, ft_strlen(var_value) + 1);
+		ft_strlcpy(new_str + p->i + ft_strlen(var_value), p->str + p->i + var_len + 1, ft_strlen(p->str + p->i + var_len) + 1);
 		free(data->cmd_split[index]);
+		//free(p->str);
 		data->cmd_split[index] = new_str;
-		return (i + ft_strlen(var_value));
+		p->str = new_str;
+		//return (i + ft_strlen(var_value));
+		p->i = p->i + ft_strlen(var_value);
 	}
 	else
 	{
-		new_str = malloc((ft_strlen(str) - (var_len + 1)) * sizeof(str));
-		ft_strlcpy(new_str, str, i + 1);
-		ft_strlcpy(new_str + i, str + i + var_len + 1, ft_strlen(str + i + var_len) + 1);
+		//new_str = malloc((ft_strlen(p->str) - (var_len + 1)) * sizeof(p->str));
+		new_str = ft_calloc((ft_strlen(p->str) - (var_len + 1)), sizeof(p->str));
+		ft_strlcpy(new_str, p->str, p->i + 1);
+		ft_strlcpy(new_str + p->i, p->str + p->i + var_len + 1, ft_strlen(p->str + p->i + var_len) + 1);
 		free(data->cmd_split[index]);
 		data->cmd_split[index] = new_str;
-		return (i);
+		p->str = new_str;
+		//return (i);
 	}
 }
 
 //void	parse_var(char *str, t_data data)
 void	parse_var(char *str, t_data *data, int index)
 {
-	int	i;
+	//int	i;
 	int	j;
-	char	*newstr;
+	t_parser parse;
+	//char	*newstr;
 
-	i = -1;
-	while (str[++i])
+	//printf("this is the str: %s\n", str);
+	//printf("this is the addr of str: %p\n", str);
+	parse.str = str;
+	parse.i = -1;
+	while (parse.str[++parse.i])
 	{
-		if (str[i] == '\'')
+		if (parse.str[parse.i] == '\'' && parse.str[parse.i + 1])
 		{
 			//flag = str[i];
-			j = i + 1;
+			j = parse.i + 1;
 			//while (str[j] && str[j] != flag)
-			while (str[j] && str[j] != '\'')
+			while (parse.str[j] && parse.str[j] != '\'')
 				j++;
 			//if (str[j] == flag)
-			if (str[j] == '\'')
-				i = j;
+			if (parse.str[j] == '\'')
+				parse.i = j;
 		}
 		j = 0;
-		if (str[i] == '$')
+		if (parse.str[parse.i] == '$')
 		{
-			i = replace_var(str, i, data, index);
+			//i = replace_var(str, i, data, index);
+			replace_var(&parse, data, index);
+			//printf("This is the i returned: %d\n", i);
+			//printf("this is the addr of str: %p\n", str);
 		}
 	}
 }
