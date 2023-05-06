@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 22:33:51 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/07 00:00:12 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/07 00:26:42 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ char	**split_pipes(char *str)
 	int	j;
 	char	flag;
 	
-	//t_pipes = 0;
 	i = -1;
 	while (str[++i])
 	{
@@ -93,7 +92,6 @@ char	*find_variable(char *var, t_data *data)
 	return (NULL);
 }
 
-//int	replace_var(char *str, int i, t_data *data, int index)
 void	replace_var(t_parser *p, t_data *data, int index)
 {
 	int	var_len;
@@ -109,70 +107,53 @@ void	replace_var(t_parser *p, t_data *data, int index)
 	free(var_name);
 	if (var_value)
 	{
-		//new_str = malloc((p->i + ft_strlen(var_value) + (ft_strlen(p->str) - p->i - var_len)) * sizeof(p->str));
 		new_str = ft_calloc((p->i + ft_strlen(var_value) + (ft_strlen(p->str) - p->i - var_len)), sizeof(p->str));
-		ft_strlcpy(new_str, p->str, p->i + 1);
-		ft_strlcpy(new_str + p->i, var_value, ft_strlen(var_value) + 1);
-		ft_strlcpy(new_str + p->i + ft_strlen(var_value), p->str + p->i + var_len + 1, ft_strlen(p->str + p->i + var_len) + 1);
+		ft_memcpy(new_str, p->str, p->i);
+		ft_memcpy(new_str + p->i, var_value, ft_strlen(var_value));
+		ft_memcpy(new_str + p->i + ft_strlen(var_value), p->str + p->i + var_len + 1, ft_strlen(p->str + p->i + var_len));
 		free(data->cmd_split[index]);
-		//free(p->str);
 		data->cmd_split[index] = new_str;
 		p->str = new_str;
-		//return (i + ft_strlen(var_value));
 		p->i = p->i + ft_strlen(var_value);
 	}
 	else
 	{
-		//new_str = malloc((ft_strlen(p->str) - (var_len + 1)) * sizeof(p->str));
 		new_str = ft_calloc((ft_strlen(p->str) - (var_len + 1)), sizeof(p->str));
-		ft_strlcpy(new_str, p->str, p->i + 1);
-		ft_strlcpy(new_str + p->i, p->str + p->i + var_len + 1, ft_strlen(p->str + p->i + var_len) + 1);
+		ft_memcpy(new_str, p->str, p->i);
+		ft_memcpy(new_str + p->i, p->str + p->i + var_len + 1, ft_strlen(p->str + p->i + var_len));
 		free(data->cmd_split[index]);
 		data->cmd_split[index] = new_str;
 		p->str = new_str;
-		//return (i);
 	}
 }
 
-//void	parse_var(char *str, t_data data)
 void	parse_var(char *str, t_data *data, int index)
 {
-	//int	i;
 	int	j;
 	t_parser parse;
-	//char	*newstr;
 
-	//printf("this is the str: %s\n", str);
-	//printf("this is the addr of str: %p\n", str);
 	parse.str = str;
 	parse.i = -1;
 	while (parse.str[++parse.i])
 	{
 		if (parse.str[parse.i] == '\'' && parse.str[parse.i + 1])
 		{
-			//flag = str[i];
 			j = parse.i + 1;
-			//while (str[j] && str[j] != flag)
 			while (parse.str[j] && parse.str[j] != '\'')
 				j++;
-			//if (str[j] == flag)
 			if (parse.str[j] == '\'')
 				parse.i = j;
 		}
 		j = 0;
 		if (parse.str[parse.i] == '$')
 		{
-			//i = replace_var(str, i, data, index);
 			replace_var(&parse, data, index);
-			//printf("This is the i returned: %d\n", i);
-			//printf("this is the addr of str: %p\n", str);
 		}
 	}
 }
 
 void	parser(char *str, t_data *data)
 {
-	//char	**cmds;
 	int	i;
 
 	i =-1;
