@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 22:33:51 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/07 00:26:42 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/07 06:43:56 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	*find_variable(char *var, t_data *data)
 	return (NULL);
 }
 
-void	replace_var(t_parser *p, t_data *data, int index)
+void	replace_var(t_parser *p, t_data *data)
 {
 	int	var_len;
 	char	*var_name;
@@ -111,8 +111,10 @@ void	replace_var(t_parser *p, t_data *data, int index)
 		ft_memcpy(new_str, p->str, p->i);
 		ft_memcpy(new_str + p->i, var_value, ft_strlen(var_value));
 		ft_memcpy(new_str + p->i + ft_strlen(var_value), p->str + p->i + var_len + 1, ft_strlen(p->str + p->i + var_len));
-		free(data->cmd_split[index]);
-		data->cmd_split[index] = new_str;
+		//free(data->cmd_split[index]);
+		free(data->full_cmd[p->index][p->index2]);
+		//data->cmd_split[index] = new_str;
+		data->full_cmd[p->index][p->index2] = new_str;
 		p->str = new_str;
 		p->i = p->i + ft_strlen(var_value);
 	}
@@ -121,33 +123,117 @@ void	replace_var(t_parser *p, t_data *data, int index)
 		new_str = ft_calloc((ft_strlen(p->str) - (var_len + 1)), sizeof(p->str));
 		ft_memcpy(new_str, p->str, p->i);
 		ft_memcpy(new_str + p->i, p->str + p->i + var_len + 1, ft_strlen(p->str + p->i + var_len));
-		free(data->cmd_split[index]);
-		data->cmd_split[index] = new_str;
+		//free(data->cmd_split[index]);
+		free(data->full_cmd[p->index][p->index2]);
+		//data->cmd_split[index] = new_str;
+		data->full_cmd[p->index][p->index2] = new_str;
 		p->str = new_str;
 	}
 }
 
-void	parse_var(char *str, t_data *data, int index)
+int	check_close_dq(char *str)
 {
-	int	j;
-	t_parser parse;
+	int	i;
 
-	parse.str = str;
-	parse.i = -1;
-	while (parse.str[++parse.i])
+	i= 0;
+	while (str[++i])
 	{
-		if (parse.str[parse.i] == '\'' && parse.str[parse.i + 1])
+		if (str[i] == '"')
+			return (1);
+	}
+	return (0);
+}
+
+void	parse_quote(char *str, t_data *data, int index, t_parser *p)
+{
+	p->i = -1;
+	p->str = str;
+	while (p->str[++p->i])
+	{
+		if (p->str[p->i] == ' ')
+			p->str[p->i] = 17;
+		else if (p->str[p->i] == '\'')
 		{
-			j = parse.i + 1;
-			while (parse.str[j] && parse.str[j] != '\'')
-				j++;
-			if (parse.str[j] == '\'')
-				parse.i = j;
+			p->j = p->i + 1;
+			while (p->str[p->j] && p->str[p->j] != '\'')
+				p->j++;
+			if (p->str[p->j] == '\'')
+				p->i = p->j;
 		}
-		j = 0;
-		if (parse.str[parse.i] == '$')
+		else if (p->str[p->i] == '"')
 		{
-			replace_var(&parse, data, index);
+			p->j = p->i + 1;
+			while (p->str[p->j] && p->str[p->j] != '"')
+				p->j++;
+			if (p->str[p->j] == '"')
+				p->i = p->j;
+		}
+	}
+	data->full_cmd[index] = ft_split(p->str, 17);
+}
+
+
+void	parse_var(char *str, t_data *data, t_parser *parse)
+{
+	int	flag;
+
+	flag = 0;
+	parse->str = str;
+	parse->i = -1;
+	while (parse->str[++parse->i])
+	{
+		if (parse->str[parse->i] == '"')
+			flag = check_close_dq(parse->str + parse->i);
+		if (parse->str[parse->i] == '\'' && parse->str[parse->i + 1] && flag == 0)
+		{
+			parse->j = parse->i + 1;
+			while (parse->str[parse->j] && parse->str[parse->j] != '\'')
+				parse->j++;
+			if (parse->str[parse->j] == '\'')
+				parse->i = parse->j;
+			//flag = 0;
+		}
+		parse->j = 0;
+		if (parse->str[parse->i] == '$')
+		{
+			replace_var(parse, data);
+			flag = 0;
+			//printf("current str: %s\ni: %d\n",parse->str,parse->i);
+		}
+	}
+}
+
+char	*trim(char *str, t_data *data, t_parser *p)
+{
+	char	*new_str;
+
+	new_str = ft_calloc((ft_strlen(str) - 2), sizeof(str));
+	if (p->i > 0)
+		ft_memcpy(new_str, str, p->i);
+	ft_memcpy(new_str + p->i, str + p->i + 1, p->j - (p->i + 1));
+	ft_memcpy(new_str + p->i + (p->j - (p->i + 1)), str + p->j + 1, ft_strlen(str) - p->j);
+	free(str);
+	data->full_cmd[p->index][p->index2] = new_str;
+	p->i = p->j - 2;
+	return (new_str);
+}
+
+void	trim_quote(char *str, t_data *data, t_parser *p)
+{
+	char	flag;
+
+	flag = 0;
+	p->i = -1;
+	while (str[++p->i])
+	{
+		if (str[p->i] == '"' || str[p->i] == '\'')
+		{
+			p->j = p->i + 1;
+			flag = str[p->i];
+			while (str[p->j] && str[p->j] != flag)
+				p->j++;
+			if (str[p->j] == flag)
+				str = trim(str, data, p);
 		}
 	}
 }
@@ -155,13 +241,27 @@ void	parse_var(char *str, t_data *data, int index)
 void	parser(char *str, t_data *data)
 {
 	int	i;
+	int	j;
+	t_parser	parser;
 
-	i =-1;
+	i = 0;
 	data->cmd_split = split_pipes(str);
-	while (data->cmd_split[++i])
+	while (data->cmd_split[i])
+		i++;
+	//data->full_cmd = (char ***) malloc(i+1 * sizeof(char ***));
+	data->full_cmd = (char ***) ft_calloc(i+1, sizeof(char ***));
+	//data->full_cmd[i] = NULL;
+	parser.index = -1;
+	while (data->cmd_split[++parser.index])
 	{
-		parse_var(data->cmd_split[i], data, i);
+		parse_quote(data->cmd_split[parser.index], data, parser.index, &parser);
+		//j = -1;
+		parser.index2 = -1;
+		while (data->full_cmd[parser.index][++parser.index2])
+		{
+			parse_var(data->full_cmd[parser.index][parser.index2], data, &parser);
+			trim_quote(data->full_cmd[parser.index][parser.index2], data, &parser);
+		}
 	}
-
 	//return (split_pipes(str));
 }

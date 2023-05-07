@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/05 06:13:55 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/07 02:56:25 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,27 @@ int	prompt_loop(t_data *data)
 			//2- Fazer tratamento das aspas e Variaveis $ --> Mover o 3 para esse ponto?
 			//data->cmd_split = split_pipes(data->line);
 			parser(data->line, data);
-			if (data->cmd_split)
+			free_char_array(data->cmd_split);
+			int i;
+			if (data->full_cmd)
+			{
+				for (i=0; data->full_cmd[i]; i++)
+				{
+					int j;
+					for (j=0; data->full_cmd[i][j]; j++)
+						printf("str[%d][%d] = %s\n",i,j,data->full_cmd[i][j]);
+				}
+			}
+			for (i = 0; data->full_cmd[i]; i++)
+				free_char_array(data->full_cmd[i]);
+			free(data->full_cmd);
+			/*if (data->cmd_split)
 			{
 				int i;
 				for (i=0; data->cmd_split[i];i++)
 					printf("str[%d] = %s\n", i, data->cmd_split[i]);
 				free_char_array(data->cmd_split);
-			}
+			}*/
 			//3- Verificar se ha pipes (em locais que devem ser considerados)
 			//4.1 -> Caso nao, (checar > e < )ver se e bultins se for executar senao ir pro piper
 			//4.2 -> Caso sim, ir pro piper

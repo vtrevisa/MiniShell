@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/06 23:24:11 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/07 04:56:05 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,12 @@ typedef enum
 typedef struct	s_parser
 {
 	int		i;
+	int		j;
+	int		index;
+	int		index2;
 	//int		pipe_i;
 	char	*str;
-	//state	st;
+	state	st;
 }	t_parser;
 
 
@@ -87,6 +90,7 @@ typedef struct  s_data
 
 	/*Roger check antes de exece*/
 	char	**cmd_split;
+	char	***full_cmd;
 	int		builtin;
 
 
