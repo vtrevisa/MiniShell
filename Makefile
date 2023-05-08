@@ -25,6 +25,9 @@ $(OBJ_D)/%.o: $(SRC_D)/%.c
 	mkdir -p $(OBJ_D)
 	cc -c $< -o $@
 
+test:
+	gcc src/test_env_var.c $(LIB)
+
 clean:
 	rm -rf $(OBJ_D)
 

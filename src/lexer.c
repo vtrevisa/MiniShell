@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:21:05 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/04/17 22:17:40 by marvin           ###   ########.fr       */
+/*   Updated: 2023/05/08 16:56:17 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	lexer(t_data *data)
 	int		index;
 
 	if (data->line == NULL)
-		return (NULL);
+		return ;
 	if (data->line[0] == ' ')
 		data->line = remove_space(data);
 	if (data->line != NULL)
