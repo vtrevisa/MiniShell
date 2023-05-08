@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/07 02:56:25 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/08 04:11:51 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,6 @@ int	prompt_loop(t_data *data)
 						printf("str[%d][%d] = %s\n",i,j,data->full_cmd[i][j]);
 				}
 			}
-			for (i = 0; data->full_cmd[i]; i++)
-				free_char_array(data->full_cmd[i]);
-			free(data->full_cmd);
 			/*if (data->cmd_split)
 			{
 				int i;
@@ -87,21 +84,25 @@ int	prompt_loop(t_data *data)
 			//3- Verificar se ha pipes (em locais que devem ser considerados)
 			//4.1 -> Caso nao, (checar > e < )ver se e bultins se for executar senao ir pro piper
 			//4.2 -> Caso sim, ir pro piper
-		
+			for (i = 0; data->full_cmd[i]; i++)
+				;
 			//Paso 3:
-			/*if (is_there_pipes(data->line) == 0)
+			//if (is_there_pipes(data->line) == 0)
+			if (i == 1)
 			{
 				//4.1
-				data->cmd_split = ft_split(data->line, ' ');
+				//data->cmd_split = ft_split(data->line, ' ');
 				//If iniciar com > ou <: fazer um cmd_split+1;
-				data->builtin = builtin_checker(data->cmd_split[0]);
+				//data->builtin = builtin_checker(data->cmd_split[0]);
+				data->builtin = builtin_checker(data->full_cmd[0][0]);
+				//printf("builtin: %d\n",data->builtin);
 				if (data->builtin)
 				{
 					builtin_exec_main(data);
 				}
 				else
 					piper(data);
-				free_char_array(data->cmd_split);
+				//free_char_array(data->cmd_split);
 				//int i;
 				//free(data->cmd_split[i]);
 				//free(data->cmd_split);
@@ -110,7 +111,10 @@ int	prompt_loop(t_data *data)
 			{
 				//4.2
 				piper(data);
-			}*/
+			}
+			for (i = 0; data->full_cmd[i]; i++)
+				free_char_array(data->full_cmd[i]);
+			free(data->full_cmd);
 
 			/*if (ft_strnstr("exit", data->line, 4) != 0)
 			{
