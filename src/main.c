@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/08 04:11:51 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/09 03:49:26 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	prompt_loop(t_data *data)
 			//data->cmd_split = split_pipes(data->line);
 			parser(data->line, data);
 			free_char_array(data->cmd_split);
+			/* Just to show the commands sperately
 			int i;
 			if (data->full_cmd)
 			{
@@ -73,22 +74,16 @@ int	prompt_loop(t_data *data)
 					for (j=0; data->full_cmd[i][j]; j++)
 						printf("str[%d][%d] = %s\n",i,j,data->full_cmd[i][j]);
 				}
-			}
-			/*if (data->cmd_split)
-			{
-				int i;
-				for (i=0; data->cmd_split[i];i++)
-					printf("str[%d] = %s\n", i, data->cmd_split[i]);
-				free_char_array(data->cmd_split);
 			}*/
 			//3- Verificar se ha pipes (em locais que devem ser considerados)
 			//4.1 -> Caso nao, (checar > e < )ver se e bultins se for executar senao ir pro piper
 			//4.2 -> Caso sim, ir pro piper
-			for (i = 0; data->full_cmd[i]; i++)
-				;
+			data->qtd_cmd = 0;
+			while (data->full_cmd[data->qtd_cmd])
+				data->qtd_cmd++;
 			//Paso 3:
 			//if (is_there_pipes(data->line) == 0)
-			if (i == 1)
+			if (data->qtd_cmd == 1)
 			{
 				//4.1
 				//data->cmd_split = ft_split(data->line, ' ');
@@ -112,6 +107,7 @@ int	prompt_loop(t_data *data)
 				//4.2
 				piper(data);
 			}
+			int i;
 			for (i = 0; data->full_cmd[i]; i++)
 				free_char_array(data->full_cmd[i]);
 			free(data->full_cmd);

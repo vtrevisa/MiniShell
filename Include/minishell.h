@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/07 04:56:05 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/09 03:56:42 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ typedef struct  s_data
 	char	***full_cmd;
 	int		builtin;
 
+	/*Roger MOVED FROM PIPER*/
+	int	qtd_cmd;
 
 }	t_data;
 
@@ -162,7 +164,7 @@ char	**treat_str(char *str);
 char	*path_search(char *envp[], const char *cmd);
 int		child_prog(t_pipe *args, t_data *data);
 void	free_args(t_pipe *args);
-void	close_pipes(t_pipe *args);
+void	close_pipes(t_pipe *args, t_data *data);
 /*PIPE Functions for builtins*/
 int		builtin_checker(char *str);
 int		builtin_exec_pipe(t_pipe *args, t_data *data);

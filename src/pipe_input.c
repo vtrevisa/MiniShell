@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 22:54:48 by romachad          #+#    #+#             */
-/*   Updated: 2023/04/27 02:31:33 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/09 03:56:14 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,25 @@ void	free_args(t_pipe *args)
 	free(args->pipes);
 }
 
-void	close_pipes(t_pipe *args)
+void	close_pipes(t_pipe *args, t_data *data)
 {
 	int	i;
 
 	i = -1;
-	while (++i < (args->qtd_cmd - 1) * 2)
+	//while (++i < (args->qtd_cmd - 1) * 2)
+	while (++i < (data->qtd_cmd - 1) * 2)
 		close(args->pipes[i]);
 }
 
-int	create_pipes(t_pipe *args)
+int	create_pipes(t_pipe *args, t_data *data)
 {
 	int	i;
 	int	j;
 
 	i = -1;
 	j = 0;
-	while (++i < args->qtd_cmd -1)
+	//while (++i < args->qtd_cmd -1)
+	while (++i < data->qtd_cmd -1)
 	{
 		if (pipe(&args->pipes[j]) == -1)
 			return (-1);
@@ -72,7 +74,8 @@ static void	pipe_to_pipe(t_pipe *args, t_data *data)
 
 	args->flag = 2;
 	i = -1;
-	while (++i < args->qtd_cmd - 2)
+	//while (++i < args->qtd_cmd - 2)
+	while (++i < data->qtd_cmd - 2)
 	{
 		//free(args->cmd_str);
 		//args->cmd_str = ft_strdup(args->argv[args->cmd_n]);
@@ -94,16 +97,18 @@ static int	main_fork(t_pipe *args, t_data *data)
 	args->flag = 0;
 	call_fork(args, data); //Adicionar seguranca??
 	args->cmd_n++;
-	if (args->qtd_cmd > 2)
+	//if (args->qtd_cmd > 2)
+	if (data->qtd_cmd > 2)
 		pipe_to_pipe(args, data);
-	if (args->qtd_cmd > 1)
+	//if (args->qtd_cmd > 1)
+	if (data->qtd_cmd > 1)
 	{
 		//if (!(args->qtd_cmd > 2))
 		//	args->pipe_i += 2;
 		args->flag = 1;
 		call_fork(args, data); //Adicionar seguranca??
 	}
-	close_pipes(args);
+	close_pipes(args, data);
 	i = -1;
 	while (++i < args->cmd_n)
 		waitpid(args->pid[i], NULL, 0);
@@ -115,28 +120,27 @@ void	piper(t_data *data)
 {
 	t_pipe args;
 
-	args.argv = ft_split(data->line, '|');
-	args.qtd_cmd = 0;
-	while (args.argv[args.qtd_cmd])
-		args.qtd_cmd++;
-	args.pipes = malloc((args.qtd_cmd * 2) * sizeof(args.qtd_cmd));
+	//args.argv = ft_split(data->line, '|');
+	//args.qtd_cmd = 0;
+	//while (args.argv[args.qtd_cmd])
+	//	args.qtd_cmd++;
+	//args.pipes = malloc((args.qtd_cmd * 2) * sizeof(args.qtd_cmd));
+	args.pipes = malloc((data->qtd_cmd * 2) * sizeof(data->qtd_cmd));
 	if (args.pipes == NULL)
 		error_exit("Fail pipes malloc");
-	if (create_pipes(&args) == -1)
+	if (create_pipes(&args, data) == -1)
 	{
 		printf("ERROR! Failed to create pipes!\n");
 		free(args.pipes);
 		exit (130);
 	}
-	args.pid = malloc(args.qtd_cmd * sizeof(args.qtd_cmd));
+	//args.pid = malloc(args.qtd_cmd * sizeof(args.qtd_cmd));
+	args.pid = malloc(data->qtd_cmd * sizeof(data->qtd_cmd));
 	if (args.pid == NULL)
 		error_exit("Fail pid malloc");
 	args.cmd_n = 0;
 	args.pipe_i = 0;
 	main_fork(&args, data);
 
-	/*int i;
-	for (i=0; args.argv[i];i++)
-		printf("This is the cmd %d: %s\n", i, args.argv[i]);*/
-	free_char_array(args.argv);	
+	//free_char_array(args.argv); --> Liberar i args.pipes e args.pid!
 }
