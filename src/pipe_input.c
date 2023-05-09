@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 22:54:48 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/09 03:56:14 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/09 04:44:00 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ static int	call_fork(t_pipe *args, t_data *data)
 		args->pid[args->cmd_n] = child_prog(args, data);
 		free_args(args);
 		free_char_array(data->envp);// Realmente necessario?
+		
+		int i;
+		for (i =0;data->full_cmd[i]; i++)
+			free_char_array(data->full_cmd[i]);
+		free(data->full_cmd);
+		
 		printf("\ndeu falha no child?\n");
 		exit (0);
 		//exit(args->pid[args->cmd_n]); // caso de falha do child... args->pid foi feito free acima... 

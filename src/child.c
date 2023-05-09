@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 22:49:22 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/09 03:57:49 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/09 04:43:08 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,13 @@ static int	child_start(t_pipe *args, t_data *data)
 	else
 		builtin_exec_pipe(args, data);
 	//free_char_array(args->cmd_args);
-	free_char_array(data->full_cmd[args->cmd_n]); //--> Trocar para liberar todo o data->full_cmd!!
+	
+	/*free_char_array(data->envp);
+	//free_char_array(data->full_cmd[args->cmd_n]); //--> Trocar para liberar todo o data->full_cmd!!
+	int i;
+	for (i=0; data->full_cmd[i]; i++)
+		free_char_array(data->full_cmd[i]);
+	free(data->full_cmd[i]);*/
 	if (args->builtin == 0)
 		return (errno);
 	else
@@ -47,7 +53,14 @@ static int	child_middle(t_pipe *args, t_data *data)
 	execve(args->fpath, data->full_cmd[args->cmd_n], data->envp);
 	free(args->fpath);
 	//free_char_array(args->cmd_args);
-	free_char_array(data->full_cmd[args->cmd_n]); //--> Trocar para liberar todo o data->full_cmd!!
+	
+	/*free_char_array(data->envp);
+	//free_char_array(data->full_cmd[args->cmd_n]); //--> Trocar para liberar todo o data->full_cmd!!
+	int i;
+	for (i=0; data->full_cmd[i]; i++)
+		free_char_array(data->full_cmd[i]);
+	free(data->full_cmd[i]);*/
+	
 	return (errno);
 }
 
@@ -60,7 +73,14 @@ static int	child_end(t_pipe *args, t_data *data)
 	execve(args->fpath, data->full_cmd[args->cmd_n], data->envp);
 	free(args->fpath);
 	//free_char_array(args->cmd_args);
-	free_char_array(data->full_cmd[args->cmd_n]); //--> Trocar para liberar todo o data->full_cmd!!
+	
+	/*free_char_array(data->envp);
+	//free_char_array(data->full_cmd[args->cmd_n]); //--> Trocar para liberar todo o data->full_cmd!!
+	int i;
+	for (i=0; data->full_cmd[i]; i++)
+		free_char_array(data->full_cmd[i]);
+	free(data->full_cmd[i]);*/
+
 	return (errno);
 }
 
@@ -89,7 +109,12 @@ int	child_prog(t_pipe *args, t_data *data)
 			//printf("minishell: %s not found\n", args->cmd_args[0]);//Mudar para stderr?
 			printf("minishell: %s not found\n", data->full_cmd[args->cmd_n][0]);//Mudar para stderr?
 			//free_char_array(args->cmd_args);
-			free_char_array(data->full_cmd[args->cmd_n]); //--> Trocar para liberar todo o data->full_cmd!!
+			/*free_char_array(data->full_cmd[args->cmd_n]); //--> Trocar para liberar todo o data->full_cmd!!
+			free_char_array(data->envp);
+			int i;
+			for (i=0; data->full_cmd[i]; i++)
+				free_char_array(data->full_cmd[i]);
+			free(data->full_cmd[i]);*/
 			return (127);
 		}
 	}
