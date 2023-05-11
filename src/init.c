@@ -6,13 +6,13 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:13 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/03/21 16:46:33 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/05/11 05:12:32 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-static char	**copy_env_var(char **envp)
+char	**copy_double_str(char **envp)
 {
 	int	count;
 	int	i;
@@ -63,7 +63,7 @@ void	init_data(t_data *data, char **envp)
 	data->file_fds_index = 0;
 	data->cmd = malloc (sizeof (char *) * 3);
 	//data->envp = envp; Removido pq o envp sera copiado!
-	data->envp = copy_env_var(envp);
+	data->envp = copy_double_str(envp);
 	data->count_cmd = 0;
 	data->fd_in = 0;
 	data->fd_out = 0;

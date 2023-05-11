@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 22:33:51 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/07 06:43:56 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/11 06:39:23 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ char	**parser(char *str)
 	}
 }*/
 
+
+/*Split pipes if not in quotes*/
 char	**split_pipes(char *str)
 {
 	int	i;
@@ -144,6 +146,7 @@ int	check_close_dq(char *str)
 	return (0);
 }
 
+/*Split Arguments based on space, however no splitting spaces that are in quotes*/
 void	parse_quote(char *str, t_data *data, int index, t_parser *p)
 {
 	p->i = -1;
@@ -255,6 +258,7 @@ void	parser(char *str, t_data *data)
 	while (data->cmd_split[++parser.index])
 	{
 		parse_quote(data->cmd_split[parser.index], data, parser.index, &parser);
+		//data->full_cmd[parser.index] = parse_redir(data->full_cmd[parser.index]); //-->Implementation in progres
 		//j = -1;
 		parser.index2 = -1;
 		while (data->full_cmd[parser.index][++parser.index2])
