@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/11 06:32:45 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/13 04:02:40 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ typedef struct  s_data
 	char	***full_cmd;
 	int		builtin;
 
+	/*Roger Redirect vars*/
+	char	***cmd_redir;
+
 	/*Roger MOVED FROM PIPER*/
 	int	qtd_cmd;
 
@@ -173,7 +176,7 @@ int		builtin_exec_pipe(t_pipe *args, t_data *data);
 /*Roger Parser*/
 void	parser(char *str, t_data *data);
 char	**split_pipes(char *str);
-char	**parse_redir(char **str);
+char	**parse_redir(char **parsed, t_data *data, int index);
 
 
 #endif

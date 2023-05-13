@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 22:33:51 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/11 06:39:23 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/13 04:38:38 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,12 +253,14 @@ void	parser(char *str, t_data *data)
 		i++;
 	//data->full_cmd = (char ***) malloc(i+1 * sizeof(char ***));
 	data->full_cmd = (char ***) ft_calloc(i+1, sizeof(char ***));
+	data->cmd_redir = (char ***) ft_calloc(i+1, sizeof(char ***));
 	//data->full_cmd[i] = NULL;
 	parser.index = -1;
 	while (data->cmd_split[++parser.index])
 	{
 		parse_quote(data->cmd_split[parser.index], data, parser.index, &parser);
-		//data->full_cmd[parser.index] = parse_redir(data->full_cmd[parser.index]); //-->Implementation in progres
+		//data->cmd_redir[parser.index] = (char **) ft_calloc(2, sizeof(char **));//-->Implementation in progress
+		//data->full_cmd[parser.index] = parse_redir(data->full_cmd[parser.index], data, parser.index); //-->Implementation in progres
 		//j = -1;
 		parser.index2 = -1;
 		while (data->full_cmd[parser.index][++parser.index2])

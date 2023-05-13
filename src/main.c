@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/11 06:41:42 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/13 04:39:50 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ int	prompt_loop(t_data *data)
 					int j;
 					for (j=0; data->full_cmd[i][j]; j++)
 						printf("str[%d][%d] = %s\n",i,j,data->full_cmd[i][j]);
+					printf("REDIRECTIONS:\n");
+					for (j=0; j < 2; j++)
+						printf("arg[%d][%d] = %s\n",i,j,data->cmd_redir[i][j]);
 				}
 			}*/
 			//3- Verificar se ha pipes (em locais que devem ser considerados)
@@ -109,7 +112,14 @@ int	prompt_loop(t_data *data)
 			}
 			int i;
 			for (i = 0; data->full_cmd[i]; i++)
+			{
 				free_char_array(data->full_cmd[i]);
+				/*int j;
+				for (j=0; j<2; j++)
+					free(data->cmd_redir[i][j]);
+				free(data->cmd_redir[i]);*/
+			}
+			//free(data->cmd_redir);
 			free(data->full_cmd);
 
 			/*if (ft_strnstr("exit", data->line, 4) != 0)

@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 04:46:03 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/12 03:41:48 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/13 04:31:11 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,38 @@ char	**remove_redir(char **parsed, t_parser *p, char *redir_type)
 	return (copy);
 }
 
+void	outfile(char **parsed, t_parser *p, t_data *data, char *redir_type)
+{
+	p->str = parsed[p->i];
+	if (ft_strlen(redir_type) == ft_strlen(parsed[p->i]))
+		p->str = parsed[p->i + 1];
+	else
+		p->str = parsed[p->i] + ft_strlen(redir_type);
+	p->str = ft_strdup(p->str);
+	//p->str = parse_var_redir(p->str);
+	//p->str = trim_quote_redir(p->str);
+	if (!data->cmd_redir[p->index][p->index2])
+		data->cmd_redir[p->index][p->index2] = (char *) ft_calloc(ft_strlen(p->str) + 2, sizeof(p->str));
+	else
+	{
+		free(data->cmd_redir[p->index][p->index2]);
+		data->cmd_redir[p->index][p->index2] = (char *) ft_calloc(ft_strlen(p->str) + 2, sizeof(p->str));
+	}
+	if (p->j == 0)
+		data->cmd_redir[p->index][p->index2][0] = '0';
+	else
+		data->cmd_redir[p->index][p->index2][0] = '1';
+	ft_strlcat(data->cmd_redir[p->index][p->index2], p->str, ft_strlen(p->str) + 2);
+	free(p->str);
+}
 
-char	**parse_redir(char **parsed)
+char	**parse_redir(char **parsed, t_data *data, int index)
 {
 	t_parser	p;
 	//char	**parsed;
 
 	//parsed = copy_double_str(str);
+	p.index = index;
 	p.i = -1;
 	p.j = 0;
 	while (parsed[++p.i])
@@ -50,13 +75,17 @@ char	**parse_redir(char **parsed)
 			//append_change_output()
 			printf("append output redir\n");
 		else if (ft_strncmp(parsed[p.i], ">", 1) == 0)
+		{
+			p.j = 0;
+			p.index2= 0;
+			outfile(parsed, &p, data, ">");
 			parsed = remove_redir(parsed, &p, ">");
 			//printf("output redir\n");
+		}
 		else if (ft_strncmp(parsed[p.i], "<<", 2) == 0)
 			printf("here-doc\n");
 		else if (ft_strncmp(parsed[p.i], "<", 1) == 0)
 			printf("input file");
-		p.j++;
 	}
 	return (parsed);
 }
