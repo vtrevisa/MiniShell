@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/13 04:39:50 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/14 03:48:57 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	prompt_loop(t_data *data)
 			//data->cmd_split = split_pipes(data->line);
 			parser(data->line, data);
 			free_char_array(data->cmd_split);
-			/* Just to show the commands sperately
+			/* Just to show the commands sperately*/
 			int i;
 			if (data->full_cmd)
 			{
@@ -77,7 +77,7 @@ int	prompt_loop(t_data *data)
 					for (j=0; j < 2; j++)
 						printf("arg[%d][%d] = %s\n",i,j,data->cmd_redir[i][j]);
 				}
-			}*/
+			}
 			//3- Verificar se ha pipes (em locais que devem ser considerados)
 			//4.1 -> Caso nao, (checar > e < )ver se e bultins se for executar senao ir pro piper
 			//4.2 -> Caso sim, ir pro piper
@@ -86,7 +86,7 @@ int	prompt_loop(t_data *data)
 				data->qtd_cmd++;
 			//Paso 3:
 			//if (is_there_pipes(data->line) == 0)
-			if (data->qtd_cmd == 1)
+			/*if (data->qtd_cmd == 1)
 			{
 				//4.1
 				//data->cmd_split = ft_split(data->line, ' ');
@@ -110,16 +110,16 @@ int	prompt_loop(t_data *data)
 				//4.2
 				piper(data);
 			}
-			int i;
+			int i;*/
 			for (i = 0; data->full_cmd[i]; i++)
 			{
 				free_char_array(data->full_cmd[i]);
-				/*int j;
+				int j;
 				for (j=0; j<2; j++)
 					free(data->cmd_redir[i][j]);
-				free(data->cmd_redir[i]);*/
+				free(data->cmd_redir[i]);
 			}
-			//free(data->cmd_redir);
+			free(data->cmd_redir);
 			free(data->full_cmd);
 
 			/*if (ft_strnstr("exit", data->line, 4) != 0)

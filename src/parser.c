@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 22:33:51 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/13 04:38:38 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/14 03:49:20 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	**split_pipes(char *str)
 	return (ft_split(str, 17));
 }
 
-char	*find_variable(char *var, t_data *data)
+char	*find_variable(char *var, t_data *data)//-> Move this to parser_utils.c
 {
 	int	i;
 
@@ -133,7 +133,7 @@ void	replace_var(t_parser *p, t_data *data)
 	}
 }
 
-int	check_close_dq(char *str)
+int	check_close_dq(char *str)//-> Move this to parser_utils.c and add in header
 {
 	int	i;
 
@@ -147,7 +147,7 @@ int	check_close_dq(char *str)
 }
 
 /*Split Arguments based on space, however no splitting spaces that are in quotes*/
-void	parse_quote(char *str, t_data *data, int index, t_parser *p)
+void	parse_quote(char *str, t_data *data, int index, t_parser *p) 
 {
 	p->i = -1;
 	p->str = str;
@@ -253,14 +253,14 @@ void	parser(char *str, t_data *data)
 		i++;
 	//data->full_cmd = (char ***) malloc(i+1 * sizeof(char ***));
 	data->full_cmd = (char ***) ft_calloc(i+1, sizeof(char ***));
-	data->cmd_redir = (char ***) ft_calloc(i+1, sizeof(char ***));
+	data->cmd_redir = (char ***) ft_calloc(i, sizeof(char ***));
 	//data->full_cmd[i] = NULL;
 	parser.index = -1;
 	while (data->cmd_split[++parser.index])
 	{
 		parse_quote(data->cmd_split[parser.index], data, parser.index, &parser);
-		//data->cmd_redir[parser.index] = (char **) ft_calloc(2, sizeof(char **));//-->Implementation in progress
-		//data->full_cmd[parser.index] = parse_redir(data->full_cmd[parser.index], data, parser.index); //-->Implementation in progres
+		data->cmd_redir[parser.index] = (char **) ft_calloc(2, sizeof(char **));//-->Implementation in progress
+		data->full_cmd[parser.index] = parse_redir(data->full_cmd[parser.index], data, parser.index); //-->Implementation in progres
 		//j = -1;
 		parser.index2 = -1;
 		while (data->full_cmd[parser.index][++parser.index2])

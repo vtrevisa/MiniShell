@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/13 04:02:40 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/14 01:24:05 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct	s_parser
 	int		j;
 	int		index;
 	int		index2;
+	int		redir_type;
 	//int		pipe_i;
 	char	*str;
 	state	st;
@@ -177,6 +178,10 @@ int		builtin_exec_pipe(t_pipe *args, t_data *data);
 void	parser(char *str, t_data *data);
 char	**split_pipes(char *str);
 char	**parse_redir(char **parsed, t_data *data, int index);
+int		check_close_dq(char *str);
+char	*find_variable(char *var, t_data *data);
+void	parse_var_redir(t_data *data, t_parser *parser);
+void	trim_quote_redir(t_parser *p);
 
 
 #endif
