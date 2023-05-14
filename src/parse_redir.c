@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 04:46:03 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/14 05:39:36 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/14 07:09:39 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	create_redir_str(char **parsed, t_parser *p, t_data *data, char *redir_type
 	p->str = ft_strdup(p->str);
 	parse_var_redir(data, p);
 	trim_quote_redir(p);
-	if (!data->cmd_redir[p->index][p->index2])
+	if (!data->cmd_redir[p->index][p->index2]) //-->Conditional jump depends on unintialized values
 		data->cmd_redir[p->index][p->index2] = (char *) ft_calloc(ft_strlen(p->str) + 2, sizeof(p->str));
 	else
 	{
@@ -131,7 +131,7 @@ char	**parse_redir(char **parsed, t_data *data, int index)
 		}
 		else if (ft_strncmp(parsed[p.i], "<", 1) == 0)
 		{
-			p.index2 = 0;
+			p.index2 = 1;
 			//printf("input file");
 			create_redir_str(parsed, &p, data, "<");
 			check_infile(data->cmd_redir[p.index][p.index2] + 1);

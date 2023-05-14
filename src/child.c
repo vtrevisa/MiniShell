@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 22:49:22 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/09 04:43:08 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/14 06:53:47 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,27 @@
 
 static int	child_start(t_pipe *args, t_data *data)
 {
+	int	fd;
+	if (data->cmd_redir[args->cmd_n][1])
+	{
+		fd = open(data->cmd_redir[args->cmd_n][1] + 1, O_RDONLY);
+		dup2(fd, STDIN_FILENO);
+		close(fd);
+	}
+	if (data->cmd_redir[args->cmd_n][0])
+	{
+		if (data->cmd_redir[args->cmd_n][0][0] == '0')
+			fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY);
+		else
+			fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY | O_APPEND);
+		dup2(fd, STDOUT_FILENO);
+		close(fd);
+	}
+
 	//if (args->qtd_cmd > 1) //Por essa regiao sera necessario verificar se ha infile...
 	if (data->qtd_cmd > 1) //Por essa regiao sera necessario verificar se ha infile...
 	{
 		dup2(args->pipes[1], STDOUT_FILENO);
-		//close_pipes(args); //Deveria estar fora do if??
 		close_pipes(args, data); //Deveria estar fora do if??
 	}
 	if (args->builtin == 0)
@@ -66,10 +82,20 @@ static int	child_middle(t_pipe *args, t_data *data)
 
 static int	child_end(t_pipe *args, t_data *data)
 {
+	int	fd;
+
 	dup2(args->pipes[args->pipe_i], STDIN_FILENO); //verificar se ha outfile...
 	//close_pipes(args);
 	close_pipes(args, data);
-	//execve(args->fpath, args->cmd_args, data->envp);
+	if (data->cmd_redir[args->cmd_n][0])
+	{
+		if (data->cmd_redir[args->cmd_n][0][0] == '0')
+			fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY);
+		else
+			fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY | O_APPEND);
+		dup2(fd, STDOUT_FILENO);
+		close(fd);
+	}
 	execve(args->fpath, data->full_cmd[args->cmd_n], data->envp);
 	free(args->fpath);
 	//free_char_array(args->cmd_args);
