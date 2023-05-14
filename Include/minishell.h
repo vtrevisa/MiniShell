@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/14 01:24:05 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/15 00:13:32 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,12 @@ typedef struct  s_data
 
 	/*Roger MOVED FROM PIPER*/
 	int	qtd_cmd;
+
+	/*Roger Backup STDIN STDOUT*/
+	int	saved_stdin;
+	int	saved_stdout;
+	int	saved_stderr;
+	//int	fd[2];
 
 }	t_data;
 

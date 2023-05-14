@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 01:12:41 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/08 04:17:21 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/14 23:40:34 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,18 @@ int	builtin_exec_main(t_data *data)
 {
 	if (data->builtin == 1)
 		return (echo_n(data->full_cmd[0] + 1));
-		//return (echo_n(data->cmd_split + 1));
 	if (data->builtin == 2)
 		return (change_directory(data->full_cmd[0][1], data->envp));
-		//return (change_directory(data->cmd_split[1], data->envp));
 	if (data->builtin == 3)
 		return (pwd());
 	if (data->builtin == 4)
 	{
 		data->envp = export(data->envp, data->full_cmd[0] + 1);
-		//data->envp = export(data->envp, data->cmd_split + 1);
 		return (0); //alterar para retornar o returncode!
 	}
 	if (data->builtin == 5)
 	{
 		data->envp = prep_unset(data->envp, (const char **) data->full_cmd[0] + 1);
-		//data->envp = prep_unset(data->envp, (const char **) data->cmd_split + 1);
 		return (0); //alterar para retornar o returncode!
 	}
 	if (data->builtin == 6)

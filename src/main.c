@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/14 06:01:47 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/15 00:12:59 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,36 @@ int	prompt_loop(t_data *data)
 				//printf("builtin: %d\n",data->builtin);
 				if (data->builtin)
 				{
+					int fd;
+					if (data->cmd_redir[0][0])
+					{
+						data->saved_stdout = dup(STDOUT_FILENO);
+						if (data->cmd_redir[0][0][0] == '0')
+							fd = open(data->cmd_redir[0][0] + 1, O_WRONLY);
+						else
+							fd = open(data->cmd_redir[0][0] + 1, O_WRONLY | O_APPEND);
+						dup2(fd, STDOUT_FILENO);
+						close(fd);
+					}
+					if (data->cmd_redir[0][1])
+					{
+						data->saved_stdin = dup(STDIN_FILENO);
+						if (data->cmd_redir[0][1][0] == '0')
+							fd = open(data->cmd_redir[0][1] + 1, O_RDONLY);
+						dup2(fd, STDIN_FILENO);
+						close(fd);
+					}
 					builtin_exec_main(data);
+					if (data->cmd_redir[0][0])
+					{
+						dup2(data->saved_stdout, STDOUT_FILENO);
+						close(data->saved_stdout);
+					}
+					if (data->cmd_redir[0][1])
+					{
+						dup2(data->saved_stdin, STDIN_FILENO);
+						close(data->saved_stdin);
+					}
 				}
 				else
 					piper(data);

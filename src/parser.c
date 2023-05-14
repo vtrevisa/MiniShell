@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 22:33:51 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/14 03:49:20 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/14 23:08:06 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,10 +251,8 @@ void	parser(char *str, t_data *data)
 	data->cmd_split = split_pipes(str);
 	while (data->cmd_split[i])
 		i++;
-	//data->full_cmd = (char ***) malloc(i+1 * sizeof(char ***));
 	data->full_cmd = (char ***) ft_calloc(i+1, sizeof(char ***));
 	data->cmd_redir = (char ***) ft_calloc(i, sizeof(char ***));
-	//data->full_cmd[i] = NULL;
 	parser.index = -1;
 	while (data->cmd_split[++parser.index])
 	{
