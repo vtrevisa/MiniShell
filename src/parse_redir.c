@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 04:46:03 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/14 04:30:00 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/14 05:39:36 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	**remove_redir(char **parsed, t_parser *p, char *redir_type)
 	return (copy);
 }
 
-void	outfile(char **parsed, t_parser *p, t_data *data, char *redir_type)
+void	create_redir_str(char **parsed, t_parser *p, t_data *data, char *redir_type)
 {
 	p->str = parsed[p->i];
 	if (ft_strlen(redir_type) == ft_strlen(parsed[p->i]))
@@ -60,16 +60,41 @@ void	outfile(char **parsed, t_parser *p, t_data *data, char *redir_type)
 	free(p->str);
 }
 
-/*int	check_outfile(char *outfile, char mode)
+int	check_outfile(char *outfile, char mode)
 {
 	char	*str;
 	int		fd;
 
 	if (mode)
+		fd = open(outfile, O_WRONLY | O_APPEND | O_CREAT, 0664);
+	else
+		fd = open(outfile, O_WRONLY | O_TRUNC | O_CREAT, 0664);
+	if (fd == -1)
 	{
-
+		str = ft_strjoin("minishell: ", outfile);
+		perror(str);
+		free(str);
+		return (1);
 	}
-}*/
+	close(fd);
+	return (0);
+}
+
+int	check_infile(char *infile)
+{
+	char	*str;
+	int		fd;
+
+	fd = access(infile, R_OK);
+	if (fd == -1)
+	{
+		str = ft_strjoin("minishell: ", infile);
+		perror(str);
+		free(str);
+		return (1);
+	}
+	return (0);
+}
 
 char	**parse_redir(char **parsed, t_data *data, int index)
 {
@@ -81,19 +106,37 @@ char	**parse_redir(char **parsed, t_data *data, int index)
 	while (parsed[++p.i])
 	{
 		if (ft_strncmp(parsed[p.i], ">>", 2) == 0)
-			//append_change_output()
-			printf("append output redir\n");
+		{
+			p.redir_type = 1;
+			p.index2 = 0;
+			create_redir_str(parsed, &p, data, ">>");
+			check_outfile(data->cmd_redir[p.index][p.index2] + 1, 1);
+			parsed = remove_redir(parsed, &p, ">>");
+		}
 		else if (ft_strncmp(parsed[p.i], ">", 1) == 0)
 		{
 			p.redir_type = 0;
-			p.index2= 0;
-			outfile(parsed, &p, data, ">");
+			p.index2 = 0;
+			create_redir_str(parsed, &p, data, ">");
+			check_outfile(data->cmd_redir[p.index][p.index2] + 1, 0);
 			parsed = remove_redir(parsed, &p, ">");
 		}
 		else if (ft_strncmp(parsed[p.i], "<<", 2) == 0)
-			printf("here-doc\n");
+		{
+			//printf("here-doc\n");
+			p.index2 = 1;
+			create_redir_str(parsed, &p, data, "<<");
+			//read until here-doc (data->cmd[p.index][p.index2] + 1) --> NEED TO CREATE THIS!
+			parsed = remove_redir(parsed, &p, "<<");
+		}
 		else if (ft_strncmp(parsed[p.i], "<", 1) == 0)
-			printf("input file");
+		{
+			p.index2 = 0;
+			//printf("input file");
+			create_redir_str(parsed, &p, data, "<");
+			check_infile(data->cmd_redir[p.index][p.index2] + 1);
+			parsed = remove_redir(parsed, &p, "<");
+		}
 	}
 	return (parsed);
 }
