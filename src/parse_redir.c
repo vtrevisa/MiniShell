@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 04:46:03 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/14 23:06:55 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/15 01:55:34 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	create_redir_str(char **parsed, t_parser *p, t_data *data, char *redir_type
 	else
 		p->str = parsed[p->i] + ft_strlen(redir_type);
 	p->str = ft_strdup(p->str);
-	parse_var_redir(data, p);
+	if (ft_strncmp(redir_type, "<<", ft_strlen(redir_type)) != 0)
+		parse_var_redir(data, p);
 	trim_quote_redir(p);
 	//printf("data->cmd_redir[%d][%d] = %d\n",p->index,p->index2,data->cmd_redir[p->index][p->index2]);
 	if (!data->cmd_redir[p->index][p->index2])
@@ -128,7 +129,8 @@ char	**parse_redir(char **parsed, t_data *data, int index)
 			//printf("here-doc\n");
 			p.index2 = 1;
 			create_redir_str(parsed, &p, data, "<<");
-			//read until here-doc (data->cmd[p.index][p.index2] + 1) --> NEED TO CREATE THIS!
+			//read until here-doc (data->cmd[p.index][p.index2] + 1) --> NEED TO CREATE THIS
+			data->cmd_redir[p.index][p.index2] = here_doc(data->cmd_redir[p.index][p.index2]);
 			parsed = remove_redir(parsed, &p, "<<");
 		}
 		else if (ft_strncmp(parsed[p.i], "<", 1) == 0)

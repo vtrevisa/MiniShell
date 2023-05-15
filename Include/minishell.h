@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/15 00:13:32 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/15 01:56:48 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ int		check_close_dq(char *str);
 char	*find_variable(char *var, t_data *data);
 void	parse_var_redir(t_data *data, t_parser *parser);
 void	trim_quote_redir(t_parser *p);
+char	*here_doc(char *str);
 
 
 #endif
