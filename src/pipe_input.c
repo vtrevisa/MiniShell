@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 22:54:48 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/09 04:44:00 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/16 03:15:37 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	close_pipes(t_pipe *args, t_data *data)
 	int	i;
 
 	i = -1;
-	//while (++i < (args->qtd_cmd - 1) * 2)
-	while (++i < (data->qtd_cmd - 1) * 2)
+	//while (++i < (data->qtd_cmd - 1) * 2)
+	while (++i < (data->qtd_cmd ) * 2)//--> pipe are create even with one command due to  here-doc
 		close(args->pipes[i]);
 }
 
@@ -35,8 +35,8 @@ int	create_pipes(t_pipe *args, t_data *data)
 
 	i = -1;
 	j = 0;
-	//while (++i < args->qtd_cmd -1)
-	while (++i < data->qtd_cmd -1)
+	//while (++i < data->qtd_cmd -1)
+	while (++i < data->qtd_cmd) //--> pipe are create even with one command due to  here-doc
 	{
 		if (pipe(&args->pipes[j]) == -1)
 			return (-1);

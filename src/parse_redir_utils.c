@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 22:37:26 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/14 03:57:10 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/16 03:59:32 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,3 +112,34 @@ void	parse_var_redir(t_data *data, t_parser *p)
 	}
 	p->i = bkp;
 }
+
+/*void	parse_var_heredoc(char *str)
+{
+	int	flag;
+	int	bkp;
+	//t_parser	p;
+
+	flag = 0;
+	//p.str = parser->str;
+	bkp = p->i;
+	p->i = - 1;
+	while (p->str[++p->i])
+	{
+		if (p->str[p->i] == '"')
+			flag = check_close_dq(p->str + p->i);
+		if (p->str[p->i] == '\'' && p->str[p->i + 1] && flag == 0)
+		{
+			p->j = p->i + 1;
+			while (p->str[p->j] && p->str[p->j] != '\'')
+				p->j++;
+			if (p->str[p->j] == '\'')
+				p->i = p->j;
+		}
+		if (p->str[p->i] == '$')
+		{
+			replace_var_redir(p, data);
+			flag = 0;
+		}
+	}
+	p->i = bkp;
+}*/
