@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 22:54:48 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/16 03:15:37 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/21 22:18:43 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,28 +96,42 @@ static void	pipe_to_pipe(t_pipe *args, t_data *data)
 	}
 }
 
-static int	main_fork(t_pipe *args, t_data *data)
+void	wait_pipes(t_pipe *args, t_data *data)
 {
 	int	i;
+	int	status;
+	int	exit_status;
+
+	i = -1;
+	while (++i < args->cmd_n)
+	{
+		waitpid(args->pid[i], &status, 0);
+		if (WIFEXITED(status))
+		{
+			exit_status = WEXITSTATUS(status);
+			printf("[%d]Exit status of child %d was %d\n",i,args->pid[i],exit_status);
+			data->rcode = exit_status;
+		}
+	}
+}
+
+static int	main_fork(t_pipe *args, t_data *data)
+{
+	//int	i;
 
 	args->flag = 0;
 	call_fork(args, data); //Adicionar seguranca??
 	args->cmd_n++;
-	//if (args->qtd_cmd > 2)
 	if (data->qtd_cmd > 2)
 		pipe_to_pipe(args, data);
-	//if (args->qtd_cmd > 1)
 	if (data->qtd_cmd > 1)
 	{
-		//if (!(args->qtd_cmd > 2))
-		//	args->pipe_i += 2;
 		args->flag = 1;
 		call_fork(args, data); //Adicionar seguranca??
+		args->cmd_n++; //--> colocado 21 may, identificado erro no waitpid (nao esperava pelo ultimo)
 	}
 	close_pipes(args, data);
-	i = -1;
-	while (++i < args->cmd_n)
-		waitpid(args->pid[i], NULL, 0);
+	wait_pipes(args, data);
 	free_args(args);
 	return (0);
 }
