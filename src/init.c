@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:13 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/11 05:12:32 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/21 04:03:34 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,5 @@ void	init_data(t_data *data, char **envp)
 	data->fd_in = 0;
 	data->fd_out = 0;
 	data->count_pipe = 0;
+	data->rcode = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 22:37:26 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/21 01:53:32 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/21 04:20:37 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,24 @@ void	replace_var_redir(t_parser *p, t_data *data)
 	char	*var_name;
 	char	*var_value;
 	char	*new_str;
+	char	flag;
 
+	flag = 0;
 	var_len = 0;
-	while (p->str[p->i + 1 + var_len] && (ft_isalnum(p->str[p->i + 1 + var_len]) || p->str[p->i + 1 + var_len] == '_'))
+	if (p->str[p->i + 1] != '?')
+	{
+		while (p->str[p->i + 1 + var_len] && (ft_isalnum(p->str[p->i + 1 + var_len]) || p->str[p->i + 1 + var_len] == '_'))
+			var_len++;
+		var_name = ft_substr(p->str, p->i + 1, var_len);
+		var_value = find_variable(var_name, data);
+		free(var_name);
+	}
+	else
+	{
+		var_value = ft_itoa(data->rcode);
+		flag = 1;
 		var_len++;
-	var_name = ft_substr(p->str, p->i + 1, var_len);
-	var_value = find_variable(var_name, data);
-	free(var_name);
+	}
 	if (var_value)
 	{
 		new_str = ft_calloc((p->i + ft_strlen(var_value) + (ft_strlen(p->str) - p->i - var_len)), sizeof(p->str));
@@ -71,6 +82,8 @@ void	replace_var_redir(t_parser *p, t_data *data)
 		free(p->str);
 		p->str = new_str;
 		p->i = p->i + ft_strlen(var_value);
+		if (flag)
+			free(var_value);
 	}
 	else
 	{

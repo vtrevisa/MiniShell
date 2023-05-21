@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/21 02:57:54 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/21 05:01:30 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,9 @@ typedef struct  s_data
 	char	***full_cmd;
 	int		builtin;
 
+	/*Return code*/
+	int	rcode;
+
 	/*Roger Redirect vars*/
 	char	***cmd_redir;
 	int	redir_error;
@@ -156,9 +159,9 @@ int		echo_n(char **text);
 int		change_directory(char *path, char **envp);
 int		pwd(void);
 void	env(char **envp);
-char	**export(char **envp, char **str);
-char	**prep_unset(char **envpl, const char **str);
-char	**unset(char **envpl, const char *str);
+char	**export(char **envp, char **str, t_data *data);
+char	**prep_unset(char **envpl, const char **str, t_data *data);
+char	**unset(char **envpl, const char *str, t_data *data);
 void	error_exit(char *str);
 
 /*UTILS*/

@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 01:12:41 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/14 23:40:34 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/21 05:19:27 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,21 @@ int	builtin_exec_main(t_data *data)
 		return (pwd());
 	if (data->builtin == 4)
 	{
-		data->envp = export(data->envp, data->full_cmd[0] + 1);
-		return (0); //alterar para retornar o returncode!
+		data->rcode = 0;
+		data->envp = export(data->envp, data->full_cmd[0] + 1, data);
+		return (data->rcode); //alterar para retornar o returncode!
 	}
 	if (data->builtin == 5)
 	{
-		data->envp = prep_unset(data->envp, (const char **) data->full_cmd[0] + 1);
-		return (0); //alterar para retornar o returncode!
+		data->rcode = 0;
+		data->envp = prep_unset(data->envp, (const char **) data->full_cmd[0] + 1, data);
+		return (data->rcode); //alterar para retornar o returncode!
 	}
 	if (data->builtin == 6)
 	{
+		data->rcode = 0;
 		env(data->envp);
-		return (0);
+		return (data->rcode);
 	}
 	return (0);
 }
@@ -67,19 +70,22 @@ int	builtin_exec_pipe(t_pipe *args, t_data *data)
 		return (pwd());
 	if (args->builtin == 4)
 	{
-		data->envp = export(data->envp, args->cmd_args + 1);
-		return (0); //alterar para retornar o returncode!
+		data->rcode = 0;
+		data->envp = export(data->envp, args->cmd_args + 1, data);
+		return (data->rcode); //alterar para retornar o returncode!
 	}
 	if (args->builtin == 5)
 	{
 		//args->cmd_args++;
-		data->envp = prep_unset(data->envp, (const char **) args->cmd_args + 1);
-		return (0); //alterar para retornar o returncode!
+		data->rcode = 0;
+		data->envp = prep_unset(data->envp, (const char **) args->cmd_args + 1, data);
+		return (data->rcode); //alterar para retornar o returncode!
 	}
 	if (args->builtin == 6)
 	{
+		data->rcode = 0;
 		env(data->envp);
-		return (0);
+		return (data->rcode);
 	}
 	return (0);
 }

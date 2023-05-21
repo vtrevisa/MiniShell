@@ -58,7 +58,7 @@ static int	check_exists(char **envp, char *str)
 	return (0);
 }
 
-char	**export(char **envp, char **str)
+char	**export(char **envp, char **str, t_data *data)
 {
 	int	result;
 	int	i;
@@ -73,7 +73,7 @@ char	**export(char **envp, char **str)
 		//if (check_export_str(str[i]) == 1)
 		if (valid == 1)
 		{
-			//Ajustar no tstruct pra deixar o return code como 1!
+			data->rcode = 1;//Ajustar no tstruct pra deixar o return code como 1!
 			result = 1;
 			printf("export: `%s': not a valid identifier\n", str[i]);//transformar esse output em STDERR!!
 		}
@@ -84,7 +84,7 @@ char	**export(char **envp, char **str)
 			{
 				replace = ft_calloc(valid , str[i][0]);
 				ft_strlcpy(replace, str[i], valid + 1); //antes usava o strncpy
-				envp = unset(envp, replace);
+				envp = unset(envp, replace, data);
 				free(replace);
 			}
 			envp = add_new_var(envp, str[i]);

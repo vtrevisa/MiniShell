@@ -2,7 +2,21 @@
 #include "../Include/minishell.h"
 
 ///////// Funcoes do comando UNSET /////////
-char	**unset(char **envpl, const char *str)
+static int	check_unset_str(const char *str)
+{
+	if (!str || !*str)
+		return (1);
+	if (!ft_isalpha(*str) && *str != '_')
+		return (1);
+	str++;
+	while (ft_isalnum(*str) || *str == '_')
+		str++;
+	if (*str == '=')
+		return (1);
+	return (0);
+}
+
+char	**unset(char **envpl, const char *str, t_data *data)
 {
 	int	count;
 	int	i_to_remove;
@@ -10,6 +24,11 @@ char	**unset(char **envpl, const char *str)
 
 	i_to_remove = -1;
 	count = -1;
+	if (check_unset_str(str))
+	{
+		data->rcode = 1;
+		printf("unset: `%s': not a valid identifier\n", str);
+	}
 	//printf("Start UNSET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 	while (envpl[++count])
 	{
@@ -45,13 +64,13 @@ char	**unset(char **envpl, const char *str)
 	return (copy);
 }
 
-char	**prep_unset(char **envpl, const char **str)
+char	**prep_unset(char **envpl, const char **str, t_data *data)
 {
 	int	i;
 
 	i = -1;
 	while (str[++i])
-		envpl = unset(envpl, str[i]);
+		envpl = unset(envpl, str[i], data);
 	return (envpl);
 }
 ///////// FIM das funcoes do comando UNSET /////////
