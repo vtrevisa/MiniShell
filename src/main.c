@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/16 01:29:28 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/21 03:14:22 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	prompt_loop(t_data *data)
 			//1- Remover espacos do inicio;
 			//2- Fazer tratamento das aspas e Variaveis $ --> Mover o 3 para esse ponto?
 			//data->cmd_split = split_pipes(data->line);
+			data->redir_error = 0;
 			parser(data->line, data);
 			free_char_array(data->cmd_split);
 			/* Just to show the commands sperately
@@ -80,6 +81,8 @@ int	prompt_loop(t_data *data)
 			}*/
 			//3- Verificar se ha pipes (em locais que devem ser considerados)
 			//4.1 -> Caso nao, (checar > e < )ver se e bultins se for executar senao ir pro piper
+			if (data->redir_error == 0)
+			{
 			//4.2 -> Caso sim, ir pro piper
 			data->qtd_cmd = 0;
 			while (data->full_cmd[data->qtd_cmd])
@@ -138,6 +141,7 @@ int	prompt_loop(t_data *data)
 			{
 				//4.2
 				piper(data);
+			}
 			}
 			int i;
 			for (i = 0; data->full_cmd[i]; i++)

@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 04:46:03 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/15 01:55:34 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/21 03:00:27 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,8 @@ char	**parse_redir(char **parsed, t_data *data, int index)
 			p.redir_type = 1;
 			p.index2 = 0;
 			create_redir_str(parsed, &p, data, ">>");
-			check_outfile(data->cmd_redir[p.index][p.index2] + 1, 1);
+			if (check_outfile(data->cmd_redir[p.index][p.index2] + 1, 1) != 0)
+				data->redir_error = 1;
 			parsed = remove_redir(parsed, &p, ">>");
 		}
 		else if (ft_strncmp(parsed[p.i], ">", 1) == 0)
@@ -120,7 +121,8 @@ char	**parse_redir(char **parsed, t_data *data, int index)
 			p.redir_type = 0;
 			p.index2 = 0;
 			create_redir_str(parsed, &p, data, ">");
-			check_outfile(data->cmd_redir[p.index][p.index2] + 1, 0);
+			if (check_outfile(data->cmd_redir[p.index][p.index2] + 1, 0) != 0)
+				data->redir_error = 1;
 			parsed = remove_redir(parsed, &p, ">");
 		}
 		else if (ft_strncmp(parsed[p.i], "<<", 2) == 0)
@@ -129,8 +131,8 @@ char	**parse_redir(char **parsed, t_data *data, int index)
 			//printf("here-doc\n");
 			p.index2 = 1;
 			create_redir_str(parsed, &p, data, "<<");
-			//read until here-doc (data->cmd[p.index][p.index2] + 1) --> NEED TO CREATE THIS
 			data->cmd_redir[p.index][p.index2] = here_doc(data->cmd_redir[p.index][p.index2]);
+			data->cmd_redir[p.index][p.index2] = parse_var_heredoc(data->cmd_redir[p.index][p.index2], data);
 			parsed = remove_redir(parsed, &p, "<<");
 		}
 		else if (ft_strncmp(parsed[p.i], "<", 1) == 0)
@@ -139,7 +141,8 @@ char	**parse_redir(char **parsed, t_data *data, int index)
 			p.index2 = 1;
 			//printf("input file");
 			create_redir_str(parsed, &p, data, "<");
-			check_infile(data->cmd_redir[p.index][p.index2] + 1);
+			if (check_infile(data->cmd_redir[p.index][p.index2] + 1) != 0)
+				data->redir_error = 1;
 			parsed = remove_redir(parsed, &p, "<");
 		}
 	}

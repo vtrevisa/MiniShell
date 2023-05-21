@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/15 01:56:48 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/21 02:57:54 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct  s_data
 
 	/*Roger Redirect vars*/
 	char	***cmd_redir;
+	int	redir_error;
 
 	/*Roger MOVED FROM PIPER*/
 	int	qtd_cmd;
@@ -189,6 +190,7 @@ char	*find_variable(char *var, t_data *data);
 void	parse_var_redir(t_data *data, t_parser *parser);
 void	trim_quote_redir(t_parser *p);
 char	*here_doc(char *str);
+char	*parse_var_heredoc(char *str, t_data *data);
 
 
 #endif
