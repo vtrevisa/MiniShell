@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/21 05:01:30 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/21 05:54:44 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ int		child_1(t_data *data);
 
 /*BUILTINS*/
 int		echo_n(char **text);
-int		change_directory(char *path, char **envp);
+int		change_directory(char **paths, char **envp);
 int		pwd(void);
 void	env(char **envp);
 char	**export(char **envp, char **str, t_data *data);

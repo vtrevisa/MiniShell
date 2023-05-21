@@ -20,12 +20,19 @@ static char	*home_search(char *envp[])
 		return (NULL);
 }
 
-int	change_directory(char *path, char **envp)
+int	change_directory(char **paths, char **envp)
 {
 	char	cwd[PATH_MAX];
 	char	flag;
+	char	*path;
 
 	//printf("Hellcome to CD cmd, this is the path: %s\n", path);
+	if (paths[2])
+	{
+		printf("cd: too many arguments\n"); //-->send to stderr??
+		return (1);
+	}
+	path = paths[1];
 	flag = 0;
 	if (path == NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 01:12:41 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/21 05:19:27 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/21 05:49:20 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	builtin_exec_main(t_data *data)
 	if (data->builtin == 1)
 		return (echo_n(data->full_cmd[0] + 1));
 	if (data->builtin == 2)
-		return (change_directory(data->full_cmd[0][1], data->envp));
+		return (change_directory(data->full_cmd[0], data->envp));
 	if (data->builtin == 3)
 		return (pwd());
 	if (data->builtin == 4)
@@ -65,7 +65,7 @@ int	builtin_exec_pipe(t_pipe *args, t_data *data)
 	if (args->builtin == 1)
 		return (echo_n(args->cmd_args + 1));
 	if (args->builtin == 2)
-		return (change_directory(args->cmd_args[1], data->envp));
+		return (change_directory(args->cmd_args, data->envp));
 	if (args->builtin == 3)
 		return (pwd());
 	if (args->builtin == 4)
