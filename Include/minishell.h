@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/21 05:54:44 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/22 04:10:34 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ typedef struct	p_pipe
 	int		pipe_i;
 }	t_pipe;
 
+extern t_data	global_var;
+
 /*INIT*/
 void	init_data(t_data *data, char **envp);
 char	**copy_double_str(char **envp); //renomear de envp para str?
@@ -163,6 +165,7 @@ char	**export(char **envp, char **str, t_data *data);
 char	**prep_unset(char **envpl, const char **str, t_data *data);
 char	**unset(char **envpl, const char *str, t_data *data);
 void	error_exit(char *str);
+void	exit_shell(t_data *data);
 
 /*UTILS*/
 void	free_char_array(char **array);
@@ -195,5 +198,9 @@ void	trim_quote_redir(t_parser *p);
 char	*here_doc(char *str);
 char	*parse_var_heredoc(char *str, t_data *data);
 
+/*Signals*/
+void	sigint_handler(int sig);
+//void	sigquit_handler(int sig);
+void	print_user_dir(t_data *data);
 
 #endif

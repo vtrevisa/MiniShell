@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:09:55 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/04/22 22:52:17 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/22 04:27:20 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,24 @@ void	*read_line(t_data *data)
 	
 	data->linetyped = 0;
 	print_user_dir(data); //errors with the history, it erases the userdir
-	data->line = readline("$ ");
-	if (ft_strlen(data->line))
+	while ((data->line = readline("$ ")) != NULL)
 	{
-		add_history(data->line);
-		data->linetyped = 1;
-		//return (line);
+		if (*data->line == '\0')
+		{
+			print_user_dir(data); //errors with the history, it erases the userdir
+		}
+		if (ft_strlen(data->line))
+		{
+			add_history(data->line);
+			data->linetyped = 1;
+			break ;
+		}
+		else
+			free(data->line);
 	}
-	else
-		free(data->line);
+	if (!data->line)
+		exit_shell(data);
+	//else
+	//	free(data->line);
 		//return (NULL);
 }

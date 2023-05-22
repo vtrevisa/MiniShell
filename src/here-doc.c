@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 00:49:21 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/15 02:57:06 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/22 03:50:38 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,25 @@ char	*here_doc(char *str)
 	{
 		if (read)
 			free(read);
-		read = readline("> ");
-		if (ft_strlen(read))
+		//read = readline("> ");
+		if ((read = readline("> ")) != NULL)
 		{
-			if (ft_strncmp(str+1, read, ft_strlen(str+1) + ft_strlen(read)) == 0)
-				new_line = add_new_line(new_line);
+			if (ft_strlen(read))
+			{
+				if (ft_strncmp(str+1, read, ft_strlen(str+1) + ft_strlen(read)) == 0)
+					new_line = add_new_line(new_line);
+				else
+					new_line = add_line(read, new_line);
+			}
 			else
-				new_line = add_line(read, new_line);
+				new_line = add_new_line(new_line);
 		}
 		else
+		{
 			new_line = add_new_line(new_line);
+			printf("minishell: warning: here-document delimited by end-of-file (wanted `%s')", str+1);
+			break;
+		}
 	}
 	free(str);
 	free(read);

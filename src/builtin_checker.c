@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 01:12:41 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/21 05:49:20 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/22 04:09:55 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	builtin_checker(char *str)
 		return (5);
 	if (ft_strncmp(str, "env", ft_strlen(str)) == 0)
 		return (6);
-	//if (ft_strncmp(str, "exit", ft_strlen(str)) == 0)
-	//	return (1);
+	if (ft_strncmp(str, "exit", ft_strlen(str)) == 0)
+		return (7);
 	return (0);
 }
 
@@ -57,6 +57,8 @@ int	builtin_exec_main(t_data *data)
 		env(data->envp);
 		return (data->rcode);
 	}
+	if (data->builtin == 7)
+		exit_shell(data);
 	return (0);
 }
 
@@ -87,6 +89,8 @@ int	builtin_exec_pipe(t_pipe *args, t_data *data)
 		env(data->envp);
 		return (data->rcode);
 	}
+	if (args->builtin == 7)
+		exit_shell(data);
 	return (0);
 }
 

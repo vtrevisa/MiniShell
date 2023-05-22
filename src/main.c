@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/21 23:07:34 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/22 04:12:02 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,13 @@ int	prompt_loop(t_data *data)
 		read_line(data);
 		if (data->linetyped == 1)
 		{
-			if (ft_strnstr("exit", data->line, 4) != 0)
+			/*if (ft_strnstr("exit", data->line, 4) != 0)
 			{
 				free(data->line);
 				free(data->cmd);
 				free_all(data->envp);
 				return (EXIT_CODE);
-			}
+			}*/
 			data->redir_error = 0;
 			parser(data->line, data);
 			free_char_array(data->cmd_split);
@@ -150,19 +150,28 @@ int	prompt_loop(t_data *data)
 	}
 }
 
+t_data	global_var;
+
 int	main(int argc, char **argv, char **envp)
 {	
 	// Load config files, if any.
-	t_data	data;
-	
+	//t_data	data;
+
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
+
 	show_display();
-	init_data(&data, envp);
+	//init_data(&data, envp);
+	init_data(&global_var, envp);
 	// Run command loop.
-	prompt_loop(&data);
+	//prompt_loop(&data);
+	prompt_loop(&global_var);
 
 	// Perform any shutdown/cleanup.
-	free (data.user);
-	free_all (data.paths);
+	//free (data.user);
+	//free_all (data.paths);
+	free (global_var.user);
+	free_all (global_var.paths);
 
 	return (0);
 }
