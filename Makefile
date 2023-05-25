@@ -6,12 +6,17 @@ HEADER	= ./Include/minishell.h
 
 #--MANDATORY--
 SRC_D	= ./src/
-SRC		= main.c read_line.c init.c lexer.c lexer_utils.c lexer_utils_2.c exec.c child_and_pipes.c
+SRC		= main.c read_line.c init.c lexer.c lexer_utils.c lexer_utils_2.c exec.c child_and_pipes.c test_env_var.c
 OBJ		= $(addprefix $(OBJ_D)/, $(SRC:.c=.o))
 
 #--LIBFT--
 LIB		= $(addprefix $(LPATH)/, libft.a)
 LPATH	= ./Libft/
+
+#--TEST--
+TEST = src/test_env_var.c
+TOB  = $(TEST:.c=.o)
+MAIN = src/test_env_var_main.c
 
 all: $(NAME)
 
@@ -25,8 +30,8 @@ $(OBJ_D)/%.o: $(SRC_D)/%.c
 	mkdir -p $(OBJ_D)
 	cc -c $< -o $@
 
-test:
-	gcc src/test_env_var.c $(LIB)
+test: $(LIB) $(TOB) $(HEADER) 
+	cc $(MAIN) $(TOB) $(LIB) -o test
 
 clean:
 	rm -rf $(OBJ_D)

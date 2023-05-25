@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/04/17 22:43:14 by marvin           ###   ########.fr       */
+/*   Updated: 2023/05/11 15:35:51 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,8 @@ int		execute(t_data *data, char **args);
 int		child_2(t_data *data);
 int		child_3(t_data *data);
 int		child_1(t_data *data);
+
+/*TEST_ENV_VAR*/
+char *unveil_vars(char **envp, char* str);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:21:05 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/08 16:56:17 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/05/11 16:13:57 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,32 @@ void	tolkenizer(t_data *data)
 			data->count_cmd++;
 		}
 		else if (isarg(data, data->line_splitted[index]))
-			data->lexed_class[index] = 2;
+			{
+				write(1, "2\n", 2);
+				data->lexed_class[index] = 2;
+			}
 		else
 		{
+			write(1, "9\n", 2);
 			data->lexed_class[index] = issimble(data, \
-	data->line_splitted[index]);
+				data->line_splitted[index]);
 			if (data->lexed_class[index] == 3)
 			{
+				write(1, "3\n", 2);
 			}
 			else if (data->lexed_class[index] == 4 || \
-	data->lexed_class[index] == 5)
+				data->lexed_class[index] == 5)
 			{
+				write(1, "4\n", 2);
 			}
 			else if (data->lexed_class[index] == 6 || \
-	data->lexed_class[index] == 7)
+				data->lexed_class[index] == 7)
 			{
+				write(1, "5\n", 2);
 			}
 			else
 			{
+				write(1, "6\n", 2);
 				if ((data->lexed_class[index - 1] >= 4 \
 	&& data->lexed_class[index - 1] <= 7) && index > 0)
 					data->lexed_class[index] = 9;
@@ -74,7 +82,9 @@ void	lexer(t_data *data)
 {
 	char	**args;
 	int		index;
+	int		index2;
 
+	index2 = 0;
 	if (data->line == NULL)
 		return ;
 	if (data->line[0] == ' ')
@@ -87,7 +97,15 @@ void	lexer(t_data *data)
 		while (args[index])
 		{
 			data->line_splitted = \
-	ft_split(space_to_nonprint(args[index]), -1);
+			ft_split(space_to_nonprint(args[index]), -1);
+			while (data->line_splitted[index2] != NULL)
+			{
+				if (*data->line_splitted[index2] == '$')
+				{
+					data->line_splitted[index2] = unveil_vars(data->envp, data->line_splitted[index2]);
+				}
+				index2++;
+			}
 			tolkenizer(data);
 			openfiles(data);
 			execute(data, args);
