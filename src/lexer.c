@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:21:05 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/11 16:13:57 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/05/29 14:41:02 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,5 @@ void	lexer(t_data *data)
 			index++;
 		}
 	}
+	free (data->lexed_class);//
 }

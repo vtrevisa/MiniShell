@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/04/17 22:35:31 by marvin           ###   ########.fr       */
+/*   Updated: 2023/05/29 14:38:16 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,13 @@ void	free_all(char **str)
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
+	int		fd;
 
-	show_display();
+	fd = show_display();
 	init_data(&data, envp);
 	prompt_loop(&data);
+	free(data.cmd);
+	close(fd);
 	free (data.user);
 	free_all (data.paths);
 	return (0);
