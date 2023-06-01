@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:38:39 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/04/17 22:38:08 by marvin           ###   ########.fr       */
+/*   Updated: 2023/05/29 17:31:49 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	isarg(t_data *data, char *line_splitted)
 	int	index;
 
 	index = 0;
-	if (line_splitted[0] == '-' || line_splitted[0] == '"')
+	if (line_splitted[0] == '-' || line_splitted[0] == '"' || line_splitted[0] == '\'')
 		return (1);
 	else
 		return (0);

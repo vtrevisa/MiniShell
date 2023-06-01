@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:21:05 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/29 14:41:02 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:24:30 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ void	tolkenizer(t_data *data)
 	int	max_index;
 
 	max_index = count_splitted(data);
-	data->lexed_class = malloc(sizeof (int) * max_index);
-	ft_bzero(data->lexed_class, max_index);
+	ft_printf("Max_index: %d\n", max_index);
+	data->lexed_class = malloc(sizeof (int) * (max_index + 1));
+	ft_bzero(data->lexed_class, max_index + 1);
 	index = 0;
 	while (index <= max_index)
 	{

@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:38:39 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/04/17 21:54:54 by marvin           ###   ########.fr       */
+/*   Updated: 2023/05/29 17:31:36 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	openfiles(t_data *data)
 		if (data->lexed_class[index] == 6 || data->lexed_class[index] == 7)
 		{
 			data->file_fds[fd++] = \
-open (data->line_splitted[index + 1], O_CREAT, S_IRWXU);
+				open (data->line_splitted[index + 1], O_CREAT, S_IRWXU);
 			data->fd_in = data->file_fds[fd];
 		}
 	}
