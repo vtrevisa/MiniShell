@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/04 03:41:35 by romachad         ###   ########.fr       */
+/*   Updated: 2023/06/05 01:35:14 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,10 @@ void	command_exec(t_data *data)
 				dup2(fd, STDIN_FILENO);
 				close(fd);
 			}
+			//printf("ESTOU INDO PRO BUILTIN EXEC MAIN\n");
 			data->rcode = builtin_exec_main(data);
+			fflush(stdout);
+			//printf("SAI DO BUILTIN EXEC MAIN!\n");
 			if (data->cmd_redir[0][0])
 			{
 				dup2(data->saved_stdout, STDOUT_FILENO);
@@ -110,7 +113,7 @@ int	prompt_loop(t_data *data)
 			data->redir_error = 0;
 			parser(data->line, data);
 			free_char_array(data->cmd_split);
-			/* Just to show the commands sperately
+			/* Just to show the commands sperately 
 			int i;
 			if (data->full_cmd)
 			{
