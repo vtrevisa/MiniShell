@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 22:37:26 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/21 04:20:37 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/25 04:11:40 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	replace_var_redir(t_parser *p, t_data *data)
 	var_len = 0;
 	if (p->str[p->i + 1] != '?')
 	{
-		while (p->str[p->i + 1 + var_len] && (ft_isalnum(p->str[p->i + 1 + var_len]) || p->str[p->i + 1 + var_len] == '_'))
+		while (p->str[p->i + 1 + var_len] && (ft_isalnum(p->str[p->i + 1 + var_len]) || p->str[p->i + 1 + var_len] == '_')) //-->verificar se aceita numero apartir da segunda posicao!
 			var_len++;
 		var_name = ft_substr(p->str, p->i + 1, var_len);
 		var_value = find_variable(var_name, data);

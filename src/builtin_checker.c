@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 01:12:41 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/22 04:09:55 by romachad         ###   ########.fr       */
+/*   Updated: 2023/05/25 05:38:41 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	builtin_exec_pipe(t_pipe *args, t_data *data)
 	return (0);
 }
 
-int	is_there_pipes(char *str)
+int	is_there_pipes(char *str) //--> nao eh mais usado
 {
 	int	i;
 
