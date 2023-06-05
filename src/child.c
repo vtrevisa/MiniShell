@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 22:49:22 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/04 21:03:16 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/05 03:02:21 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	child_start(t_pipe *args, t_data *data)
 	if (args->builtin == 0)
 		return (errno);
 	else
-		return (0); //ajustar para mandar o return code do builtin;
+		return (data->rcode); //ajustar para mandar o return code do builtin;
 }
 
 static int	child_middle(t_pipe *args, t_data *data)

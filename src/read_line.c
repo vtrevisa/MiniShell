@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:09:55 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/22 04:27:20 by romachad         ###   ########.fr       */
+/*   Updated: 2023/06/05 02:32:17 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ void	print_user_dir(t_data *data)
 
 	index = 0;
 	getcwd(cwd, sizeof(cwd));
-	while (cwd[index] == data->user[index])
+	while (cwd[index] == data->user[index] && cwd[index])
 		index++;
-	ft_printf("~%s", cwd + index);
+	if (index >= ft_strlen(cwd))
+		ft_printf("~");
+	else
+		ft_printf("~%s", cwd + index);
 }
 
 //char	*read_line(t_data *data)

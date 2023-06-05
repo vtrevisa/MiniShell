@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 22:54:48 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/04 21:05:42 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/05 02:57:35 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,11 @@ static int	call_fork(t_pipe *args, t_data *data)
 	if (args->pid[args->cmd_n] == 0)
 	{
 		args->pid[args->cmd_n] = child_prog(args, data);
+		data->rcode = args->pid[args->cmd_n];
 		free_args(args);
 		free_char_array(data->envp);// Realmente necessario?
-		
-		int i;
-		for (i =0;data->full_cmd[i]; i++)
-			free_char_array(data->full_cmd[i]);
-		free(data->full_cmd);
-		
-		ft_printf("\ndeu falha no child?\n");
-		exit (0);
-		//exit(args->pid[args->cmd_n]); // caso de falha do child... args->pid foi feito free acima... 
+		//ft_printf("\ndeu falha no child?\n");
+		exit (data->rcode);
 	}
 	if (args->pid[args->cmd_n] > 0)
 		return (0);
