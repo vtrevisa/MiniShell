@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 04:46:03 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/21 03:00:27 by romachad         ###   ########.fr       */
+/*   Updated: 2023/06/04 21:04:17 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	create_redir_str(char **parsed, t_parser *p, t_data *data, char *redir_type
 	if (ft_strncmp(redir_type, "<<", ft_strlen(redir_type)) != 0)
 		parse_var_redir(data, p);
 	trim_quote_redir(p);
-	//printf("data->cmd_redir[%d][%d] = %d\n",p->index,p->index2,data->cmd_redir[p->index][p->index2]);
+	//ft_printf("data->cmd_redir[%d][%d] = %d\n",p->index,p->index2,data->cmd_redir[p->index][p->index2]);
 	if (!data->cmd_redir[p->index][p->index2])
 		data->cmd_redir[p->index][p->index2] = (char *) ft_calloc(ft_strlen(p->str) + 2, sizeof(p->str));
 	else
@@ -128,7 +128,7 @@ char	**parse_redir(char **parsed, t_data *data, int index)
 		else if (ft_strncmp(parsed[p.i], "<<", 2) == 0)
 		{
 			p.redir_type = 1;
-			//printf("here-doc\n");
+			//ft_printf("here-doc\n");
 			p.index2 = 1;
 			create_redir_str(parsed, &p, data, "<<");
 			data->cmd_redir[p.index][p.index2] = here_doc(data->cmd_redir[p.index][p.index2]);
@@ -139,7 +139,7 @@ char	**parse_redir(char **parsed, t_data *data, int index)
 		{
 			p.redir_type = 0;
 			p.index2 = 1;
-			//printf("input file");
+			//ft_printf("input file");
 			create_redir_str(parsed, &p, data, "<");
 			if (check_infile(data->cmd_redir[p.index][p.index2] + 1) != 0)
 				data->redir_error = 1;

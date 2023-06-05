@@ -49,11 +49,11 @@ static int	check_exists(char **envp, char *str)
 	i = - 1;
 	while (envp[++i])
 	{
-		//printf("\nOK lets check if exists!\n");
-		//printf("envp[%i] = %s\nstr = %s\neq is: %i\n", i, envp[i], str, eq);
+		//ft_printf("\nOK lets check if exists!\n");
+		//ft_printf("envp[%i] = %s\nstr = %s\neq is: %i\n", i, envp[i], str, eq);
 		if (ft_strncmp(envp[i], str, eq) == 0)
 			return (eq);
-		//printf("If we are still here then NOPE, no MATCH! FTS\n");
+		//ft_printf("If we are still here then NOPE, no MATCH! FTS\n");
 	}
 	return (0);
 }
@@ -75,7 +75,7 @@ char	**export(char **envp, char **str, t_data *data)
 		{
 			data->rcode = 1;//Ajustar no tstruct pra deixar o return code como 1!
 			result = 1;
-			printf("export: `%s': not a valid identifier\n", str[i]);//transformar esse output em STDERR!!
+			ft_printf("export: `%s': not a valid identifier\n", str[i]);//transformar esse output em STDERR!!
 		}
 		else if (valid == 0)
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here-doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 00:49:21 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/22 03:50:38 by romachad         ###   ########.fr       */
+/*   Updated: 2023/06/04 21:03:38 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*here_doc(char *str)
 		else
 		{
 			new_line = add_new_line(new_line);
-			printf("minishell: warning: here-document delimited by end-of-file (wanted `%s')", str+1);
+			ft_printf("minishell: warning: here-document delimited by end-of-file (wanted `%s')", str+1);
 			break;
 		}
 	}

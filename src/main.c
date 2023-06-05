@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/05 01:35:14 by romachad         ###   ########.fr       */
+/*   Updated: 2023/06/04 21:03:55 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ void	command_exec(t_data *data)
 				dup2(fd, STDIN_FILENO);
 				close(fd);
 			}
-			//printf("ESTOU INDO PRO BUILTIN EXEC MAIN\n");
+			//ft_printf("ESTOU INDO PRO BUILTIN EXEC MAIN\n");
 			data->rcode = builtin_exec_main(data);
 			fflush(stdout);
-			//printf("SAI DO BUILTIN EXEC MAIN!\n");
+			//ft_printf("SAI DO BUILTIN EXEC MAIN!\n");
 			if (data->cmd_redir[0][0])
 			{
 				dup2(data->saved_stdout, STDOUT_FILENO);
@@ -99,7 +99,7 @@ int	prompt_loop(t_data *data)
 	status = 0;
 	while (1)
 	{
-		printf("> ");
+		ft_printf("> ");
 		read_line(data);
 		if (data->linetyped == 1)
 		{
@@ -121,10 +121,10 @@ int	prompt_loop(t_data *data)
 				{
 					int j;
 					for (j=0; data->full_cmd[i][j]; j++)
-						printf("str[%d][%d] = %s\n",i,j,data->full_cmd[i][j]);
-					printf("REDIRECTIONS:\n");
+						ft_printf("str[%d][%d] = %s\n",i,j,data->full_cmd[i][j]);
+					ft_printf("REDIRECTIONS:\n");
 					for (j=0; j < 2; j++)
-						printf("arg[%d][%d] = %s\n",i,j,data->cmd_redir[i][j]);
+						ft_printf("arg[%d][%d] = %s\n",i,j,data->cmd_redir[i][j]);
 				}
 			}*/
 			if (data->redir_error == 0)
@@ -149,7 +149,7 @@ int	prompt_loop(t_data *data)
 		//lexer(data);
 		/* status = execute(data); */
 		else
-			printf("");
+			ft_printf("");
 	}
 }
 

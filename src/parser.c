@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 22:33:51 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/04 03:37:28 by romachad         ###   ########.fr       */
+/*   Updated: 2023/06/04 21:05:27 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ void	replace_var(t_parser *p, t_data *data)
 		}
 		else
 		{
-		printf("str eh: %s\n",p->str);
+		//ft_printf("str eh: %s\n",p->str);
 			new_str = ft_calloc((ft_strlen(p->str) - (var_len + 1)), sizeof(p->str));
 			ft_memcpy(new_str, p->str, p->i);
 			ft_memcpy(new_str + p->i, p->str + p->i + var_len + 1, ft_strlen(p->str + p->i + var_len));
@@ -226,7 +226,7 @@ void	parse_var(char *str, t_data *data, t_parser *parse)
 		{
 			replace_var(parse, data);
 			flag = 0;
-			//printf("current str: %s\ni: %d\n",parse->str,parse->i);
+			//ft_printf("current str: %s\ni: %d\n",parse->str,parse->i);
 		}
 	}
 }
@@ -329,11 +329,11 @@ void	parser(char *str, t_data *data)
 		{
 			parse_var(data->full_cmd[parser.index][parser.index2], data, &parser);
 			trim_quote(data->full_cmd[parser.index][parser.index2], data, &parser);
-			/*printf("loop %i temos:\n",parser.index2);
+			/*ft_printf("loop %i temos:\n",parser.index2);
 			int k;
 			for (k =0; data->full_cmd[parser.index][k]; k++)
-				printf("data->full_cmd[%i][%i] = %s\n", parser.index, k, data->full_cmd[parser.index][k]);
-			printf("FIM de rodada\n");*/
+				ft_printf("data->full_cmd[%i][%i] = %s\n", parser.index, k, data->full_cmd[parser.index][k]);
+			ft_printf("FIM de rodada\n");*/
 		}
 	}
 	//return (split_pipes(str));

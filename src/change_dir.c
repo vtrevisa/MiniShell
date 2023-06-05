@@ -13,7 +13,7 @@ static char	*home_search(char *envp[])
 	if (envp[i])
 	{
 		tmppath = ft_strdup(envp[i] + (5 * sizeof(envp[i][0])));
-		printf("tmppath: %s\n", tmppath);
+		ft_printf("tmppath: %s\n", tmppath);
 		return (tmppath);
 	}
 	else
@@ -26,10 +26,10 @@ int	change_directory(char **paths, char **envp)
 	char	flag;
 	char	*path;
 
-	//printf("Hellcome to CD cmd, this is the path: %s\n", path);
+	//ft_printf("Hellcome to CD cmd, this is the path: %s\n", path);
 	if (paths[2])
 	{
-		printf("cd: too many arguments\n"); //-->send to stderr??
+		ft_printf("cd: too many arguments\n"); //-->send to stderr??
 		return (1);
 	}
 	path = paths[1];
@@ -40,7 +40,7 @@ int	change_directory(char **paths, char **envp)
 		if (path)
 			flag = 1;
 	}
-	//printf("Current directory: %s\n", cwd);
+	//ft_printf("Current directory: %s\n", cwd);
 	if (chdir(path) == -1)
 	{
 		perror("chdir");
@@ -49,7 +49,7 @@ int	change_directory(char **paths, char **envp)
 			free(path);
 		return (1);
 	}
-	//printf("Changed to directory: %s\n", cwd);
+	//ft_printf("Changed to directory: %s\n", cwd);
 	if (flag)
 		free(path);
 	return (0);

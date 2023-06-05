@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 22:49:22 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/16 03:51:41 by romachad         ###   ########.fr       */
+/*   Updated: 2023/06/04 21:03:16 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,8 +194,8 @@ int	child_prog(t_pipe *args, t_data *data)
 		if (args->fpath == NULL)
 		{
 			dup2(STDERR_FILENO, STDOUT_FILENO);
-			//printf("minishell: %s not found\n", args->cmd_args[0]);//Mudar para stderr?
-			printf("minishell: %s not found\n", data->full_cmd[args->cmd_n][0]);//Mudar para stderr?
+			//ft_printf("minishell: %s not found\n", args->cmd_args[0]);//Mudar para stderr?
+			ft_printf("minishell: %s not found\n", data->full_cmd[args->cmd_n][0]);//Mudar para stderr?
 			//free_char_array(args->cmd_args);
 			/*free_char_array(data->full_cmd[args->cmd_n]); //--> Trocar para liberar todo o data->full_cmd!!
 			free_char_array(data->envp);
@@ -207,6 +207,6 @@ int	child_prog(t_pipe *args, t_data *data)
 		}
 	}
 	//else
-	//	printf("BUILTIN Identificado!\n");
+	//	ft_printf("BUILTIN Identificado!\n");
 	return (child_exec(args, data));
 }

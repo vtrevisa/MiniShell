@@ -14,7 +14,7 @@ int	pwd(void)
 		return (1);
 	}*/
 	if (getcwd(cwd, PATH_MAX) != NULL)
-		printf("%s\n", cwd);
+		ft_printf("%s\n", cwd);
 	else
 	{
 		perror("getcwd error");

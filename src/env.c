@@ -7,5 +7,5 @@ void	env(char **envp)
 
 	i = -1;
 	while (envp[++i])
-		printf("%s\n", envp[i]);
+		ft_printf("%s\n", envp[i]);
 }

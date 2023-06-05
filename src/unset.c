@@ -27,25 +27,25 @@ char	**unset(char **envpl, const char *str, t_data *data)
 	if (check_unset_str(str))
 	{
 		data->rcode = 1;
-		printf("unset: `%s': not a valid identifier\n", str);
+		ft_printf("unset: `%s': not a valid identifier\n", str);
 	}
-	//printf("Start UNSET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+	//ft_printf("Start UNSET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 	while (envpl[++count])
 	{
-		//printf("currentl envpl[%i] is: %s\n",count, envpl[count]);
-		//printf("str e strlen: %s e %i\n",str, strlen(str));
+		//ft_printf("currentl envpl[%i] is: %s\n",count, envpl[count]);
+		//ft_printf("str e strlen: %s e %i\n",str, strlen(str));
 		if(ft_strncmp(envpl[count], str, strlen(str)) == 0)
 		{
-			//printf("strncmp foi igual a zero!\n");
-			//printf("Temos envpl[%i] = %s\n", count, envpl[count]);
-			//printf("str e strlen sao: %s e %i\n", str, strlen(str));
+			//ft_printf("strncmp foi igual a zero!\n");
+			//ft_printf("Temos envpl[%i] = %s\n", count, envpl[count]);
+			//ft_printf("str e strlen sao: %s e %i\n", str, strlen(str));
 			if (envpl[count][strlen(str)] == '=')
 			{
 				i_to_remove = count;
 			}
 		}
 	}
-	//printf("i_to_remove = %i\n", i_to_remove);
+	//ft_printf("i_to_remove = %i\n", i_to_remove);
 	if (i_to_remove == -1)
 		return (envpl);
 	copy = (char **)malloc((count) * sizeof(envpl[0]));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 22:54:48 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/21 22:18:43 by romachad         ###   ########.fr       */
+/*   Updated: 2023/06/04 21:05:42 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	call_fork(t_pipe *args, t_data *data)
 			free_char_array(data->full_cmd[i]);
 		free(data->full_cmd);
 		
-		printf("\ndeu falha no child?\n");
+		ft_printf("\ndeu falha no child?\n");
 		exit (0);
 		//exit(args->pid[args->cmd_n]); // caso de falha do child... args->pid foi feito free acima... 
 	}
@@ -109,7 +109,7 @@ void	wait_pipes(t_pipe *args, t_data *data)
 		if (WIFEXITED(status))
 		{
 			exit_status = WEXITSTATUS(status);
-			printf("[%d]Exit status of child %d was %d\n",i,args->pid[i],exit_status);
+			ft_printf("[%d]Exit status of child %d was %d\n",i,args->pid[i],exit_status);
 			data->rcode = exit_status;
 		}
 	}
@@ -150,7 +150,7 @@ void	piper(t_data *data)
 		error_exit("Fail pipes malloc");
 	if (create_pipes(&args, data) == -1)
 	{
-		printf("ERROR! Failed to create pipes!\n");
+		ft_printf("ERROR! Failed to create pipes!\n");
 		free(args.pipes);
 		exit (130);
 	}
