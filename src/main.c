@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/04 21:03:55 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/04 21:08:49 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	command_exec(t_data *data)
 			}
 			//ft_printf("ESTOU INDO PRO BUILTIN EXEC MAIN\n");
 			data->rcode = builtin_exec_main(data);
-			fflush(stdout);
 			//ft_printf("SAI DO BUILTIN EXEC MAIN!\n");
 			if (data->cmd_redir[0][0])
 			{
