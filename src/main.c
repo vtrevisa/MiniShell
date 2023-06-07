@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/04 21:08:49 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/07 04:02:40 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,9 +126,16 @@ int	prompt_loop(t_data *data)
 						ft_printf("arg[%d][%d] = %s\n",i,j,data->cmd_redir[i][j]);
 				}
 			}*/
-			if (data->redir_error == 0)
+			if (data->redir_error == 0 && data->ctrl_c == 0)
 			{
 				command_exec(data);
+			}
+			else if (data->ctrl_c == 1)
+			{
+				data->ctrl_c = 0;
+				dup2(data->saved_stdin, STDIN_FILENO);
+				close(data->saved_stdin);
+				//STDIN_FILENO = dup(data->saved_stdin);
 			}
 			int i;
 			for (i = 0; data->full_cmd[i]; i++)

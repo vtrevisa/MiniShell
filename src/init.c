@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:13 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/05/21 04:03:34 by romachad         ###   ########.fr       */
+/*   Updated: 2023/06/07 02:30:12 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	init_data(t_data *data, char **envp)
 	data->cmd = malloc (sizeof (char *) * 3);
 	//data->envp = envp; Removido pq o envp sera copiado!
 	data->envp = copy_double_str(envp);
+	data->ctrl_c = 0;
 	data->count_cmd = 0;
 	data->fd_in = 0;
 	data->fd_out = 0;
