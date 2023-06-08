@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/07 19:07:39 by vtrevisa          #+#    #+#             */
+/*   Updated: 2023/06/08 16:25:42 by vtrevisa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
 ///////// Funcoes do comando EXPORT /////////
 static char	**add_new_var(char **envp, char *str)
 {
-	int	count;
+	int		count;
 	char	**copy;
 
 	count = 0;
@@ -42,11 +53,11 @@ static int	check_exists(char **envp, char *str)
 	int	eq;
 
 	eq = 0;
-	while (str[eq] != '=' && str[eq] )
+	while (str[eq] != '=' && str[eq])
 		eq++;
 	if (!str[eq])
 		return (0);
-	i = - 1;
+	i = -1;
 	while (envp[++i])
 	{
 		//ft_printf("\nOK lets check if exists!\n");
@@ -58,11 +69,11 @@ static int	check_exists(char **envp, char *str)
 	return (0);
 }
 
-char	**export(char **envp, char **str, t_data *data)
+char	**export(char **envp, char **str, g_data *data)
 {
-	int	result;
-	int	i;
-	int	valid;
+	int		result;
+	int		i;
+	int		valid;
 	char	*replace;
 
 	result = 0;
@@ -82,7 +93,7 @@ char	**export(char **envp, char **str, t_data *data)
 			valid = check_exists(envp, str[i]); //se ja existir chama funcao de unset
 			if (valid > 0)
 			{
-				replace = ft_calloc(valid , str[i][0]);
+				replace = ft_calloc(valid, str[i][0]);
 				ft_strlcpy(replace, str[i], valid + 1); //antes usava o strncpy
 				envp = unset(envp, replace, data);
 				free(replace);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args_str_treatment.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 02:46:02 by romachad          #+#    #+#             */
-/*   Updated: 2023/04/23 02:51:17 by romachad         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:50:51 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,3 @@ char	**treat_str(char *str)
 	add_space(str_treated);
 	return (str_treated);
 }
-

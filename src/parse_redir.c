@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 04:46:03 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/04 21:04:17 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:25:42 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	**remove_redir(char **parsed, t_parser *p, char *redir_type)
 	return (copy);
 }
 
-void	create_redir_str(char **parsed, t_parser *p, t_data *data, char *redir_type)
+void	create_redir_str(char **parsed, t_parser *p, g_data *data, char *redir_type)
 {
 	p->str = parsed[p->i];
 	if (ft_strlen(redir_type) == ft_strlen(parsed[p->i]))
@@ -98,7 +98,7 @@ int	check_infile(char *infile)
 	return (0);
 }
 
-char	**parse_redir(char **parsed, t_data *data, int index)
+char	**parse_redir(char **parsed, g_data *data, int index)
 {
 	t_parser	p;
 

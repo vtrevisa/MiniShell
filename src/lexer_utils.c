@@ -6,17 +6,17 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:38:39 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/03/23 15:22:25 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:25:42 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-int	iscmd(t_data *data, char *line_splitted)
+int	iscmd(g_data *data, char *line_splitted)
 {
 	char	*tmp;
 	int		index;
-	
+
 	index = -1;
 	while (data->paths[++index])
 	{
@@ -34,9 +34,9 @@ int	iscmd(t_data *data, char *line_splitted)
 	return (0);
 }
 
-int	isarg(t_data *data, char *line_splitted)
+int	isarg(g_data *data, char *line_splitted)
 {
-	int index;
+	int	index;
 
 	index = 0;
 	if (line_splitted[0] == '-' || line_splitted[0] == '"')
@@ -45,7 +45,7 @@ int	isarg(t_data *data, char *line_splitted)
 		return (0);
 }
 
-int	issimble(t_data *data, char *line_splitted)
+int	issimble(g_data *data, char *line_splitted)
 {
 	if (line_splitted[0] == '$')
 		return (3);

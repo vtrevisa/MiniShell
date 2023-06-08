@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redir_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 22:37:26 by romachad          #+#    #+#             */
-/*   Updated: 2023/05/25 04:11:40 by romachad         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:25:42 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 static char	*trim_redir(t_parser *p)
 {
 	char	*new_str;
-	
+
 	new_str = ft_calloc((ft_strlen(p->str) - 2), sizeof(p->str));
 	if (p->i > 0)
 		ft_memcpy(new_str, p->str, p->i);
 	ft_memcpy(new_str + p->i, p->str + p->i + 1, p->j - (p->i +1));
-	ft_memcpy(new_str + p->i + (p->j - (p->i + 1)), p->str + p->j + 1, ft_strlen(p->str) - p->j);
+	ft_memcpy(new_str + p->i + (p->j - (p->i + 1)), p->str + p->j + 1,\
+		ft_strlen(p->str) - p->j);
 	free(p->str);
 	p->i = p->j - 2;
 	return (new_str);
@@ -29,7 +30,7 @@ static char	*trim_redir(t_parser *p)
 void	trim_quote_redir(t_parser *p)
 {
 	char	flag;
-	int	bkp;
+	int		bkp;
 
 	flag = 0;
 	bkp = p->i;
@@ -40,7 +41,7 @@ void	trim_quote_redir(t_parser *p)
 		{
 			p->j = p->i + 1;
 			flag = p->str[p->i];
-			while(p->str[p->j] && p->str[p->j] != flag)
+			while (p->str[p->j] && p->str[p->j] != flag)
 				p->j++;
 			if (p->str[p->j] == flag)
 				p->str = trim_redir(p);
@@ -49,9 +50,9 @@ void	trim_quote_redir(t_parser *p)
 	p->i = bkp;
 }
 
-void	replace_var_redir(t_parser *p, t_data *data)
+void	replace_var_redir(t_parser *p, g_data *data)
 {
-	int	var_len;
+	int		var_len;
 	char	*var_name;
 	char	*var_value;
 	char	*new_str;
@@ -61,7 +62,7 @@ void	replace_var_redir(t_parser *p, t_data *data)
 	var_len = 0;
 	if (p->str[p->i + 1] != '?')
 	{
-		while (p->str[p->i + 1 + var_len] && (ft_isalnum(p->str[p->i + 1 + var_len]) || p->str[p->i + 1 + var_len] == '_')) //-->verificar se aceita numero apartir da segunda posicao!
+		while (p->str[p->i + 1 + var_len] && (ft_isalnum(p->str[p->i + 1\ + var_len]) || p->str[p->i + 1 + var_len] == '_')) //-->verificar se aceita numero apartir da segunda posicao!
 			var_len++;
 		var_name = ft_substr(p->str, p->i + 1, var_len);
 		var_value = find_variable(var_name, data);
@@ -75,10 +76,12 @@ void	replace_var_redir(t_parser *p, t_data *data)
 	}
 	if (var_value)
 	{
-		new_str = ft_calloc((p->i + ft_strlen(var_value) + (ft_strlen(p->str) - p->i - var_len)), sizeof(p->str));
+		new_str = ft_calloc((p->i + ft_strlen(var_value) + (ft_strlen(p->str)\
+			- p->i - var_len)), sizeof(p->str));
 		ft_memcpy(new_str, p->str, p->i);
 		ft_memcpy(new_str + p->i, var_value, ft_strlen(var_value));
-		ft_memcpy(new_str + p->i + ft_strlen(var_value), p->str + p->i + var_len + 1, ft_strlen(p->str + p->i + var_len));
+		ft_memcpy(new_str + p->i + ft_strlen(var_value), p->str + p->i + \
+			var_len + 1, ft_strlen(p->str + p->i + var_len));
 		free(p->str);
 		p->str = new_str;
 		p->i = p->i + ft_strlen(var_value);
@@ -87,24 +90,25 @@ void	replace_var_redir(t_parser *p, t_data *data)
 	}
 	else
 	{
-		new_str = ft_calloc((ft_strlen(p->str) - (var_len + 1)), sizeof(p->str));
+		new_str = ft_calloc((ft_strlen(p->str) - (var_len + 1)),\
+			sizeof(p->str));
 		ft_memcpy(new_str, p->str, p->i);
-		ft_memcpy(new_str + p->i, p->str + p->i + var_len + 1, ft_strlen(p->str + p-> i + var_len));
+		ft_memcpy(new_str + p->i, p->str + p->i + var_len + 1, \
+			ft_strlen(p->str + p-> i + var_len));
 		free(p->str);
 		p->str = new_str;
 	}
 }
 
-void	parse_var_redir(t_data *data, t_parser *p)
+void	parse_var_redir(g_data *data, t_parser *p)
 {
 	int	flag;
 	int	bkp;
 	//t_parser	p;
-
 	flag = 0;
 	//p.str = parser->str;
 	bkp = p->i;
-	p->i = - 1;
+	p->i = -1;
 	while (p->str[++p->i])
 	{
 		if (p->str[p->i] == '"')
@@ -126,7 +130,7 @@ void	parse_var_redir(t_data *data, t_parser *p)
 	p->i = bkp;
 }
 
-char	*parse_var_heredoc(char *str, t_data *data)
+char	*parse_var_heredoc(char *str, g_data *data)
 {
 	t_parser	p;
 

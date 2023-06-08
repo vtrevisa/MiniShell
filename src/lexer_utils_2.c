@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:38:39 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/03/23 15:01:07 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:25:42 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ char	*space_to_nonprint(char *str)
 	return (str);
 }
 
-int	count_splitted(t_data *data)
+int	count_splitted(g_data *data)
 {
 	int	index;
 	int	splits;
-	
+
 	index = 0;
 	splits = 0;
 	while (data->line[index])
@@ -46,7 +46,7 @@ int	count_splitted(t_data *data)
 	return (splits);
 }
 
-int	openfiles(t_data *data)
+int	openfiles(g_data *data)
 {
 	int	index;
 	int	fd;
@@ -58,12 +58,14 @@ int	openfiles(t_data *data)
 	{
 		if (data->lexed_class[index] == 4 || data->lexed_class[index] == 5)
 		{
-			data->file_fds[fd++] = open (data->line_splitted[index + 1], O_CREAT, S_IRWXU);
+			data->file_fds[fd++] = open (data->line_splitted[index + 1], \
+			O_CREAT, S_IRWXU);
 			data->fd_out = data->file_fds[fd];
 		}
 		if (data->lexed_class[index] == 6 || data->lexed_class[index] == 7)
 		{
-			data->file_fds[fd++] = open (data->line_splitted[index + 1], O_CREAT, S_IRWXU);
+			data->file_fds[fd++] = open (data->line_splitted[index + 1], \
+				O_CREAT, S_IRWXU);
 			data->fd_in = data->file_fds[fd];
 		}
 	}

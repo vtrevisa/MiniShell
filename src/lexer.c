@@ -6,13 +6,13 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:21:05 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/04/12 22:08:46 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:25:42 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-void	tolkenizer(t_data *data)
+void	tolkenizer(g_data *data)
 {
 	int	index;
 	int	max_index;
@@ -59,7 +59,7 @@ void	tolkenizer(t_data *data)
 	}
 }
 
-void	count_pipe(t_data *data)
+void	count_pipe(g_data *data)
 {
 	int	index;
 
@@ -74,7 +74,7 @@ void	count_pipe(t_data *data)
 /*	write(1, "ok\n", 3); */
 }
 
-void	lexer(t_data *data)
+void	lexer(g_data *data)
 {
 	char	**args;
 	int		index;

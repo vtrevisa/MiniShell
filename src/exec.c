@@ -6,13 +6,13 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:35:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/04/06 15:44:16 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:25:42 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-char **getcmd(t_data *data, char **args)
+char **getcmd(g_data *data, char **args)
 {
 	char	**cmd;
 	int		index;
@@ -37,14 +37,14 @@ char **getcmd(t_data *data, char **args)
 	return (cmd);
 }
 
-static int	child(t_data *data)
+static int	child(g_data *data)
 {
 	if (data->cmd)
 		execve(data->cmd_path, data->line_splitted, data->envp);
 	return (0);
 }
 
-int	execute (t_data *data, char **args)
+int	execute (g_data *data, char **args)
 {
 	int	pid;
 	int	situation;

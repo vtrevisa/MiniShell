@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/07 04:02:40 by romachad         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:25:42 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	show_display(void)
 {
-	int	fd;
-	char *line;
+	int		fd;
+	char	*line;
 
 	fd = open ("./src/display", O_RDONLY);
 	while (fd != -1)
@@ -41,7 +41,7 @@ void	free_all(char **str)
 	free(str);
 }
 
-void	command_exec(t_data *data)
+void	command_exec(g_data *data)
 {
 	data->qtd_cmd = 0;
 	while (data->full_cmd[data->qtd_cmd])
@@ -51,7 +51,7 @@ void	command_exec(t_data *data)
 		data->builtin = builtin_checker(data->full_cmd[0][0]);
 		if (data->builtin)
 		{
-			int fd;
+			int	fd;
 			if (data->cmd_redir[0][0])
 			{
 				data->saved_stdout = dup(STDOUT_FILENO);
@@ -91,7 +91,7 @@ void	command_exec(t_data *data)
 		piper(data);
 }
 
-int	prompt_loop(t_data *data)
+int	prompt_loop(g_data *data)
 {
 	int		status;
 
@@ -137,19 +137,18 @@ int	prompt_loop(t_data *data)
 				close(data->saved_stdin);
 				//STDIN_FILENO = dup(data->saved_stdin);
 			}
-			int i;
+			int	i;
 			for (i = 0; data->full_cmd[i]; i++)
 			{
 				free_char_array(data->full_cmd[i]);
-				int j;
-				for (j=0; j<2; j++)
+				int	j;
+				for (j = 0; j < 2; j++)
 					free(data->cmd_redir[i][j]);
 				free(data->cmd_redir[i]);
 			}
 			free(data->cmd_redir);
 			free(data->full_cmd);
 			free(data->line);
-
 		}
 		/* write(1, "ok\n", 3); */
 		//lexer(data);
@@ -159,28 +158,24 @@ int	prompt_loop(t_data *data)
 	}
 }
 
-t_data	global_var;
+g_data	global_var;
 
 int	main(int argc, char **argv, char **envp)
 {	
 	// Load config files, if any.
-	//t_data	data;
-
+	//g_data	data;
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
-
 	show_display();
 	//init_data(&data, envp);
 	init_data(&global_var, envp);
 	// Run command loop.
 	//prompt_loop(&data);
 	prompt_loop(&global_var);
-
 	// Perform any shutdown/cleanup.
 	//free (data.user);
 	//free_all (data.paths);
 	free (global_var.user);
 	free_all (global_var.paths);
-
 	return (0);
 }

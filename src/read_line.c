@@ -6,13 +6,13 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:09:55 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/05 02:32:17 by romachad         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:25:42 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-void	print_user_dir(t_data *data)
+void	print_user_dir(g_data *data)
 {
 	char cwd[1024];
 	int index;
@@ -27,8 +27,8 @@ void	print_user_dir(t_data *data)
 		ft_printf("~%s", cwd + index);
 }
 
-//char	*read_line(t_data *data)
-void	*read_line(t_data *data)
+//char	*read_line(g_data *data)
+void	*read_line(g_data *data)
 {
 	//char *line;
 	

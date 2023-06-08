@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:13 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/07 02:30:12 by romachad         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:24:50 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	**copy_double_str(char **envp)
 {
-	int	count;
-	int	i;
+	int		count;
+	int		i;
 	char	**copy;
 
 	copy = envp - 1;
@@ -56,7 +56,7 @@ char	*userfinder(char *envp[])
 	return (envp[index] + 5);
 }
 
-void	init_data(t_data *data, char **envp)
+void	init_data(g_data *data, char **envp)
 {
 	data->paths = ft_split(pathfinder(envp), ':');
 	data->user = ft_strdup(userfinder(envp));

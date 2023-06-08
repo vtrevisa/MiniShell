@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 22:33:51 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/04 21:05:27 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:25:42 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	**split_pipes(char *str)
 	return (ft_split(str, 17));
 }
 
-char	*find_variable(char *var, t_data *data)//-> Move this to parser_utils.c
+char	*find_variable(char *var, g_data *data)//-> Move this to parser_utils.c
 {
 	int	i;
 
@@ -94,7 +94,7 @@ char	*find_variable(char *var, t_data *data)//-> Move this to parser_utils.c
 	return (NULL);
 }
 
-void	replace_var(t_parser *p, t_data *data)
+void	replace_var(t_parser *p, g_data *data)
 {
 	int	var_len;
 	char	*var_name;
@@ -172,7 +172,7 @@ int	check_close_dq(char *str)//-> Move this to parser_utils.c and add in header
 }
 
 /*Split Arguments based on space, however no splitting spaces that are in quotes*/
-void	parse_quote(char *str, t_data *data, int index, t_parser *p) 
+void	parse_quote(char *str, g_data *data, int index, t_parser *p) 
 {
 	p->i = -1;
 	p->str = str;
@@ -201,7 +201,7 @@ void	parse_quote(char *str, t_data *data, int index, t_parser *p)
 }
 
 
-void	parse_var(char *str, t_data *data, t_parser *parse)
+void	parse_var(char *str, g_data *data, t_parser *parse)
 {
 	int	flag;
 
@@ -231,7 +231,7 @@ void	parse_var(char *str, t_data *data, t_parser *parse)
 	}
 }
 
-char	*trim(char *str, t_data *data, t_parser *p)
+char	*trim(char *str, g_data *data, t_parser *p)
 {
 	char	*new_str;
 
@@ -276,7 +276,7 @@ char	**remove_empty(char **str,int i_to_remove, t_parser *p)
 	return (copy);
 }
 
-void	trim_quote(char *str, t_data *data, t_parser *p)
+void	trim_quote(char *str, g_data *data, t_parser *p)
 {
 	char	flag;
 
@@ -305,7 +305,7 @@ void	trim_quote(char *str, t_data *data, t_parser *p)
 	}
 }
 
-void	parser(char *str, t_data *data)
+void	parser(char *str, g_data *data)
 {
 	int	i;
 	int	j;

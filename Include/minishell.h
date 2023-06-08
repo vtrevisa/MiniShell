@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/07 02:28:42 by romachad         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:25:42 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,19 @@ typedef enum
 	VARIABLE_IN_DQ,
 }	state;
 
-typedef struct	s_parser
+typedef struct s_parser
 {
 	int		i;
 	int		j;
 	int		index;
 	int		index2;
 	int		redir_type;
-	//int		pipe_i;
 	char	*str;
 	state	st;
 }	t_parser;
 
-
-typedef struct  s_data
+typedef struct s_data
 {
-
 	/*PROMPT_LOOP*/
 	char	*line; //get the line readed from read_line
 	char	linetyped; //bool to check if someting was typed
@@ -113,7 +110,7 @@ typedef struct  s_data
 	int	saved_stderr;
 	//int	fd[2];
 
-}	t_data;
+}	g_data;
 
 typedef struct	p_pipe
 {
@@ -130,80 +127,80 @@ typedef struct	p_pipe
 	int		pipe_i;
 }	t_pipe;
 
-extern t_data	global_var;
+extern g_data	global_var;
 
 /*INIT*/
-void	init_data(t_data *data, char **envp);
+void	init_data(g_data *data, char **envp);
 char	**copy_double_str(char **envp); //renomear de envp para str?
 
 /*READ_LINE*/
-//char	*read_line(t_data *data);
-void	*read_line(t_data *data);
+//char	*read_line(g_data *data);
+void	*read_line(g_data *data);
 
 /*LEXER_UTILS*/
-int		iscmd(t_data *data, char *line_splitted);
-int		isarg(t_data *data, char *line_splitted);
-int		issimble(t_data *data, char *line_splitted);
+int		iscmd(g_data *data, char *line_splitted);
+int		isarg(g_data *data, char *line_splitted);
+int		issimble(g_data *data, char *line_splitted);
 
 /*LEXER_UTILS_2*/
 char	*space_to_nonprint(char *str);
-int		count_splitted(t_data *data);
-int		openfiles(t_data *data);
+int		count_splitted(g_data *data);
+int		openfiles(g_data *data);
 
 /*LEXER*/
-void	lexer(t_data *data);
+void	lexer(g_data *data);
 
 /*EXEC*/
-int		execute(t_data *data, char **args);
-int		child_2(t_data *data);
-int		child_3(t_data *data);
-int		child_1(t_data *data);
+int		execute(g_data *data, char **args);
+int		child_2(g_data *data);
+int		child_3(g_data *data);
+int		child_1(g_data *data);
 
 /*BUILTINS*/
 int		echo_n(char **text);
 int		change_directory(char **paths, char **envp);
 int		pwd(void);
 void	env(char **envp);
-char	**export(char **envp, char **str, t_data *data);
-char	**prep_unset(char **envpl, const char **str, t_data *data);
-char	**unset(char **envpl, const char *str, t_data *data);
+char	**export(char **envp, char **str, g_data *data);
+char	**prep_unset(char **envpl, const char **str, g_data *data);
+char	**unset(char **envpl, const char *str, g_data *data);
 void	error_exit(char *str);
-void	exit_shell(t_data *data);
+void	exit_shell(g_data *data);
 
 /*UTILS*/
 void	free_char_array(char **array);
 
 /*Roger EXEC*/
-int	builtin_exec_main(t_data *data);
+int	builtin_exec_main(g_data *data);
 int	is_there_pipes(char *str);
 
 /*PIPER*/
-void	piper(t_data *data);
+void	piper(g_data *data);
 
 /*PIPE Functions*/
 char	**treat_str(char *str);
 char	*path_search(char *envp[], const char *cmd);
-int		child_prog(t_pipe *args, t_data *data);
+int		child_prog(t_pipe *args, g_data *data);
 void	free_args(t_pipe *args);
-void	close_pipes(t_pipe *args, t_data *data);
+void	close_pipes(t_pipe *args, g_data *data);
 /*PIPE Functions for builtins*/
 int		builtin_checker(char *str);
-int		builtin_exec_pipe(t_pipe *args, t_data *data);
+int		builtin_exec_pipe(t_pipe *args, g_data *data);
 
 /*Roger Parser*/
-void	parser(char *str, t_data *data);
+void	parser(char *str, g_data *data);
 char	**split_pipes(char *str);
-char	**parse_redir(char **parsed, t_data *data, int index);
+char	**parse_redir(char **parsed, g_data *data, int index);
 int		check_close_dq(char *str);
-char	*find_variable(char *var, t_data *data);
-void	parse_var_redir(t_data *data, t_parser *parser);
+char	*find_variable(char *var, g_data *data);
+void	parse_var_redir(g_data *data, t_parser *parser);
 void	trim_quote_redir(t_parser *p);
 char	*here_doc(char *str);
-char	*parse_var_heredoc(char *str, t_data *data);
+char	*parse_var_heredoc(char *str, g_data *data);
 
 /*Signals*/
 void	sigint_handler(int sig);
 //void	sigquit_handler(int sig);
-void	print_user_dir(t_data *data);
+void	print_user_dir(g_data *data);
 
 #endif
