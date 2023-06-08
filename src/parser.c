@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 22:33:51 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/08 16:25:42 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/08 18:06:09 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 	int	i;
 
 	i = p.i;
-	//while (str[p.i] != ' ' && str[p.i] != '\f' && str[p.i] != '\r' && str[p.i] != '\t' && str[p.i] != '\v')
+	//while (str[p.i] != ' ' && str[p.i] != '\f' && str[p.i] != '\r' && 
+		str[p.i] != '\t' && str[p.i] != '\v')
 	//	p.i++;
 	while (str[p.i])
 	{
@@ -55,14 +56,13 @@ char	**parser(char *str)
 	}
 }*/
 
-
 /*Split pipes if not in quotes*/
 char	**split_pipes(char *str)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	flag;
-	
+
 	i = -1;
 	while (str[++i])
 	{
@@ -70,7 +70,7 @@ char	**split_pipes(char *str)
 		{
 			flag = str[i];
 			j = i + 1;
-			while(str[j] && str[j] != flag)
+			while (str[j] && str[j] != flag)
 				j++;
 			if (str[j] == flag)
 				i = j;
@@ -81,32 +81,34 @@ char	**split_pipes(char *str)
 	return (ft_split(str, 17));
 }
 
-char	*find_variable(char *var, g_data *data)//-> Move this to parser_utils.c
+char	*find_variable(char *var, t_data *data)//-> Move this to parser_utils.c
 {
 	int	i;
 
 	i = -1;
 	while (data->envp[++i])
 	{
-		if (ft_strncmp(data->envp[i], var, ft_strlen(var)) == 0 && data->envp[i][ft_strlen(var)] == '=')
+		if (ft_strncmp(data->envp[i], var, ft_strlen(var)) == 0 && \
+			data->envp[i][ft_strlen(var)] == '=')
 			return (data->envp[i] + ft_strlen(var) + 1);
 	}
 	return (NULL);
 }
 
-void	replace_var(t_parser *p, g_data *data)
+void	replace_var(t_parser *p, t_data *data)
 {
-	int	var_len;
+	int		var_len;
 	char	*var_name;
 	char	*var_value;
 	char	*new_str;
 	char	flag;
 
 	flag = 0;
-	var_len =0;
+	var_len = 0;
 	if (p->str[p->i +1] != '?')
 	{
-		while (p->str[p->i + 1 + var_len] && (ft_isalnum(p->str[p->i + 1 + var_len]) || p->str[p->i + 1 + var_len] == '_'))
+		while (p->str[p->i + 1 + var_len] && (ft_isalnum(p->str[p->i + 1 + \
+			var_len]) || p->str[p->i + 1 + var_len] == '_'))
 			var_len++;
 		var_name = ft_substr(p->str, p->i + 1, var_len);
 		var_value = find_variable(var_name, data);
@@ -120,10 +122,12 @@ void	replace_var(t_parser *p, g_data *data)
 	}
 	if (var_value)
 	{
-		new_str = ft_calloc((p->i + ft_strlen(var_value) + (ft_strlen(p->str) - p->i - var_len)), sizeof(p->str));
+		new_str = ft_calloc((p->i + ft_strlen(var_value) + (ft_strlen(p->str) \
+			- p->i - var_len)), sizeof(p->str));
 		ft_memcpy(new_str, p->str, p->i);
 		ft_memcpy(new_str + p->i, var_value, ft_strlen(var_value));
-		ft_memcpy(new_str + p->i + ft_strlen(var_value), p->str + p->i + var_len + 1, ft_strlen(p->str + p->i + var_len));
+		ft_memcpy(new_str + p->i + ft_strlen(var_value), p->str + p->i + \
+			var_len + 1, ft_strlen(p->str + p->i + var_len));
 		//free(data->cmd_split[index]);
 		free(data->full_cmd[p->index][p->index2]);
 		//data->cmd_split[index] = new_str;
@@ -137,7 +141,7 @@ void	replace_var(t_parser *p, g_data *data)
 	{
 		if (ft_strlen(p->str) - (var_len + 1) == 0)
 		{
-			new_str = ft_calloc(2 , sizeof(p->str));
+			new_str = ft_calloc(2, sizeof(p->str));
 			new_str[0] = -1;
 			free(data->full_cmd[p->index][p->index2]);
 			data->full_cmd[p->index][p->index2] = new_str;
@@ -146,9 +150,11 @@ void	replace_var(t_parser *p, g_data *data)
 		else
 		{
 		//ft_printf("str eh: %s\n",p->str);
-			new_str = ft_calloc((ft_strlen(p->str) - (var_len + 1)), sizeof(p->str));
+			new_str = ft_calloc((ft_strlen(p->str) - (var_len + 1)), \
+				sizeof(p->str));
 			ft_memcpy(new_str, p->str, p->i);
-			ft_memcpy(new_str + p->i, p->str + p->i + var_len + 1, ft_strlen(p->str + p->i + var_len));
+			ft_memcpy(new_str + p->i, p->str + p->i + var_len + 1, \
+				ft_strlen(p->str + p->i + var_len));
 			//free(data->cmd_split[index]);
 			free(data->full_cmd[p->index][p->index2]);
 			//data->cmd_split[index] = new_str;
@@ -162,7 +168,7 @@ int	check_close_dq(char *str)//-> Move this to parser_utils.c and add in header
 {
 	int	i;
 
-	i= 0;
+	i = 0;
 	while (str[++i])
 	{
 		if (str[i] == '"')
@@ -171,8 +177,9 @@ int	check_close_dq(char *str)//-> Move this to parser_utils.c and add in header
 	return (0);
 }
 
-/*Split Arguments based on space, however no splitting spaces that are in quotes*/
-void	parse_quote(char *str, g_data *data, int index, t_parser *p) 
+/*Split Arguments based on space,
+however no splitting spaces \addindex are in quotes*/
+void	parse_quote(char *str, t_data *data, int index, t_parser *p)
 {
 	p->i = -1;
 	p->str = str;
@@ -200,8 +207,7 @@ void	parse_quote(char *str, g_data *data, int index, t_parser *p)
 	data->full_cmd[index] = ft_split(p->str, 17);
 }
 
-
-void	parse_var(char *str, g_data *data, t_parser *parse)
+void	parse_var(char *str, t_data *data, t_parser *parse)
 {
 	int	flag;
 
@@ -212,7 +218,8 @@ void	parse_var(char *str, g_data *data, t_parser *parse)
 	{
 		if (parse->str[parse->i] == '"')
 			flag = check_close_dq(parse->str + parse->i);
-		if (parse->str[parse->i] == '\'' && parse->str[parse->i + 1] && flag == 0)
+		if (parse->str[parse->i] == '\'' && parse->str[parse->i + 1] && \
+			flag == 0)
 		{
 			parse->j = parse->i + 1;
 			while (parse->str[parse->j] && parse->str[parse->j] != '\'')
@@ -231,7 +238,7 @@ void	parse_var(char *str, g_data *data, t_parser *parse)
 	}
 }
 
-char	*trim(char *str, g_data *data, t_parser *p)
+char	*trim(char *str, t_data *data, t_parser *p)
 {
 	char	*new_str;
 
@@ -245,7 +252,8 @@ char	*trim(char *str, g_data *data, t_parser *p)
 		if (p->i > 0)
 			ft_memcpy(new_str, str, p->i);
 		ft_memcpy(new_str + p->i, str + p->i + 1, p->j - (p->i + 1));
-		ft_memcpy(new_str + p->i + (p->j - (p->i + 1)), str + p->j + 1, ft_strlen(str) - p->j);
+		ft_memcpy(new_str + p->i + (p->j - (p->i + 1)), str + p->j + 1, \
+	ft_strlen(str) - p->j);
 		p->i = p->j - 2;
 	}
 	free(str);
@@ -253,13 +261,13 @@ char	*trim(char *str, g_data *data, t_parser *p)
 	return (new_str);
 }
 
-char	**remove_empty(char **str,int i_to_remove, t_parser *p)
+char	**remove_empty(char **str, int i_to_remove, t_parser *p)
 {
-	int	count;
+	int		count;
 	char	**copy;
 
 	count = 0;
-	while(str[count])
+	while (str[count])
 		count++;
 	copy = (char **)ft_calloc(count, sizeof(str[0]));
 	if (copy == NULL)
@@ -269,14 +277,15 @@ char	**remove_empty(char **str,int i_to_remove, t_parser *p)
 	else
 	{
 		ft_memcpy(copy, str, i_to_remove * sizeof(str[0]));
-		ft_memcpy(copy + i_to_remove, str + i_to_remove + 1, (count - i_to_remove - 1) * sizeof(str[0]));
+		ft_memcpy(copy + i_to_remove, str + i_to_remove + 1, (count - \
+			i_to_remove - 1) * sizeof(str[0]));
 	}
 	free(str[i_to_remove]);
 	free(str);
 	return (copy);
 }
 
-void	trim_quote(char *str, g_data *data, t_parser *p)
+void	trim_quote(char *str, t_data *data, t_parser *p)
 {
 	char	flag;
 
@@ -286,7 +295,8 @@ void	trim_quote(char *str, g_data *data, t_parser *p)
 	{
 		if (str[p->i] == -1 && str[p->i + 1] == 0) //--> Remove str da lista pq eh variavel vazia
 		{
-			data->full_cmd[p->index] = remove_empty(data->full_cmd[p->index], p->index2, p);
+			data->full_cmd[p->index] = remove_empty(data->full_cmd[p->index], \
+		 p->index2, p);
 			p->index2--;
 			break ;
 			//function to remove
@@ -294,7 +304,7 @@ void	trim_quote(char *str, g_data *data, t_parser *p)
 		if (str[p->i] == '"' || str[p->i] == '\'')
 		{
 			/*if (str[p->i + 1] == -1)
-				str[p->i +1] = ' '; TALVEZ NAO FACA SENTIDO*/ 
+			str[p->i +1] = ' '; TALVEZ NAO FACA SENTIDO*/
 			p->j = p->i + 1;
 			flag = str[p->i];
 			while (str[p->j] && str[p->j] != flag)
@@ -305,17 +315,17 @@ void	trim_quote(char *str, g_data *data, t_parser *p)
 	}
 }
 
-void	parser(char *str, g_data *data)
+void	parser(char *str, t_data *data)
 {
-	int	i;
-	int	j;
+	int			i;
+	int			j;
 	t_parser	parser;
 
 	i = 0;
 	data->cmd_split = split_pipes(str);
 	while (data->cmd_split[i])
 		i++;
-	data->full_cmd = (char ***) ft_calloc(i+1, sizeof(char ***));
+	data->full_cmd = (char ***) ft_calloc(i + 1, sizeof(char ***));
 	data->cmd_redir = (char ***) ft_calloc(i, sizeof(char ***));
 	parser.index = -1;
 	while (data->cmd_split[++parser.index])
@@ -327,8 +337,10 @@ void	parser(char *str, g_data *data)
 		parser.index2 = -1;
 		while (data->full_cmd[parser.index][++parser.index2])
 		{
-			parse_var(data->full_cmd[parser.index][parser.index2], data, &parser);
-			trim_quote(data->full_cmd[parser.index][parser.index2], data, &parser);
+			parse_var(data->full_cmd[parser.index][parser.index2], data, \
+				&parser);
+			trim_quote(data->full_cmd[parser.index][parser.index2], data, \
+				&parser);
 			/*ft_printf("loop %i temos:\n",parser.index2);
 			int k;
 			for (k =0; data->full_cmd[parser.index][k]; k++)

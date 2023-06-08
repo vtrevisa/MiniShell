@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 19:07:39 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/08 16:25:42 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/08 17:39:54 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	check_exists(char **envp, char *str)
 	return (0);
 }
 
-char	**export(char **envp, char **str, g_data *data)
+char	**export(char **envp, char **str, t_data *data)
 {
 	int		result;
 	int		i;

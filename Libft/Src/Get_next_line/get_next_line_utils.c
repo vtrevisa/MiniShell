@@ -6,25 +6,15 @@
 /*   By: vitor <vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 18:03:17 by vitor             #+#    #+#             */
-/*   Updated: 2023/02/17 12:37:48 by vitor            ###   ########.fr       */
+/*   Updated: 2022/08/18 13:40:02 by vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/libft.h"
 
-size_t	gn_strlen(const char *s)
-{
-	int	len;
+char	*get_next_line(int fd);
 
-	if (!s)
-		return (0);
-	len = 0;
-	while (s[len])
-		len++;
-	return ((size_t)len);
-}
-
-char	*gn_strjoin(char *s1, char *s2)
+char	*ft_strfjoin(char *s1, char *s2)
 {
 	int		s1_len;
 	int		s2_len;
@@ -51,24 +41,4 @@ char	*gn_strjoin(char *s1, char *s2)
 	str1[s1_len] = '\0';
 	free(s1);
 	return (str1);
-}
-
-char	*gn_strchr(char *s, int c)
-{
-	int	position;
-
-	if (!s)
-		return (0);
-	position = 0;
-	while (s[position])
-	{	
-		if (s[position] == (char)c)
-			return ((char *)s + position);
-		position++;
-	}
-	if (s[position] == c)
-		return ((char *)s + position);
-	if (c == 0)
-		return (0);
-	return (NULL);
 }

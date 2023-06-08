@@ -6,23 +6,22 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:35:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/08 16:25:42 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/08 17:39:54 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-char **getcmd(g_data *data, char **args)
+char	**getcmd(t_data *data, char **args)
 {
 	char	**cmd;
 	int		index;
 	int		index2;
-	
+
 	index = 0;
 	index2 = 0;
-	
 	cmd = malloc (sizeof (char *) * 3);
-	while(args[index] != NULL)
+	while (args[index] != NULL)
 	{
 		/* ft_printf("GETCMD: args[%d]: %s | lexed_class: %d\n", index, args[index], data->lexed_class[index]); */
 		if (data->lexed_class[index] == 1 || data->lexed_class[index] == 2)
@@ -31,20 +30,19 @@ char **getcmd(g_data *data, char **args)
 			index2++;
 		}
 		index++;
-		
 	}
 	cmd[index2] = NULL;
 	return (cmd);
 }
 
-static int	child(g_data *data)
+static int	child(t_data *data)
 {
 	if (data->cmd)
 		execve(data->cmd_path, data->line_splitted, data->envp);
 	return (0);
 }
 
-int	execute (g_data *data, char **args)
+int	execute(t_data *data, char **args)
 {
 	int	pid;
 	int	situation;
@@ -70,8 +68,7 @@ int	execute (g_data *data, char **args)
 		}
 		ft_printf("child3\n");
 		child_3(data);
-		data->pipes++; */
-		
+		data->pipes++; */		
 	}
 	else
 	{	

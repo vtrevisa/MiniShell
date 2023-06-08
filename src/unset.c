@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 19:19:22 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/08 16:25:42 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/08 17:39:54 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	check_unset_str(const char *str)
 	return (0);
 }
 
-char	**unset(char **envpl, const char *str, g_data *data)
+char	**unset(char **envpl, const char *str, t_data *data)
 {
 	int		count;
 	int		i_to_remove;
@@ -76,7 +76,7 @@ char	**unset(char **envpl, const char *str, g_data *data)
 	return (copy);
 }
 
-char	**prep_unset(char **envpl, const char **str, g_data *data)
+char	**prep_unset(char **envpl, const char **str, t_data *data)
 {
 	int	i;
 

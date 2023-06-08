@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 01:12:41 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/08 16:25:42 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/08 17:55:50 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	builtin_checker(char *str)
 	return (0);
 }
 
-int	builtin_exec_main(g_data *data)
+int	builtin_exec_main(t_data *data)
 {
 	if (data->builtin == 1)
 		return (echo_n(data->full_cmd[0] + 1));
@@ -48,8 +48,8 @@ int	builtin_exec_main(g_data *data)
 	if (data->builtin == 5)
 	{
 		data->rcode = 0;
-		data->envp = prep_unset(data->envp, (const char **) data->full_cmd[0]\
-			+ 1, data);
+		data->envp = prep_unset(data->envp, (const char **) data->full_cmd[0] \
++ 1, data);
 		return (data->rcode); //alterar para retornar o returncode!
 	}
 	if (data->builtin == 6)
@@ -63,7 +63,7 @@ int	builtin_exec_main(g_data *data)
 	return (0);
 }
 
-int	builtin_exec_pipe(t_pipe *args, g_data *data)
+int	builtin_exec_pipe(t_pipe *args, t_data *data)
 {
 	if (args->builtin == 1)
 		return (echo_n(args->cmd_args + 1));

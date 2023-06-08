@@ -6,16 +6,16 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:09:55 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/08 16:25:42 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/08 17:39:54 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-void	print_user_dir(g_data *data)
+void	print_user_dir(t_data *data)
 {
-	char cwd[1024];
-	int index;
+	char	cwd[1024];
+	int		index;
 
 	index = 0;
 	getcwd(cwd, sizeof(cwd));
@@ -27,14 +27,14 @@ void	print_user_dir(g_data *data)
 		ft_printf("~%s", cwd + index);
 }
 
-//char	*read_line(g_data *data)
-void	*read_line(g_data *data)
+//char	*read_line(t_data *data)
+void	*read_line(t_data *data)
 {
 	//char *line;
-	
 	data->linetyped = 0;
 	print_user_dir(data); //errors with the history, it erases the userdir
-	while ((data->line = readline("$ ")) != NULL)
+	data->line = readline("$ ");
+	while (data->line != NULL)
 	{
 		if (*data->line == '\0')
 		{
@@ -48,6 +48,7 @@ void	*read_line(g_data *data)
 		}
 		else
 			free(data->line);
+		data->line = readline("$ "); // dont know if this is right, prob not;
 	}
 	if (!data->line)
 		exit_shell(data);

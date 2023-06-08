@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 22:37:26 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/08 16:25:42 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/08 18:02:24 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*trim_redir(t_parser *p)
 	if (p->i > 0)
 		ft_memcpy(new_str, p->str, p->i);
 	ft_memcpy(new_str + p->i, p->str + p->i + 1, p->j - (p->i +1));
-	ft_memcpy(new_str + p->i + (p->j - (p->i + 1)), p->str + p->j + 1,\
+	ft_memcpy(new_str + p->i + (p->j - (p->i + 1)), p->str + p->j + 1, \
 		ft_strlen(p->str) - p->j);
 	free(p->str);
 	p->i = p->j - 2;
@@ -50,7 +50,7 @@ void	trim_quote_redir(t_parser *p)
 	p->i = bkp;
 }
 
-void	replace_var_redir(t_parser *p, g_data *data)
+void	replace_var_redir(t_parser *p, t_data *data)
 {
 	int		var_len;
 	char	*var_name;
@@ -62,7 +62,9 @@ void	replace_var_redir(t_parser *p, g_data *data)
 	var_len = 0;
 	if (p->str[p->i + 1] != '?')
 	{
-		while (p->str[p->i + 1 + var_len] && (ft_isalnum(p->str[p->i + 1\ + var_len]) || p->str[p->i + 1 + var_len] == '_')) //-->verificar se aceita numero apartir da segunda posicao!
+		while (p->str[p->i + 1 + var_len] && (ft_isalnum(p->str[p->i + 1 \
+	+ var_len]) || p->str[p->i + 1 + var_len] == '_')) //-->verificar \
+		 se aceita numero apartir da segunda posicao!
 			var_len++;
 		var_name = ft_substr(p->str, p->i + 1, var_len);
 		var_value = find_variable(var_name, data);
@@ -76,7 +78,7 @@ void	replace_var_redir(t_parser *p, g_data *data)
 	}
 	if (var_value)
 	{
-		new_str = ft_calloc((p->i + ft_strlen(var_value) + (ft_strlen(p->str)\
+		new_str = ft_calloc((p->i + ft_strlen(var_value) + (ft_strlen(p->str) \
 			- p->i - var_len)), sizeof(p->str));
 		ft_memcpy(new_str, p->str, p->i);
 		ft_memcpy(new_str + p->i, var_value, ft_strlen(var_value));
@@ -90,7 +92,7 @@ void	replace_var_redir(t_parser *p, g_data *data)
 	}
 	else
 	{
-		new_str = ft_calloc((ft_strlen(p->str) - (var_len + 1)),\
+		new_str = ft_calloc((ft_strlen(p->str) - (var_len + 1)), \
 			sizeof(p->str));
 		ft_memcpy(new_str, p->str, p->i);
 		ft_memcpy(new_str + p->i, p->str + p->i + var_len + 1, \
@@ -100,7 +102,7 @@ void	replace_var_redir(t_parser *p, g_data *data)
 	}
 }
 
-void	parse_var_redir(g_data *data, t_parser *p)
+void	parse_var_redir(t_data *data, t_parser *p)
 {
 	int	flag;
 	int	bkp;
@@ -130,7 +132,7 @@ void	parse_var_redir(g_data *data, t_parser *p)
 	p->i = bkp;
 }
 
-char	*parse_var_heredoc(char *str, g_data *data)
+char	*parse_var_heredoc(char *str, t_data *data)
 {
 	t_parser	p;
 

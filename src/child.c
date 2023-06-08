@@ -6,13 +6,13 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 22:49:22 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/08 16:25:42 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/08 18:03:16 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-static int	child_start(t_pipe *args, g_data *data)
+static int	child_start(t_pipe *args, t_data *data)
 {
 	int	fd;
 
@@ -67,7 +67,7 @@ static int	child_start(t_pipe *args, g_data *data)
 		return (data->rcode); //ajustar para mandar o return code do builtin;
 }
 
-static int	child_middle(t_pipe *args, g_data *data)
+static int	child_middle(t_pipe *args, t_data *data)
 {
 	int	fd;
 
@@ -82,8 +82,8 @@ static int	child_middle(t_pipe *args, g_data *data)
 		else
 		{
 			dup2(args->pipes[args->pipe_i + 2], STDIN_FILENO);
-			write(args->pipes[args->pipe_i + 3], data->cmd_redir[args->cmd_n]\
-			[1] + 1, ft_strlen(data->cmd_redir[args->cmd_n][1] + 1));
+			write(args->pipes[args->pipe_i + 3], data->cmd_redir[args->cmd_n] \
+		[1] + 1, ft_strlen (data->cmd_redir[args->cmd_n][1] + 1));
 		}
 	}
 	if (data->cmd_redir[args->cmd_n][0])
@@ -119,7 +119,7 @@ static int	child_middle(t_pipe *args, g_data *data)
 	return (errno);
 }
 
-static int	child_end(t_pipe *args, g_data *data)
+static int	child_end(t_pipe *args, t_data *data)
 {
 	int	fd;
 
@@ -136,8 +136,8 @@ static int	child_end(t_pipe *args, g_data *data)
 		else
 		{
 			dup2(args->pipes[args->pipe_i + 2], STDIN_FILENO);
-			write(args->pipes[args->pipe_i + 3], data->cmd_redir[args->cmd_n][1]\
-			+ 1, ft_strlen(data->cmd_redir[args->cmd_n][1] + 1));
+			write(args->pipes[args->pipe_i + 3], data->cmd_redir[args->cmd_n][1] \
++ 1, ft_strlen (data->cmd_redir[args->cmd_n][1] + 1));
 		}
 	}
 	if (data->cmd_redir[args->cmd_n][0])
@@ -169,7 +169,7 @@ static int	child_end(t_pipe *args, g_data *data)
 	return (errno);
 }
 
-static int	child_exec(t_pipe *args, g_data *data)
+static int	child_exec(t_pipe *args, t_data *data)
 {
 	if (args->flag == 0)
 		return (child_start(args, data));
@@ -179,7 +179,7 @@ static int	child_exec(t_pipe *args, g_data *data)
 		return (child_end(args, data));
 }
 
-int	child_prog(t_pipe *args, g_data *data)
+int	child_prog(t_pipe *args, t_data *data)
 {
 	//args->cmd_args = treat_str(args->argv[args->cmd_n]); -->Str ja tratada no parser
 	//args->builtin = builtin_checker(args->cmd_args[0]);

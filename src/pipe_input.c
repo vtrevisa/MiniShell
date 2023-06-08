@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 22:54:48 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/08 16:25:42 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/08 17:56:46 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ void	free_args(t_pipe *args)
 	free(args->pipes);
 }
 
-void	close_pipes(t_pipe *args, g_data *data)
+void	close_pipes(t_pipe *args, t_data *data)
 {
 	int	i;
 
 	i = -1;
 	//while (++i < (data->qtd_cmd - 1) * 2)
-	while (++i < (data->qtd_cmd) * 2)//--> pipe are create even with one command due to  here-doc
+	while (++i < (data->qtd_cmd * 2)) //--> pipe are create even with one command due to  here-doc
 		close(args->pipes[i]);
 }
 
-int	create_pipes(t_pipe *args, g_data *data)
+int	create_pipes(t_pipe *args, t_data *data)
 {
 	int	i;
 	int	j;
@@ -47,7 +47,7 @@ int	create_pipes(t_pipe *args, g_data *data)
 
 //////// FIM DO POSSIVELMENTE SEPARA EM UTILS OU ALGO SIMILAR////
 
-static int	call_fork(t_pipe *args, g_data *data)
+static int	call_fork(t_pipe *args, t_data *data)
 {
 	args->pid[args->cmd_n] = fork();
 	//colar um if de caso de falha do fork?
@@ -66,7 +66,7 @@ static int	call_fork(t_pipe *args, g_data *data)
 		return (-1); //caso de falha
 }
 
-static void	pipe_to_pipe(t_pipe *args, g_data *data)
+static void	pipe_to_pipe(t_pipe *args, t_data *data)
 {
 	int	retv;
 	int	i;
@@ -89,7 +89,7 @@ static void	pipe_to_pipe(t_pipe *args, g_data *data)
 	}
 }
 
-void	wait_pipes(t_pipe *args, g_data *data)
+void	wait_pipes(t_pipe *args, t_data *data)
 {
 	int	i;
 	int	status;
@@ -102,14 +102,14 @@ void	wait_pipes(t_pipe *args, g_data *data)
 		if (WIFEXITED(status))
 		{
 			exit_status = WEXITSTATUS(status);
-			ft_printf ("[%d]Exit status of child %d was %d\n",i , args->pid[i], \
+			ft_printf ("[%d]Exit status of child %d was %d\n", i, args->pid[i], \
 				exit_status);
 			data->rcode = exit_status;
 		}
 	}
 }
 
-static int	main_fork(t_pipe *args, g_data *data)
+static int	main_fork(t_pipe *args, t_data *data)
 {
 	//int	i;
 	args->flag = 0;
@@ -129,7 +129,7 @@ static int	main_fork(t_pipe *args, g_data *data)
 	return (0);
 }
 
-void	piper(g_data *data)
+void	piper(t_data *data)
 {
 	t_pipe	args;
 

@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:38:39 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/08 16:25:42 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/08 17:39:54 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*space_to_nonprint(char *str)
 	return (str);
 }
 
-int	count_splitted(g_data *data)
+int	count_splitted(t_data *data)
 {
 	int	index;
 	int	splits;
@@ -46,7 +46,7 @@ int	count_splitted(g_data *data)
 	return (splits);
 }
 
-int	openfiles(g_data *data)
+int	openfiles(t_data *data)
 {
 	int	index;
 	int	fd;
