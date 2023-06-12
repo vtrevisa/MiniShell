@@ -6,7 +6,7 @@
 /*   By: vitor <vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 18:09:09 by vitor             #+#    #+#             */
-/*   Updated: 2022/08/18 13:40:11 by vitor            ###   ########.fr       */
+/*   Updated: 2023/02/17 12:37:20 by vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	*get_buf(int fd, char *buf)
 	temp = malloc (BUFFER_SIZE + 1);
 	if (!temp)
 		return (NULL);
-	while (ft_strchr(buf, '\n') == 0 && err)
+	while (gn_strchr(buf, '\n') == 0 && err)
 	{
 		err = read (fd, temp, BUFFER_SIZE);
 		if (err < 0)
@@ -59,7 +59,7 @@ static char	*get_buf(int fd, char *buf)
 			return (NULL);
 		}
 		temp[err] = 0;
-		buf = ft_strjoin(buf, temp);
+		buf = gn_strjoin(buf, temp);
 	}
 	free (temp);
 	return (buf);
@@ -80,7 +80,7 @@ static char	*get_rest(char *buf)
 		free (buf);
 		return (NULL);
 	}
-	ret = malloc (ft_strlen(buf) - nln + 1);
+	ret = malloc (gn_strlen(buf) - nln + 1);
 	if (!ret)
 		return (0);
 	nln++;
