@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/12 16:50:47 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/12 17:43:04 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <unistd.h>
 # include <limits.h>
 # include <errno.h>
+# include <signal.h>
 
 /*Structs and ENUM for PARSER*/
 typedef enum s_state
