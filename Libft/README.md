@@ -1,4 +1,4 @@
-[![libft](https://user-images.githubusercontent.com/102623863/185230931-b0ae9c6d-5329-40e2-9873-8da41a4ea032.png)](https://linktr.ee/vtrevisa)
+[![libft](https://user-images.githubusercontent.com/102623863/185658812-19dd59c0-3c5c-449f-89fb-12a2e6873dab.png)](https://linktr.ee/vtrevisa)
 
 
 ### **Table of Contents**
@@ -6,17 +6,21 @@
 * [Part 1](#part-1---libc-functions)
 * [Part 2](#part-2---additional-functions)
 * [Bonus Part](#bonus-part)
+* [Get next line](#get-next-line)
+* [Ft_printf](#ft_printf)
+* [Ft_atof](#function-added-for-fractol)
+* [Ft_atoli](#function-added-for-push_swap)
 
 # INTRODUCTION
 
-The LIBFT project consists in personal library in C that contains the functions that we will use along the course. We started with some basic functions and we will adding more functions as we built them. These functions must work a the originals besides the new ones.
+The LIBFT project consists in creating a personal library in C that contains the functions that we will use along the course. I started with some basic functions and i will be adding more functions as i buid them. The recreated function need to work the same as the originals.
 
 ## HOW TO USE
 * Clone the repo ```git clone https://github.com/vtrevisa/Libft```
 * Enter the ***Libft*** directory
 * Run **make**
-* Include the header ```#include "<path>/libft/src/libft.h"``` in your file.c
-* Compile your file.c with ```<path>/libft/libft.a```
+* Include the header ```#include "<path>/Libft/Include/libft.h"``` in your file.c
+* Compile your file.c with ```<path>/Libft/libft.a```
 
 # PART 1 - Libc Functions
 
@@ -59,7 +63,7 @@ In the first part of the project we recreated these functions
 | [**ft\_putnbr\_fd**](https://github.com/vtrevisa/Libft/blob/master/Src/ft_putnbr_fd.c) | ```void	ft_putnbr_fd(int n, int fd);``` | Outputs the integer **n** to the given file descriptor **fd**. |
 | [**ft\_putstr\_fd**](https://github.com/vtrevisa/Libft/blob/master/Src/ft_putstr_fd.c) | ```void	ft_putstr_fd(char *s, int fd);``` | Outputs the string **s** to the given file descriptor **fd**. |
 | [**ft\_split**](https://github.com/vtrevisa/Libft/blob/master/Src/ft_split.c) | ```char	**ft_split(char const *s, char c);``` | Malloc and returns an array of strings obtained by splitting **s** using the character **c** as a delimiter.|
-| [**ft\ striteri**](https://github.com/vtrevisa/Libft/blob/master/Src/ft_striteri.c) | ```void	ft_striteri(char *s, void (*f)(unsigned int, char*));``` | Applies the function **f** on each character of the string **s**, passing its index as first argument and each character is passed by address to **f** to be modified if necessary. |
+| [**ft\_striteri**](https://github.com/vtrevisa/Libft/blob/master/Src/ft_striteri.c) | ```void	ft_striteri(char *s, void (*f)(unsigned int, char*));``` | Applies the function **f** on each character of the string **s**, passing its index as first argument and each character is passed by address to **f** to be modified if necessary. |
 | [**ft\_strjoin**](https://github.com/vtrevisa/Libft/blob/master/Src/libft/ft_strjoin.c) | ```char	*ft_strjoin(char const *s1, char const *s2);``` | Mallocs and returns a new string, which is the result of the concatenation of **s1** and **s2**. |
 | [**ft\_strmapi**](https://github.com/vtrevisa/Libft/blob/master/Src/ft_strmapi.c) | ```char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));``` | Applies the function **f** to each character of the string **s** to create a new string resulting from successive applications of **f**. |
 | [**ft\_strtrim**](https://github.com/vtrevisa/Libft/blob/master/Src/ft_strtrim.c) | ```char	*ft_strtrim(char const *s1, char const *set);``` | Mallocs and returns a copy of **s1** with the characters specified in **set** removed from the beginning and from the end of the string. |
@@ -87,6 +91,33 @@ typedef struct s_list
 | [**ft\_lstclear**](https://github.com/vcwild/42-libft/tree/main/src/libft/ft_lstclear.c) | ```void	ft_lstclear(t_list **lst, void (*del)(void*));``` | Deletes and frees the given element of the list **lst** and every successor of that element, using the function **del**. The pointer to the list is set to NULL. |
 | [**ft\_lstiter**](https://github.com/vcwild/42-libft/tree/main/src/libft/ft_lstiter.c) | ```void	ft_lstiter(t_list *lst, void (*f)(void *));``` | Iterates the list **lst** and applies the function **f** to the content of each element.|
 | [**ft\_lstmap**](https://github.com/vcwild/42-libft/tree/main/src/libft/ft_lstmap.c) | ```t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));``` | Iterates the list **lst** and applies the function **f** to the content of each element. Creates a new list resulting of the successive applications of the function **f**. The **del** function is used to delete the content of an element if needed. |
+
+[To the top](#table-of-contents)
+
+# GET NEXT LINE
+| FUNCTION NAME | PROTOTYPE | DESCRIPTION |
+| ------------- | --------- | ----------- |
+|[**Get_next_line**](https://github.com/vtrevisa/Libft/tree/master/Src/Get_next_line) | ```char	*get_next_line(int fd);``` | Reads one line at a time of the **fd** passed as parameter and prints it in the stdout. Consecutive calls of this function continues the read of the file line by line. |
+
+[To the top](#table-of-contents)
+
+# FT_PRINTF 
+| FUNCTION NAME | PROTOTYPE | DESCRIPTION |
+| ------------- | --------- | ----------- |
+|[**Ft_printf**](https://github.com/vtrevisa/Libft/tree/master/Src/Ft_printf) | ```ft_printf(const char *str, ...);``` | prints a string in the stdout overwriting the %(csidpuxX%) with the respective variable. %c prints a char, %s prints a string, %i and %d prints an int, %p prints the address of a pointer, %u prints an unsigned int, %x and %X prints an hexadecimal with lower and uppercase respectively and the %% prints a '%'. Returns a int that is equal to the amount of bytes that were printed in the screen. |
+
+[To the top](#table-of-contents)
+
+# FUNCTION ADDED FOR FRACTOL
+| FUNCTION NAME | PROTOTYPE | DESCRIPTION |
+| ------------- | --------- | ----------- |
+|[**Ft_atof**](https://github.com/vtrevisa/Libft/tree/master/Src/Fractol) | ```ft_atof(const char *str);``` | Converts the initial numbers of the string (ignoring isspace) pointed to by **str** to double and returns it. |
+
+# FUNCTION ADDED FOR PUSH_SWAP
+| FUNCTION NAME | PROTOTYPE | DESCRIPTION |
+| ------------- | --------- | ----------- |
+|[**Ft_atoli**](https://github.com/vtrevisa/Libft/tree/master/Src/Push_Swap) | ```ft_atoli(const char *str);``` | Converts the initial numbers of the string (ignoring isspace) pointed to by **str** to long int and returns it. |
+
 
 [To the top](#table-of-contents)
 
