@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/08 17:40:14 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/12 16:50:47 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # include <errno.h>
 
 /*Structs and ENUM for PARSER*/
-typedef enum s_ state
+typedef enum s_state
 {
 	NORMAL,
 	ESPACE,

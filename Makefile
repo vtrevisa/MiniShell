@@ -30,8 +30,10 @@ val: all
 
 clean:
 	rm -rf $(OBJ_D)
+	$(MAKE)	clean -C $(LPATH)
 
 fclean: clean
 	rm -rf $(NAME)
+	$(MAKE)	fclean -C $(LPATH)
 
 re: fclean all
