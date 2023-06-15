@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 22:33:51 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/04 21:05:27 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/15 04:05:22 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,15 @@ void	replace_var(t_parser *p, t_data *data)
 	var_len =0;
 	if (p->str[p->i +1] != '?')
 	{
-		while (p->str[p->i + 1 + var_len] && (ft_isalnum(p->str[p->i + 1 + var_len]) || p->str[p->i + 1 + var_len] == '_'))
-			var_len++;
+		if (ft_isdigit(p->str[p->i + 1]))
+		{
+			var_len = 1;
+		}
+		else
+		{
+			while (p->str[p->i + 1 + var_len] && (ft_isalnum(p->str[p->i + 1 + var_len]) || p->str[p->i + 1 + var_len] == '_'))
+				var_len++;
+		}
 		var_name = ft_substr(p->str, p->i + 1, var_len);
 		var_value = find_variable(var_name, data);
 		free(var_name);
@@ -129,7 +136,7 @@ void	replace_var(t_parser *p, t_data *data)
 		//data->cmd_split[index] = new_str;
 		data->full_cmd[p->index][p->index2] = new_str;
 		p->str = new_str;
-		p->i = p->i + ft_strlen(var_value);
+		p->i = p->i + ft_strlen(var_value) - 1;
 		if (flag)
 			free(var_value);
 	}
@@ -154,6 +161,7 @@ void	replace_var(t_parser *p, t_data *data)
 			//data->cmd_split[index] = new_str;
 			data->full_cmd[p->index][p->index2] = new_str;
 			p->str = new_str;
+			p->i--;
 		}
 	}
 }
@@ -222,7 +230,7 @@ void	parse_var(char *str, t_data *data, t_parser *parse)
 			//flag = 0;
 		}
 		parse->j = 0;
-		if (parse->str[parse->i] == '$')
+		if (parse->str[parse->i] == '$' && (ft_isalnum(parse->str[parse->i + 1]) || parse->str[parse->i + 1] == '_' ))
 		{
 			replace_var(parse, data);
 			flag = 0;

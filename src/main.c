@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/07 04:02:40 by romachad         ###   ########.fr       */
+/*   Updated: 2023/06/15 03:09:45 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int	prompt_loop(t_data *data)
 			{
 				for (i=0; data->full_cmd[i]; i++)
 				{
+					//printf("no indice I, vou pro for do j..\n");
 					int j;
 					for (j=0; data->full_cmd[i][j]; j++)
 						ft_printf("str[%d][%d] = %s\n",i,j,data->full_cmd[i][j]);
@@ -126,8 +127,9 @@ int	prompt_loop(t_data *data)
 						ft_printf("arg[%d][%d] = %s\n",i,j,data->cmd_redir[i][j]);
 				}
 			}*/
-			if (data->redir_error == 0 && data->ctrl_c == 0)
+			if (data->redir_error == 0 && data->ctrl_c == 0 && data->full_cmd[0][0])
 			{
+				//printf("VOU PRO EXEC\n");
 				command_exec(data);
 			}
 			else if (data->ctrl_c == 1)
@@ -135,7 +137,6 @@ int	prompt_loop(t_data *data)
 				data->ctrl_c = 0;
 				dup2(data->saved_stdin, STDIN_FILENO);
 				close(data->saved_stdin);
-				//STDIN_FILENO = dup(data->saved_stdin);
 			}
 			int i;
 			for (i = 0; data->full_cmd[i]; i++)
@@ -146,6 +147,7 @@ int	prompt_loop(t_data *data)
 					free(data->cmd_redir[i][j]);
 				free(data->cmd_redir[i]);
 			}
+
 			free(data->cmd_redir);
 			free(data->full_cmd);
 			free(data->line);
