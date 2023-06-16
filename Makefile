@@ -1,29 +1,54 @@
 #--STANDARD--
 NAME	= minishell
 CFLAGS	= -Wall -Wextra -Werror -g3 -lreadline
-OBJ_D	= ./objects
+VPATH	= $(addprefix $(SRC_D)/, $(DIRS))
 HEADER	= ./Include/minishell.h
-
-#--MANDATORY--
-SRC_D	= ./src/
-SRC		= main.c read_line.c init.c lexer.c lexer_utils.c lexer_utils_2.c exec.c child_and_pipes.c echo.c change_dir.c pwd.c env.c export.c unset.c error_exit.c utils.c pipe_input.c args_str_treatment.c path_search.c child.c builtin_checker.c parser.c parse_redir.c parse_redir_utils.c here-doc.c signals.c exit.c
-OBJ		= $(addprefix $(OBJ_D)/, $(SRC:.c=.o))
 
 #--LIBFT--
 LIB		= $(addprefix $(LPATH)/, libft.a)
 LPATH	= ./Libft/
 
+#--DIRS--
+SRC_D	= ./src/
+DIRS	= . builtins exec parser_lexer system 
+OBJ_D	= ./objects
+
+#--FILES--
+SRC		= $(BTIN) $(EXEC) $(PRLX) $(SYST) 
+
+BTIN	= echo.c change_dir.c pwd.c env.c export.c unset.c builtin_checker.c exit.c
+EXEC	= child_and_pipes.c child.c path_search.c pipe_input.c
+PRLX	= lexer.c lexer_utils.c lexer_utils_2.c args_str_treatment.c parser.c parse_redir.c \
+			parse_redir_utils.c
+SYST	= main.c read_line.c init.c  exec.c error_exit.c utils.c here-doc.c signals.c 
+
+#--OBJECTS--
+OBJ		= $(SRC:%.c=$(OBJ_D)/%.o)
+
+#--COLORS--
+WHITE	=	\e[00m
+GREEN	=	\e[32m
+RED		=	\e[91m
+YELLOW	=	\e[033m
+BLUE	=	\e[34m
+
+NUMBER_OF_SRC_FILES	=	$(words $(SRC))
+PROGRESS			=	0
+
 all: $(NAME)
 
-$(NAME): $(LIB) $(OBJ) $(HEADER)
-	cc $(OBJ) $(LIB) $(CFLAGS) -o $(NAME)
+$(NAME): $(LIB) $(OBJ) $(OBJ_D)
+	cc $(OBJ) $(LIB) $(CFLAGS) -o $@
+	@echo "$(GREEN)MINISHELL compiled succesfully$(WHITE)"
 
 $(LIB):
 	$(MAKE)	-C $(LPATH)
 
-$(OBJ_D)/%.o: $(SRC_D)/%.c
+$(OBJ_D)/%.o: %.c
 	mkdir -p $(OBJ_D)
 	cc -c $< -o $@
+	@echo -n "$(YELLOW)Compiling $(WHITE)$$(( $(PROGRESS) * 100 / $(NUMBER_OF_SRC_FILES)))%\r"
+	$(eval PROGRESS=$(shell echo $$(($(PROGRESS)+1))))
 
 val: all
 	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --trace-children=yes --trace-children-skip='*/bin/*,*/sbin/*' --suppressions=readline.supp ./minishell

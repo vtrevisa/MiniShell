@@ -6,11 +6,11 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 02:46:02 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/07 18:50:51 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/16 17:51:30 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "../../Include/minishell.h"
 
 static void	treat_quotes(char *str)
 {
@@ -114,3 +114,4 @@ char	**treat_str(char *str)
 	add_space(str_treated);
 	return (str_treated);
 }
+

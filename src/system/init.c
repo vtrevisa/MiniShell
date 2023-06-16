@@ -6,16 +6,16 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:13 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/08 17:39:54 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/16 17:51:30 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "../../Include/minishell.h"
 
 char	**copy_double_str(char **envp)
 {
-	int		count;
-	int		i;
+	int	count;
+	int	i;
 	char	**copy;
 
 	copy = envp - 1;

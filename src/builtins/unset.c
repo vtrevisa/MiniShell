@@ -1,16 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 19:19:22 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/08 17:39:54 by vtrevisa         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "../../Include/minishell.h"
 
 ///////// Funcoes do comando UNSET /////////
 static int	check_unset_str(const char *str)
@@ -29,8 +18,8 @@ static int	check_unset_str(const char *str)
 
 char	**unset(char **envpl, const char *str, t_data *data)
 {
-	int		count;
-	int		i_to_remove;
+	int	count;
+	int	i_to_remove;
 	char	**copy;
 
 	i_to_remove = -1;
@@ -45,7 +34,7 @@ char	**unset(char **envpl, const char *str, t_data *data)
 	{
 		//ft_printf("currentl envpl[%i] is: %s\n",count, envpl[count]);
 		//ft_printf("str e strlen: %s e %i\n",str, strlen(str));
-		if (ft_strncmp(envpl[count], str, strlen(str)) == 0)
+		if(ft_strncmp(envpl[count], str, strlen(str)) == 0)
 		{
 			//ft_printf("strncmp foi igual a zero!\n");
 			//ft_printf("Temos envpl[%i] = %s\n", count, envpl[count]);
@@ -68,8 +57,7 @@ char	**unset(char **envpl, const char *str, t_data *data)
 	else
 	{
 		ft_memcpy(copy, envpl, i_to_remove * sizeof(envpl[0]));
-		ft_memcpy(copy + i_to_remove, envpl + i_to_remove + 1, (count - \
-			i_to_remove - 1) * sizeof(envpl[0]));
+		ft_memcpy(copy + i_to_remove, envpl + i_to_remove + 1, (count - i_to_remove - 1) * sizeof(envpl[0]));
 	}
 	free(envpl[i_to_remove]);
 	free(envpl);

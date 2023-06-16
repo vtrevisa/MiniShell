@@ -6,11 +6,11 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 22:54:48 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/08 17:56:46 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/16 17:51:30 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "../../Include/minishell.h"
 //////// POSSIVELMENTE SEPARA EM UTILS OU ALGO SIMILAR////
 void	free_args(t_pipe *args)
 {
@@ -24,7 +24,7 @@ void	close_pipes(t_pipe *args, t_data *data)
 
 	i = -1;
 	//while (++i < (data->qtd_cmd - 1) * 2)
-	while (++i < (data->qtd_cmd * 2)) //--> pipe are create even with one command due to  here-doc
+	while (++i < (data->qtd_cmd ) * 2)//--> pipe are create even with one command due to  here-doc
 		close(args->pipes[i]);
 }
 
@@ -44,6 +44,7 @@ int	create_pipes(t_pipe *args, t_data *data)
 	}
 	return (0);
 }
+
 
 //////// FIM DO POSSIVELMENTE SEPARA EM UTILS OU ALGO SIMILAR////
 
@@ -102,8 +103,7 @@ void	wait_pipes(t_pipe *args, t_data *data)
 		if (WIFEXITED(status))
 		{
 			exit_status = WEXITSTATUS(status);
-			ft_printf ("[%d]Exit status of child %d was %d\n", i, args->pid[i], \
-				exit_status);
+			ft_printf("[%d]Exit status of child %d was %d\n",i,args->pid[i],exit_status);
 			data->rcode = exit_status;
 		}
 	}
@@ -112,6 +112,7 @@ void	wait_pipes(t_pipe *args, t_data *data)
 static int	main_fork(t_pipe *args, t_data *data)
 {
 	//int	i;
+
 	args->flag = 0;
 	call_fork(args, data); //Adicionar seguranca??
 	args->cmd_n++;
@@ -131,7 +132,7 @@ static int	main_fork(t_pipe *args, t_data *data)
 
 void	piper(t_data *data)
 {
-	t_pipe	args;
+	t_pipe args;
 
 	//args.argv = ft_split(data->line, '|');
 	//args.qtd_cmd = 0;
@@ -154,5 +155,6 @@ void	piper(t_data *data)
 	args.cmd_n = 0;
 	args.pipe_i = 0;
 	main_fork(&args, data);
+
 	//free_char_array(args.argv); --> Liberar i args.pipes e args.pid!
 }

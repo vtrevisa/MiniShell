@@ -6,11 +6,11 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:21:05 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/08 17:39:54 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/16 17:51:30 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "../../Include/minishell.h"
 
 void	tolkenizer(t_data *data)
 {
@@ -23,7 +23,7 @@ void	tolkenizer(t_data *data)
 	index = 0;
 	while (index <= max_index)
 	{
-		if (iscmd(data, data->line_splitted[index]))
+		if(iscmd(data, data->line_splitted[index]))
 		{
 			data->lexed_class[index] = 1;
 			data->count_cmd++;
@@ -37,27 +37,22 @@ void	tolkenizer(t_data *data)
 		else
 		{
 			data->lexed_class[index] = issimble(data, data->line_splitted[index]);
-			if (data->lexed_class[index] == 3)
-			{
+			if (data->lexed_class[index] == 3){}
 				/* ft_printf("%s: is a var: %d\n", data->line_splitted[index], data->lexed_class[index]); */ //teste
-			}
-			else if (data->lexed_class[index] == 4 || data->lexed_class[index] == 5)
-			{
+			else if (data->lexed_class[index] == 4 || data->lexed_class[index] == 5){}
 				/* ft_printf("%s: is a redir out: %d\n", data->line_splitted[index], data->lexed_class[index]); *///teste
-			}
-			else if (data->lexed_class[index] == 6 || data->lexed_class[index] == 7)
-			{
+			else if (data->lexed_class[index] == 6 || data->lexed_class[index] == 7){}
 				/* ft_printf("%s: is a redir in: %d\n", data->line_splitted[index], data->lexed_class[index]); *///teste
-			}
 			else
 			{
 				if ((data->lexed_class[index - 1] >= 4 && data->lexed_class[index - 1] <= 7) && index > 0)
-				{
-					data->lexed_class[index] = 9;
-					/* ft_printf("%s: is a filename: %d\n", data->line_splitted[index], data->lexed_class[index]); *///teste
-				}
+					{
+						data->lexed_class[index] = 9;
+						/* ft_printf("%s: is a filename: %d\n", data->line_splitted[index], data->lexed_class[index]); *///teste
+					}
 				/* else */
 					/* ft_printf("%s: not a cmd nor arg: %d\n", data->line_splitted[index], data->lexed_class[index]); *///teste
+
 			}
 		}
 		index++;

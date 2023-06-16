@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/12 17:43:04 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/16 17:52:53 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ typedef struct t_pipe
 	int		pipe_i;
 }	t_pipe;
 
-extern t_data	g_global_var;
+extern t_data	global_var;
 
 /*INIT*/
 void	init_data(t_data *data, char **envp);

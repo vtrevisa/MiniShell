@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_exit.c                                       :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/08 17:15:34 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/08 17:15:35 by vtrevisa         ###   ########.fr       */
+/*   Created: 2023/04/22 23:11:31 by romachad          #+#    #+#             */
+/*   Updated: 2023/06/16 17:51:30 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "../../Include/minishell.h"
 
-void	error_exit(char *str)
+void	free_char_array(char **array)
 {
-	perror(str);
-	exit (1);
+	int	i;
+
+	i = - 1;
+	while(array[++i])
+		free(array[i]);
+	free(array);
 }

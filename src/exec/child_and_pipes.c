@@ -6,11 +6,11 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 17:46:28 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/08 17:39:54 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/16 17:51:30 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "../../Include/minishell.h"
 
 int	child_1(t_data *data)
 {
@@ -27,7 +27,7 @@ int	child_1(t_data *data)
 	return (0);
 }
 
-int	child_2(t_data *data)
+int	child_2 (t_data *data)
 {
 	dup2(data->fd[0], 0);
 	dup2(data->fd[1], 1);
