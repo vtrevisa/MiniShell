@@ -14,9 +14,10 @@ DIRS	= . builtins exec parser_lexer system
 OBJ_D	= ./objects
 
 #--FILES--
-SRC		= $(BTIN) $(EXEC) $(PRLX) $(SYST) 
+SRC		= $(BTIN) $(EXEC) $(PRLX) $(SYST)
 
-BTIN	= echo.c change_dir.c pwd.c env.c export.c unset.c builtin_checker.c exit.c
+BTIN	= echo.c change_dir.c pwd.c env.c export.c unset.c builtin_checker.c exit.c \
+			builtin_checker_utils.c
 EXEC	= child_and_pipes.c child.c path_search.c pipe_input.c
 PRLX	= lexer.c lexer_utils.c lexer_utils_2.c args_str_treatment.c parser.c parse_redir.c \
 			parse_redir_utils.c

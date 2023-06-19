@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/19 14:17:27 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/19 16:05:00 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,13 +159,15 @@ char	**prep_unset(char **envpl, const char **str, t_data *data);
 char	**unset(char **envpl, const char *str, t_data *data);
 void	error_exit(char *str);
 void	exit_shell(t_data *data);
+int	if_bt4(t_data *data, int flag, t_pipe *args);
+int	if_bt5(t_data *data, int flag, t_pipe *args);
+int	if_bt6(t_data *data, int flag, t_pipe *args);
 
 /*UTILS*/
 void	free_char_array(char **array);
 
 /*Roger EXEC*/
 int		builtin_exec_main(t_data *data);
-int		is_there_pipes(char *str);
 
 /*PIPER*/
 void	piper(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 01:12:41 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/16 17:50:54 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/19 16:04:37 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,11 @@ int	builtin_exec_main(t_data *data)
 	if (data->builtin == 3)
 		return (pwd());
 	if (data->builtin == 4)
-	{
-		data->rcode = 0;
-		data->envp = export(data->envp, data->full_cmd[0] + 1, data);
-		return (data->rcode); //alterar para retornar o returncode!
-	}
+		return (if_bt4(data, 1, NULL));
 	if (data->builtin == 5)
-	{
-		data->rcode = 0;
-		data->envp = prep_unset(data->envp, (const char **) data->full_cmd[0] + 1, data);
-		return (data->rcode); //alterar para retornar o returncode!
-	}
+		return (if_bt5(data, 1, NULL));
 	if (data->builtin == 6)
-	{
-		data->rcode = 0;
-		env(data->envp);
-		return (data->rcode);
-	}
+		return (if_bt6(data, 1, NULL));
 	if (data->builtin == 7)
 		exit_shell(data);
 	return (0);
@@ -71,36 +59,12 @@ int	builtin_exec_pipe(t_pipe *args, t_data *data)
 	if (args->builtin == 3)
 		return (pwd());
 	if (args->builtin == 4)
-	{
-		data->rcode = 0;
-		data->envp = export(data->envp, args->cmd_args + 1, data);
-		return (data->rcode); //alterar para retornar o returncode!
-	}
+		return (if_bt4(data, 2, args));
 	if (args->builtin == 5)
-	{
-		//args->cmd_args++;
-		data->rcode = 0;
-		data->envp = prep_unset(data->envp, (const char **) args->cmd_args + 1, data);
-		return (data->rcode); //alterar para retornar o returncode!
-	}
+		return (if_bt5(data, 2, args));
 	if (args->builtin == 6)
-	{
-		data->rcode = 0;
-		env(data->envp);
-		return (data->rcode);
-	}
+		return (if_bt6(data, 2, args));
 	if (args->builtin == 7)
 		exit_shell(data);
-	return (0);
-}
-
-int	is_there_pipes(char *str) //--> nao eh mais usado
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-		if (str[i] == '|')
-			return (1);
 	return (0);
 }
