@@ -38,27 +38,33 @@ PROGRESS			=	0
 all: $(NAME)
 
 $(NAME): $(LIB) $(OBJ) $(OBJ_D)
-	cc $(OBJ) $(LIB) $(CFLAGS) -o $@
-	@echo "$(GREEN)MINISHELL compiled succesfully$(WHITE)"
+	@echo "$(BLUE)Compiling $(WHITE)Minishell"
+	@cc $(OBJ) $(LIB) $(CFLAGS) -o $@
+	@echo "$(GREEN)Compiled $(WHITE)Minishell"
 
 $(LIB):
-	$(MAKE)	-C $(LPATH)
+	@echo "$(BLUE)Compiling $(WHITE)Libft"
+	@$(MAKE)	-C $(LPATH) --no-print-directory
 
-$(OBJ_D)/%.o: %.c
-	mkdir -p $(OBJ_D)
-	cc -c $< -o $@
+$(OBJ_D)/%.o: %.c Makefile | $(OBJ_D)
+	@cc -c $< -o $@
 	@echo -n "$(YELLOW)Compiling $(WHITE)$$(( $(PROGRESS) * 100 / $(NUMBER_OF_SRC_FILES)))%\r"
 	$(eval PROGRESS=$(shell echo $$(($(PROGRESS)+1))))
+
+$(OBJ_D):
+	@mkdir -p $@
 
 val: all
 	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --trace-children=yes --trace-children-skip='*/bin/*,*/sbin/*' --suppressions=readline.supp ./minishell
 
 clean:
-	rm -rf $(OBJ_D)
-	$(MAKE)	clean -C $(LPATH)
+	@echo "$(BLUE)Removing $(WHITE)Minishell objects"
+	@rm -rf $(OBJ_D)
+	@$(MAKE)	clean -C $(LPATH) --no-print-directory
 
 fclean: clean
-	rm -rf $(NAME)
-	$(MAKE)	fclean -C $(LPATH)
+	@echo "$(BLUE)Removing $(WHITE)$(NAME)"
+	@rm -rf $(NAME)
+	@$(MAKE)	fclean -C $(LPATH) --no-print-directory
 
 re: fclean all

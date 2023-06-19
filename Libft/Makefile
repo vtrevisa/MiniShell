@@ -1,4 +1,5 @@
 NAME	= libft.a
+CFLAGS	= -Wall -Wextra -Werror -I./Include/ -D BUFFER_SIZE=1
 
 SRC	= ./Src/ft_atoi.c ./Src/ft_bzero.c ./Src/ft_calloc.c ./Src/ft_isalnum.c ./Src/ft_isalpha.c \
 	./Src/ft_isascii.c ./Src/ft_isdigit.c ./Src/ft_isprint.c ./Src/ft_itoa.c ./Src/ft_memchr.c \
@@ -17,18 +18,33 @@ SRC	= ./Src/ft_atoi.c ./Src/ft_bzero.c ./Src/ft_calloc.c ./Src/ft_isalnum.c ./Sr
 	
 OBJS	= $(SRC:.c=.o)
 
-CFLAGS	= -Wall -Wextra -Werror -I./Include/ -D BUFFER_SIZE=1
+WHITE				=	\e[00m
+GREEN				=	\e[32m
+RED					=	\e[91m
+YELLOW				=	\e[033m
+BLUE				=	\e[34m
+
+NUMBER_OF_SRC_FILES	=	$(words $(SRC))
+PROGRESS			=	0
+
+%.o: %.c
+	@echo -n "$(YELLOW)Compiling $(WHITE)$$(( $(PROGRESS) * 100 / $(NUMBER_OF_SRC_FILES)))%\r"
+	$(eval PROGRESS=$(shell echo $$(($(PROGRESS)+1))))
+	@cc $(CFLAGS) -c $< -o $@
 
 all:	$(NAME)
 
 ${NAME}: $(OBJS)
 	@ar -rcs $(NAME) $(OBJS) 
-	@make clean
-clean:
-	rm -f ${OBJS}
+	@echo "$(GREEN)Compiling $(WHITE)Libft objects"
 
-fclean:	clean
-	rm -f ${NAME}
+clean:
+	@echo "$(BLUE)Removing $(WHITE)Libft objects"
+	@rm -f ${OBJS}
+
+fclean:
+	@echo "$(BLUE)Removing $(WHITE)$(NAME)"
+	@rm -f ${NAME}
 
 re:	fclean all
 
