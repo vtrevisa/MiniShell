@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 23:14:48 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/12 18:01:38 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/19 14:21:15 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ typedef struct s_lst
 	int		temp;
 	int		sig;
 }	t_lst;
-
 double	ft_atof(const char *str);
+
+/*====PUSH_SWAP====*/
+long int	ft_atoli(const char *str);
 #endif

@@ -12,7 +12,8 @@ SRC	= ./Src/ft_atoi.c ./Src/ft_bzero.c ./Src/ft_calloc.c ./Src/ft_isalnum.c ./Sr
 	./Src/Ft_printf/ft_printf.c ./Src/Ft_printf/printpointer_fd.c ./Src/Ft_printf/utils.c \
 	./Src/Ft_printf/handlechar.c ./Src/Ft_printf/handlestr.c ./Src/Ft_printf/handlepointer.c \
 	./Src/Ft_printf/handleints.c ./Src/Ft_printf/handleunsigned.c ./Src/Ft_printf/handlehex.c \
-	./Src/Get_next_line/get_next_line_utils.c ./Src/Get_next_line/get_next_line.c ./Src/Fractol/ft_atof.c
+	./Src/Get_next_line/get_next_line_utils.c ./Src/Get_next_line/get_next_line.c ./Src/Fractol/ft_atof.c\
+	./Src/Push_Swap/ft_atoli.c
 	
 OBJS	= $(SRC:.c=.o)
 
@@ -22,7 +23,7 @@ all:	$(NAME)
 
 ${NAME}: $(OBJS)
 	@ar -rcs $(NAME) $(OBJS) 
-
+	@make clean
 clean:
 	rm -f ${OBJS}
 

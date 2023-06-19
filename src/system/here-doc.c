@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 00:49:21 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/16 17:51:30 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/19 14:34:42 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,8 @@ char	*here_doc(char *str)
 	char	*read;
 	char	*new_line;
 
-	//rl_getc_funtcion = getc;
-
+	global_var.here_doc = 1;
 	global_var.saved_stdin = dup(STDIN_FILENO);
-	//pipe(global_var.fd
-	//int	fd[2];
 
 	new_line = NULL;
 	read = ft_calloc(1, sizeof(read));
@@ -102,6 +99,7 @@ char	*here_doc(char *str)
 	if (global_var.ctrl_c == 0)
 		close(global_var.saved_stdin);
 	read = ft_strjoin("1", new_line);
+	global_var.here_doc = 0;
 	free(new_line);
 	return (read);
 }
