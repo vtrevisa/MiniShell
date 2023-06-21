@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 01:12:41 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/21 03:41:49 by romachad         ###   ########.fr       */
+/*   Updated: 2023/06/21 09:58:20 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,8 @@ int	builtin_exec_pipe(t_pipe *args, t_data *data)
 {
 	if (args->builtin == 1)
 		return (echo_n(data->full_cmd[args->cmd_n] + 1));
-		//return (echo_n(args->cmd_args + 1)); -->OLD args->cmd_args is no longer used
 	if (args->builtin == 2)
 		return (change_directory(data->full_cmd[args->cmd_n], data->envp));
-		//return (change_directory(args->cmd_args, data->envp));
 	if (args->builtin == 3)
 		return (pwd());
 	if (args->builtin == 4)
