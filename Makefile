@@ -18,7 +18,7 @@ SRC		= $(BTIN) $(EXEC) $(PRLX) $(SYST)
 
 BTIN	= echo.c change_dir.c pwd.c env.c export.c unset.c builtin_checker.c exit.c \
 			builtin_checker_utils.c
-EXEC	= child_and_pipes.c child.c path_search.c pipe_input.c
+EXEC	= child_and_pipes.c child.c child_utils.c path_search.c pipe_input.c pipe_input_utils.c
 PRLX	= lexer.c lexer_utils.c lexer_utils_2.c args_str_treatment.c parser.c parse_redir.c \
 			parse_redir_utils.c
 SYST	= main.c read_line.c init.c  exec.c error_exit.c utils.c here-doc.c signals.c 

@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/19 16:05:00 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:25:14 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,7 @@ char	*path_search(char *envp[], const char *cmd);
 int		child_prog(t_pipe *args, t_data *data);
 void	free_args(t_pipe *args);
 void	close_pipes(t_pipe *args, t_data *data);
+int	create_pipes(t_pipe *args, t_data *data);
 /*PIPE Functions for builtins*/
 int		builtin_checker(char *str);
 int		builtin_exec_pipe(t_pipe *args, t_data *data);
@@ -198,4 +199,9 @@ void	sigint_handler(int sig);
 //void	sigquit_handler(int sig);
 void	print_user_dir(t_data *data);
 
+/*CHILD UTILS*/
+void	if_cmdredir_childstart_case1(int *fd, t_data *data, t_pipe *args);
+void	if_cmdredir_childstart_case2(int *fd, t_data *data, t_pipe *args);
+void	if_cmdredir_childmiddle_case1(int *fd, t_data *data, t_pipe *args);
+void	if_cmdredir_childend_case1(int *fd, t_data *data, t_pipe *args);
 #endif
