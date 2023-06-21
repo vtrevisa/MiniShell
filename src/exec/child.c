@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 22:49:22 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/16 17:51:30 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/21 03:58:38 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ static int	child_middle(t_pipe *args, t_data *data)
 		builtin_exec_pipe(args, data);
 	//close_pipes(args, data);
 	//execve(args->fpath, data->full_cmd[args->cmd_n], data->envp);
-	free(args->fpath);
+	//free(args->fpath);
 	//free_char_array(args->cmd_args);
 	
 	/*free_char_array(data->envp);
@@ -158,8 +158,9 @@ static int	child_end(t_pipe *args, t_data *data)
 		free(args->fpath);
 	}
 	else
-		execve(args->fpath, data->full_cmd[args->cmd_n], data->envp);
-	free(args->fpath);
+		builtin_exec_pipe(args, data);
+		//execve(args->fpath, data->full_cmd[args->cmd_n], data->envp);
+	//free(args->fpath);
 	//free_char_array(args->cmd_args);
 	
 	/*free_char_array(data->envp);

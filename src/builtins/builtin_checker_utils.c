@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 01:12:41 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/19 16:08:49 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/21 03:44:11 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	if_bt4(t_data *data, int flag, t_pipe *args)
 	else
 	{
 		data->rcode = 0;
-		ft_printf("ARGS->CMG_ARGS DO IF_BT4 %s\n")
-		data->envp = export(data->envp, args->cmd_args + 1, data);
+		//ft_printf("ARGS->CMG_ARGS DO IF_BT4 %s\n");
+		data->envp = export(data->envp, data->full_cmd[args->cmd_n] + 1, data);
 		return (data->rcode);
 	}
 }
@@ -42,7 +42,7 @@ int	if_bt5(t_data *data, int flag, t_pipe *args)
 	{
 		data->rcode = 0;
 		data->envp = prep_unset(data->envp, (const char **) \
-	args->cmd_args + 1, data);
+	data->full_cmd[args->cmd_n] + 1, data);
 		return (data->rcode);
 	}
 }
