@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 22:33:51 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/19 14:45:46 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/28 04:25:44 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void	replace_var(t_parser *p, t_data *data)
 
 	flag = 0;
 	var_len =0;
+	//printf("p->str[p->i + 1] = %c", p->str[p->i+1]);
 	if (p->str[p->i +1] != '?')
 	{
 		if (ft_isdigit(p->str[p->i + 1]))
@@ -121,6 +122,7 @@ void	replace_var(t_parser *p, t_data *data)
 	}
 	else
 	{
+		//printf("ENTREI NO SUB DO $? !!\n");
 		var_value = ft_itoa(data->rcode);
 		flag = 1;
 		var_len++;
@@ -230,7 +232,7 @@ void	parse_var(char *str, t_data *data, t_parser *parse)
 		}
 		parse->j = 0;
 		if (parse->str[parse->i] == '$' && (ft_isalnum(parse->str[parse->i + 1]) || \
-	parse->str[parse->i + 1] == '_'))
+	parse->str[parse->i + 1] == '_' || parse->str[parse->i + 1] == '?'))
 		{
 			replace_var(parse, data);
 			flag = 0;

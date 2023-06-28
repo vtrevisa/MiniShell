@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/27 22:43:42 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/28 04:26:08 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	prompt_loop(t_data *data)
 			data->redir_error = 0;
 			parser(data->line, data);
 			free_char_array(data->cmd_split);
-			/* Just to show the commands sperately 
+			/* Just to show the commands sperately
 			int i;
 			if (data->full_cmd)
 			{

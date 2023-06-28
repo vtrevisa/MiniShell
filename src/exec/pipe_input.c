@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 22:54:48 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/21 12:59:37 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/28 03:57:47 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	wait_pipes(t_pipe *args, t_data *data)
 	int	exit_status;
 
 	i = -1;
+	data->ctrl_c = 1;
 	while (++i < args->cmd_n)
 	{
 		waitpid(args->pid[i], &status, 0);
@@ -67,6 +68,7 @@ void	wait_pipes(t_pipe *args, t_data *data)
 			data->rcode = exit_status;
 		}
 	}
+	data->ctrl_c = 0;
 }
 
 static int	main_fork(t_pipe *args, t_data *data)
