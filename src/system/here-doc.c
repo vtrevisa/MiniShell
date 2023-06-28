@@ -6,13 +6,11 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 00:49:21 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/19 14:34:42 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/28 11:40:35 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
-
-
 
 static char	*add_line(char *new, char *current)
 {
@@ -49,57 +47,55 @@ static char	*add_new_line(char *str)
 	return (new);
 }
 
+static void	if_read_while_heredoc(char *str, char *read, char **new_line)
+{
+	if (ft_strlen(read))
+	{
+		if (ft_strncmp(str + 1, read, ft_strlen(str + 1) + \
+	ft_strlen(read)) == 0)
+			*new_line = add_new_line(*new_line);
+		else
+			*new_line = add_line(read, *new_line);
+	}
+	else
+		*new_line = add_new_line(*new_line);
+}
+
+static void	while_heredoc(char *str, char *read, char **new_line)
+{
+	while (ft_strncmp(str + 1, read, ft_strlen(str + 1) + ft_strlen(read)) != 0)
+	{
+		if (read)
+			free(read);
+		read = readline("> ");
+		if (read != NULL)
+			if_read_while_heredoc(str, read, new_line);
+		else
+		{
+			if (g_var.ctrl_c == 1)
+				break ;
+			*new_line = add_new_line(*new_line);
+			break ;
+		}
+	}
+}
+
 char	*here_doc(char *str)
 {
 	char	*read;
 	char	*new_line;
 
-	global_var.here_doc = 1;
-	global_var.saved_stdin = dup(STDIN_FILENO);
-
+	g_var.here_doc = 1;
+	g_var.saved_stdin = dup(STDIN_FILENO);
 	new_line = NULL;
 	read = ft_calloc(1, sizeof(read));
-	//while (ft_strncmp(str+1, read, ft_strlen(str+1)) != 0 && ft_strlen(str+1) != ft_strlen(read))
-	while (ft_strncmp(str+1, read, ft_strlen(str+1) + ft_strlen(read)) != 0)
-	{
-		if (read)
-			free(read);
-		//read = readline("> ");
-		//printf("vou entrar no if do readline()\n");
-		//if ((read = readline("> ")) != NULL)
-		if ((read = readline("> ")) != NULL)
-		{
-			//printf("Rodando o readline\n");
-			if (ft_strlen(read))
-			{
-				if (ft_strncmp(str+1, read, ft_strlen(str+1) + ft_strlen(read)) == 0)
-					new_line = add_new_line(new_line);
-				else
-					new_line = add_line(read, new_line);
-			}
-			else
-			{
-				new_line = add_new_line(new_line);
-			}
-		}
-		else
-		{
-			if (global_var.ctrl_c == 1)
-			{
-				ft_printf("TO SAINDO DO HERE\n");
-				break	;
-			}
-			new_line = add_new_line(new_line);
-			ft_printf("minishell: warning: here-document delimited by end-of-file (wanted `%s')", str+1);
-			break;
-		}
-	}
+	while_heredoc(str, read, &new_line);
 	free(str);
 	free(read);
-	if (global_var.ctrl_c == 0)
-		close(global_var.saved_stdin);
+	if (g_var.ctrl_c == 0)
+		close(g_var.saved_stdin);
 	read = ft_strjoin("1", new_line);
-	global_var.here_doc = 0;
+	g_var.here_doc = 0;
 	free(new_line);
 	return (read);
 }

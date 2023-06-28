@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 23:11:31 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/16 17:51:30 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/28 11:38:23 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	free_char_array(char **array)
 {
 	int	i;
 
-	i = - 1;
-	while(array[++i])
+	i = -1;
+	while (array[++i])
 		free(array[i]);
 	free(array);
 }
