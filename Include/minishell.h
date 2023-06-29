@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/21 13:25:14 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:11:56 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,25 +120,14 @@ typedef struct t_pipe
 	int		pipe_i;
 }	t_pipe;
 
-extern t_data	global_var;
+extern t_data	g_var;
 
 /*INIT*/
 void	init_data(t_data *data, char **envp);
 char	**copy_double_str(char **envp); //renomear de envp para str?
 
 /*READ_LINE*/
-//char	*read_line(t_data *data);
 void	*read_line(t_data *data);
-
-/*LEXER_UTILS*/
-int		iscmd(t_data *data, char *line_splitted);
-int		isarg(t_data *data, char *line_splitted);
-int		issimble(t_data *data, char *line_splitted);
-
-/*LEXER_UTILS_2*/
-char	*space_to_nonprint(char *str);
-int		count_splitted(t_data *data);
-int		openfiles(t_data *data);
 
 /*LEXER*/
 void	lexer(t_data *data);
@@ -178,7 +167,8 @@ char	*path_search(char *envp[], const char *cmd);
 int		child_prog(t_pipe *args, t_data *data);
 void	free_args(t_pipe *args);
 void	close_pipes(t_pipe *args, t_data *data);
-int	create_pipes(t_pipe *args, t_data *data);
+int		create_pipes(t_pipe *args, t_data *data);
+
 /*PIPE Functions for builtins*/
 int		builtin_checker(char *str);
 int		builtin_exec_pipe(t_pipe *args, t_data *data);
@@ -196,7 +186,6 @@ char	*parse_var_heredoc(char *str, t_data *data);
 
 /*Signals*/
 void	sigint_handler(int sig);
-//void	sigquit_handler(int sig);
 void	print_user_dir(t_data *data);
 
 /*CHILD UTILS*/
@@ -204,4 +193,10 @@ void	if_cmdredir_childstart_case1(int *fd, t_data *data, t_pipe *args);
 void	if_cmdredir_childstart_case2(int *fd, t_data *data, t_pipe *args);
 void	if_cmdredir_childmiddle_case1(int *fd, t_data *data, t_pipe *args);
 void	if_cmdredir_childend_case1(int *fd, t_data *data, t_pipe *args);
+
+/*MAIN_UTILS*/
+void	if_data_cmd_redir0(t_data *data, int *fd, int flag);
+void	if_data_cmd_redir1(t_data *data, int *fd, int flag);
+void	free_full_cmd(t_data *data);
+void	if_ctrl_c1(t_data *data);
 #endif

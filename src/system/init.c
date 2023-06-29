@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:13 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/16 17:51:30 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/28 11:38:41 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	**copy_double_str(char **envp)
 {
-	int	count;
-	int	i;
+	int		count;
+	int		i;
 	char	**copy;
 
 	copy = envp - 1;
@@ -62,7 +62,6 @@ void	init_data(t_data *data, char **envp)
 	data->user = ft_strdup(userfinder(envp));
 	data->file_fds_index = 0;
 	data->cmd = malloc (sizeof (char *) * 3);
-	//data->envp = envp; Removido pq o envp sera copiado!
 	data->envp = copy_double_str(envp);
 	data->ctrl_c = 0;
 	data->count_cmd = 0;

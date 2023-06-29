@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:09:55 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/16 17:51:30 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/28 11:18:01 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	print_user_dir(t_data *data)
 {
-	char cwd[1024];
-	int index;
+	char	cwd[1024];
+	int		index;
 
 	index = 0;
 	getcwd(cwd, sizeof(cwd));
@@ -27,18 +27,16 @@ void	print_user_dir(t_data *data)
 		ft_printf("~%s", cwd + index);
 }
 
-//char	*read_line(t_data *data)
 void	*read_line(t_data *data)
 {
-	//char *line;
-	
 	data->linetyped = 0;
-	print_user_dir(data); //errors with the history, it erases the userdir
-	while ((data->line = readline("$ ")) != NULL)
+	print_user_dir(data);
+	data->line = readline("$ ");
+	while ((data->line != NULL))
 	{
 		if (*data->line == '\0')
 		{
-			print_user_dir(data); //errors with the history, it erases the userdir
+			print_user_dir(data);
 		}
 		if (ft_strlen(data->line))
 		{
@@ -48,10 +46,8 @@ void	*read_line(t_data *data)
 		}
 		else
 			free(data->line);
+		data->line = readline("$ ");
 	}
 	if (!data->line)
 		exit_shell(data);
-	//else
-	//	free(data->line);
-		//return (NULL);
 }
