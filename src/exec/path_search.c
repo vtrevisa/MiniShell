@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 02:55:31 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/30 16:50:10 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/30 17:09:35 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,11 @@ static int	path_to_exec(const char *cmd)
 		return (0);
 }
 
-static char	*if_path_to_exec_true(char *envp[], char **path, char ***paths, const char *cmd)
+static char	*if_path_to_exec_true(char *envp[], char **path, char ***paths, \
+	const char *cmd)
 {
 	int	i;
-	
+
 	i = -1;
 	while (envp[++i])
 		if (!(ft_strncmp(envp[i], "PATH=", 5)))
