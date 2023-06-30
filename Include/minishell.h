@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/28 17:07:26 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:51:43 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,9 @@ int		check_infile(char *infile);
 
 /*REPLACE_VAR*/
 void	replace_var(t_parser *p, t_data *data);
+
+/*REPLACE_VAR_REDIR*/
+void	replace_var_redir(t_parser *p, t_data *data);
 
 /*Signals*/
 void	sigint_handler(int sig);

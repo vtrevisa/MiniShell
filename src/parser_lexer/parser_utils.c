@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:44:35 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/30 16:41:07 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:52:20 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void	trim_quote(char *str, t_data *data, t_parser *p)
 	{
 		if (str[p->i] == -1 && str[p->i + 1] == 0)
 		{
-			data->full_cmd[p->index] = remove_empty(data->full_ \
-		cmd[p->index], p->index2, p);
+			data->full_cmd[p->index] = remove_empty(data->full_cmd \
+		[p->index], p->index2, p);
 			p->index2--;
 			break ;
 		}
