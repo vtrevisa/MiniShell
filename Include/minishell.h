@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/28 12:11:56 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/28 17:07:26 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ typedef struct s_data
 	char	*line; //get the line readed from read_line
 	char	linetyped; //bool to check if someting was typed
 	/*PARSER*/
-	//char	**cmds; //get the line splitted
 	char	*tmp;
 	/*LEXER*/
 	char	**line_splitted; //get the line splitted
@@ -119,6 +118,14 @@ typedef struct t_pipe
 	int		cmd_n;
 	int		pipe_i;
 }	t_pipe;
+
+typedef struct s_var
+{
+	int		len;
+	char	*name;
+	char	*value;
+	char	*n_str;
+} t_var;
 
 extern t_data	g_var;
 
@@ -183,6 +190,16 @@ void	parse_var_redir(t_data *data, t_parser *parser);
 void	trim_quote_redir(t_parser *p);
 char	*here_doc(char *str);
 char	*parse_var_heredoc(char *str, t_data *data);
+char	*trim(char *str, t_data *data, t_parser *p);
+void	parse_quote(char *str, t_data *data, int index, t_parser *p);
+void	trim_quote(char *str, t_data *data, t_parser *p);
+char	**remove_redir(char **parsed, t_parser *p, char *redir_type);
+void	create_redir_str(char **parsed, t_parser *p, t_data *data, char *redir_type);
+int		check_outfile(char *outfile, char mode);
+int		check_infile(char *infile);
+
+/*REPLACE_VAR*/
+void	replace_var(t_parser *p, t_data *data);
 
 /*Signals*/
 void	sigint_handler(int sig);
