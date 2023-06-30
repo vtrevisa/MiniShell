@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:44:35 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/28 16:17:48 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:41:07 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ char	*trim(char *str, t_data *data, t_parser *p)
 		if (p->i > 0)
 			ft_memcpy(new_str, str, p->i);
 		ft_memcpy(new_str + p->i, str + p->i + 1, p->j - (p->i + 1));
-		ft_memcpy(new_str + p->i + (p->j - (p->i + 1)), str + p->j + 1, ft_strlen(str) - p->j);
+		ft_memcpy(new_str + p->i + (p->j - (p->i + 1)), str + p->j + 1, \
+	ft_strlen(str) - p->j);
 		p->i = p->j - 2;
 	}
 	free(str);
@@ -34,13 +35,13 @@ char	*trim(char *str, t_data *data, t_parser *p)
 	return (new_str);
 }
 
-char	**remove_empty(char **str,int i_to_remove, t_parser *p)
+char	**remove_empty(char **str, int i_to_remove, t_parser *p)
 {
-	int	count;
+	int		count;
 	char	**copy;
 
 	count = 0;
-	while(str[count])
+	while (str[count])
 		count++;
 	copy = (char **)ft_calloc(count, sizeof(str[0]));
 	if (copy == NULL)
@@ -50,7 +51,8 @@ char	**remove_empty(char **str,int i_to_remove, t_parser *p)
 	else
 	{
 		ft_memcpy(copy, str, i_to_remove * sizeof(str[0]));
-		ft_memcpy(copy + i_to_remove, str + i_to_remove + 1, (count - i_to_remove - 1) * sizeof(str[0]));
+		ft_memcpy(copy + i_to_remove, str + i_to_remove + 1, (count - \
+	i_to_remove - 1) * sizeof(str[0]));
 	}
 	free(str[i_to_remove]);
 	free(str);
@@ -67,7 +69,8 @@ void	trim_quote(char *str, t_data *data, t_parser *p)
 	{
 		if (str[p->i] == -1 && str[p->i + 1] == 0)
 		{
-			data->full_cmd[p->index] = remove_empty(data->full_cmd[p->index], p->index2, p);
+			data->full_cmd[p->index] = remove_empty(data->full_ \
+		cmd[p->index], p->index2, p);
 			p->index2--;
 			break ;
 		}

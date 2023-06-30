@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 22:37:26 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/28 16:50:02 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:39:53 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	create_redir_str(char **parsed, t_parser *p, \
 	trim_quote_redir(p);
 	if (!data->cmd_redir[p->index][p->index2])
 		data->cmd_redir[p->index][p->index2] = (char *) \
-			ft_calloc(ft_strlen(p->str) + 2, sizeof(p->str));
+		ft_calloc(ft_strlen(p->str) + 2, sizeof(p->str));
 	else
 	{
 		free(data->cmd_redir[p->index][p->index2]);

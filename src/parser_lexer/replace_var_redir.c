@@ -6,64 +6,62 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:12:35 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/28 17:14:37 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:39:14 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-static void	if_return_code_var()
+static void	if_return_code_var(t_var *var, t_parser *p, t_data *data)
 {
-	
+	while (p->str[p->i + 1 + var->len] && (ft_isalnum(p->str[p->i + 1 + \
+	var->len]) || p->str[p->i + 1 + var->len] == '_'))
+		var->len++;
+	var->name = ft_substr(p->str, p->i + 1, var->len);
+	var->value = find_variable(var->name, data);
+	free(var->name);
+}
+
+static void	if_var_value(t_var *var, t_parser *p, t_data *data, char flag)
+{
+	var->n_str = ft_calloc((p->i + ft_strlen(var->value) + (ft_strlen(p->str) \
+		- p->i - var->len)), sizeof(p->str));
+	ft_memcpy(var->n_str, p->str, p->i);
+	ft_memcpy(var->n_str + p->i, var->value, ft_strlen(var->value));
+	ft_memcpy(var->n_str + p->i + ft_strlen(var->value), p->str + p->i + \
+		var->len + 1, ft_strlen(p->str + p->i + var->len));
+	free(p->str);
+	p->str = var->n_str;
+	p->i = p->i + ft_strlen(var->value);
+	if (flag)
+		free(var->value);
 }
 
 void	replace_var_redir(t_parser *p, t_data *data)
 {
-	int		var_len;
-	char	*var_name;
-	char	*var_value;
-	char	*new_str;
+	t_var	var;
 	char	flag;
 
 	flag = 0;
-	var_len = 0;
+	var.len = 0;
 	if (p->str[p->i + 1] != '?')
-	{
-		while (p->str[p->i + 1 + var_len] && (ft_isalnum(p->str[p->i + 1 + \
-	var_len]) || p->str[p->i + 1 + var_len] == '_'))
-			var_len++;
-		var_name = ft_substr(p->str, p->i + 1, var_len);
-		var_value = find_variable(var_name, data);
-		free(var_name);
-	}
+		if_return_code_var(&var, p, data);
 	else
 	{
-		var_value = ft_itoa(data->rcode);
+		var.value = ft_itoa(data->rcode);
 		flag = 1;
-		var_len++;
+		var.len++;
 	}
-	if (var_value)
-	{
-		new_str = ft_calloc((p->i + ft_strlen(var_value) + (ft_strlen(p->str) \
-	- p->i - var_len)), sizeof(p->str));
-		ft_memcpy(new_str, p->str, p->i);
-		ft_memcpy(new_str + p->i, var_value, ft_strlen(var_value));
-		ft_memcpy(new_str + p->i + ft_strlen(var_value), p->str + p->i + \
-	var_len + 1, ft_strlen(p->str + p->i + var_len));
-		free(p->str);
-		p->str = new_str;
-		p->i = p->i + ft_strlen(var_value);
-		if (flag)
-			free(var_value);
-	}
+	if (var.value)
+		if_var_value(&var, p, data, flag);
 	else
 	{
-		new_str = ft_calloc((ft_strlen(p->str) - (var_len + 1)), \
+		var.n_str = ft_calloc((ft_strlen(p->str) - (var.len + 1)), \
 	sizeof(p->str));
-		ft_memcpy(new_str, p->str, p->i);
-		ft_memcpy(new_str + p->i, p->str + p->i + var_len + 1, ft_strlen \
-	(p->str + p-> i + var_len));
+		ft_memcpy(var.n_str, p->str, p->i);
+		ft_memcpy(var.n_str + p->i, p->str + p->i + var.len + 1, ft_strlen \
+	(p->str + p-> i + var.len));
 		free(p->str);
-		p->str = new_str;
+		p->str = var.n_str;
 	}
 }
