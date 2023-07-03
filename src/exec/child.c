@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 22:49:22 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/03 01:59:55 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:29:24 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	child_start(t_pipe *args, t_data *data)
 	if (args->builtin == 0)
 	{
 		execve(args->fpath, data->full_cmd[args->cmd_n], data->envp);
-		printf("sai do execve\n");
+		/* printf("sai do execve\n"); */
 		free(args->fpath);
 	}
 	else

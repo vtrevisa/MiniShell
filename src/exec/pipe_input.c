@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 22:54:48 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/03 01:50:32 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:30:15 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	wait_pipes(t_pipe *args, t_data *data)
 		if (WIFEXITED(status))
 		{
 			exit_status = WEXITSTATUS(status);
-			ft_printf("[%d]Exit status of child %d was %d\n", i, \
-		args->pid[i], exit_status);
+/* 			ft_printf("[%d]Exit status of child %d was %d\n", i, \
+		args->pid[i], exit_status); */
 			data->rcode = exit_status;
 		}
 	}
