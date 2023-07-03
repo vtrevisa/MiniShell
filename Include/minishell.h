@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/30 16:51:43 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/03 01:47:05 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ char	**prep_unset(char **envpl, const char **str, t_data *data);
 char	**unset(char **envpl, const char *str, t_data *data);
 void	error_exit(char *str);
 void	exit_shell(t_data *data);
+void	exit_child(t_data *data, int code);
 int	if_bt4(t_data *data, int flag, t_pipe *args);
 int	if_bt5(t_data *data, int flag, t_pipe *args);
 int	if_bt6(t_data *data, int flag, t_pipe *args);

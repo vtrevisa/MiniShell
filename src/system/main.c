@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/28 12:12:08 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/03 01:26:27 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 t_data	g_var;
 
-int	show_display(void)
+//int	show_display(void)
+static void	show_display(void)
 {
 	int		fd;
 	char	*line;
@@ -28,7 +29,8 @@ int	show_display(void)
 		ft_printf("%s", line);
 		free(line);
 	}
-	return (fd);
+	close(fd);
+	//return (fd);
 }
 
 void	free_all(char **str)

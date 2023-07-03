@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 22:49:22 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/29 03:28:22 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/03 01:59:55 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,14 @@ int	child_prog(t_pipe *args, t_data *data)
 			dup2(STDERR_FILENO, STDOUT_FILENO);
 			ft_printf("minishell: %s not found\n", \
 		data->full_cmd[args->cmd_n][0]);
+			close_pipes(args, data);
 			return (127);
 		}
 		if (access(args->fpath, X_OK) != 0)
 		{
+			dup2(STDERR_FILENO, STDOUT_FILENO);
 			ft_printf("minishell %s Permission denied\n", args->fpath);
+			close_pipes(args, data);
 			return (126);
 		}
 	}

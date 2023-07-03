@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:46:37 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/28 12:13:38 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/03 00:53:17 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	free_full_cmd(t_data *data)
 		free_char_array(data->full_cmd[i]);
 		while (++j < 2)
 			free(data->cmd_redir[i][j]);
+		j = -1;
 		free(data->cmd_redir[i]);
 	}
 }
