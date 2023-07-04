@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 22:37:26 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/04 03:59:13 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/04 04:17:50 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,9 @@ char	**remove_redir(char **parsed, t_parser *p, char *redir_type)
 
 	if (ft_strlen(redir_type) == ft_strlen(parsed[p->i]) && parsed[p->i + 1])
 	{
-		ft_printf("entrei no if do remove! ou seja ativando a recursao!\n");
-		ft_printf("p->i atual (sera inc ao entra na recursao) = %i\n",p->i);
-		getchar();
 		p->i++;
 		parsed = remove_redir(parsed, p, redir_type);
-		ft_printf("Sai da recursao, vamos ver o que temos:\n");
-		for (int i=0; parsed[i]; i++)
-			ft_printf("parsed[%d] = %s\n",i, parsed[i]);
 	}
-	ft_printf("break pont!\n");
-	getchar();
 	count = 0;
 	while (parsed[count])
 		count++;
@@ -38,11 +30,6 @@ char	**remove_redir(char **parsed, t_parser *p, char *redir_type)
 	ft_memcpy(copy, parsed, p->i * sizeof(parsed[0]));
 	ft_memcpy(copy + p->i, parsed + p->i + 1, (count - p->i - 1) * \
 		sizeof(parsed[0]));
-	for (int i =0; copy[i]; i++)
-		ft_printf("copy[%i] = %s\n",i, copy[i]);
-	ft_printf("Liberando o parsed em p->i = %d\n", p->i);
-	ft_printf("break pont!\n");
-	getchar();
 	free(parsed[p->i]);
 	free(parsed);
 	p->i--;
