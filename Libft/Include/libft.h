@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 23:14:48 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/19 14:21:15 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/04 09:48:20 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	ft_putunbr_fd(unsigned int n, int fd);
 int		hexlen(unsigned long int lli);
 char	*htoa(unsigned long int lli, int flag);
 
-/*====FRACT-OL====*/
+/* ------FRACT-OL------ */
 typedef struct s_lst
 {
 	double	ret;
@@ -110,6 +110,9 @@ typedef struct s_lst
 }	t_lst;
 double	ft_atof(const char *str);
 
-/*====PUSH_SWAP====*/
+/* ------PUSH_SWAP------ */
 long int	ft_atoli(const char *str);
+
+/* ------PRINTF_FD------ */
+int		ft_printf_fd(int fd, const char *str, ...);
 #endif

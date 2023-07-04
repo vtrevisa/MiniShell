@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 10:14:04 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/21 10:17:51 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/04 10:13:13 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	check_path(char **paths)
 	{
 		if (paths[2])
 		{
-			ft_printf("cd: too many arguments\n");
+			ft_printf_fd(2, "cd: too many arguments\n");
 			return (1);
 		}
 	}

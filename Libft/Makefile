@@ -14,7 +14,10 @@ SRC	= ./Src/ft_atoi.c ./Src/ft_bzero.c ./Src/ft_calloc.c ./Src/ft_isalnum.c ./Sr
 	./Src/Ft_printf/handlechar.c ./Src/Ft_printf/handlestr.c ./Src/Ft_printf/handlepointer.c \
 	./Src/Ft_printf/handleints.c ./Src/Ft_printf/handleunsigned.c ./Src/Ft_printf/handlehex.c \
 	./Src/Get_next_line/get_next_line_utils.c ./Src/Get_next_line/get_next_line.c ./Src/Fractol/ft_atof.c\
-	./Src/Push_Swap/ft_atoli.c
+	./Src/Push_Swap/ft_atoli.c \
+	./Src/Ft_printf_fd/ft_printf_fd.c ./Src/Ft_printf_fd/printpointer_fd_fd.c ./Src/Ft_printf_fd/utils_fd.c \
+	./Src/Ft_printf_fd/handlechar_fd.c ./Src/Ft_printf_fd/handlestr_fd.c ./Src/Ft_printf_fd/handlepointer_fd.c \
+	./Src/Ft_printf_fd/handleints_fd.c ./Src/Ft_printf_fd/handleunsigned_fd.c ./Src/Ft_printf_fd/handlehex_fd.c \
 	
 OBJS	= $(SRC:.c=.o)
 

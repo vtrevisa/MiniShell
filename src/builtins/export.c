@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 10:00:20 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/21 10:44:14 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/04 10:09:41 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	**export(char **envp, char **str, t_data *data)
 		{
 			data->rcode = 1;
 			result = 1;
-			ft_printf("export: `%s': not a valid identifier\n", str[i]);
+			ft_printf_fd(2, "export: `%s': not a valid identifier\n", str[i]);
 		}
 		else if (valid == 0)
 			if_valid(&envp, str[i], data, valid);

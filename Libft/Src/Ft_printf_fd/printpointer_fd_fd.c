@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printhex_fd.c                                      :+:      :+:    :+:   */
+/*   printpointer_fd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vitor <vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/24 19:28:04 by vitor             #+#    #+#             */
-/*   Updated: 2022/08/18 13:37:18 by vitor            ###   ########.fr       */
+/*   Created: 2022/07/24 19:28:48 by vitor             #+#    #+#             */
+/*   Updated: 2022/08/18 13:37:23 by vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	hexabase(int num, int flag)
 	return (base[num]);
 }
 
-static int	hexlen(unsigned long int lli)
+int	hexlen(unsigned long int lli)
 {
 	int	result;
 
@@ -53,7 +53,7 @@ static void	*makestr(unsigned long int lli, int position, int flag)
 	return (str);
 }
 
-static char	*htoa(unsigned long int lli, int flag)
+char	*htoa(unsigned long int lli, int flag)
 {	
 	char	*str;
 	int		dig;
@@ -63,12 +63,16 @@ static char	*htoa(unsigned long int lli, int flag)
 	return (str);
 }
 
-void	printhex_fd(unsigned long int lli, int fd, int flag)
+void	printpointer_fd(unsigned long int lli, int fd, int flag)
 {	
 	char	*str;
 
-	ft_putstr_fd ("0x", 1);
-	str = htoa(lli, flag);
+	if (flag == 2 && lli != 0)
+		ft_putstr_fd ("0x", 1);
+	if (lli == 0 && flag == 2)
+		str = ft_strdup("(nil)");
+	else
+		str = htoa(lli, flag);
 	ft_putstr_fd (str, fd);
 	free (str);
 }
