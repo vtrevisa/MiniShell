@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 10:01:15 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/21 10:12:32 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/05 11:23:02 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,19 @@ static void	if_invalid(const char *str, t_data *data)
 	}
 }
 
-static int	set_i_to_remove(int *count, const char *str, char **envpl)
+static int	set_i_to_remove(int *count, const char *str, char **envpl, int *i_to_remove)
 {
-	int	i_to_remove;
-
 	while (envpl[++*count])
 	{
 		if (ft_strncmp(envpl[*count], str, strlen(str)) == 0)
 		{
 			if (envpl[*count][strlen(str)] == '=')
 			{
-				i_to_remove = *count;
+				*i_to_remove = *count;
 			}
 		}
 	}
-	return (i_to_remove);
+	return (*i_to_remove);
 }
 
 char	**unset(char **envpl, const char *str, t_data *data)
@@ -61,7 +59,7 @@ char	**unset(char **envpl, const char *str, t_data *data)
 	i_to_remove = -1;
 	count = -1;
 	if_invalid(str, data);
-	i_to_remove = set_i_to_remove(&count, str, envpl);
+	i_to_remove = set_i_to_remove(&count, str, envpl, &i_to_remove);
 	if (i_to_remove == -1)
 		return (envpl);
 	copy = (char **)malloc((count) * sizeof(envpl[0]));
