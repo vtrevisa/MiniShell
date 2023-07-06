@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 23:14:48 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/04 09:48:20 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/06 13:33:08 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,4 +115,7 @@ long int	ft_atoli(const char *str);
 
 /* ------PRINTF_FD------ */
 int		ft_printf_fd(int fd, const char *str, ...);
+
+int		is_all_num(char *str);
+int		is_all_alph(char *str);
 #endif

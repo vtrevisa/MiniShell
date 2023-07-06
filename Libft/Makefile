@@ -18,7 +18,8 @@ SRC	= ./Src/ft_atoi.c ./Src/ft_bzero.c ./Src/ft_calloc.c ./Src/ft_isalnum.c ./Sr
 	./Src/Ft_printf_fd/ft_printf_fd.c ./Src/Ft_printf_fd/printpointer_fd_fd.c ./Src/Ft_printf_fd/utils_fd.c \
 	./Src/Ft_printf_fd/handlechar_fd.c ./Src/Ft_printf_fd/handlestr_fd.c ./Src/Ft_printf_fd/handlepointer_fd.c \
 	./Src/Ft_printf_fd/handleints_fd.c ./Src/Ft_printf_fd/handleunsigned_fd.c ./Src/Ft_printf_fd/handlehex_fd.c \
-	
+	./Src/ft_is_all_num.c ./Src/ft_is_all_alph.c
+
 OBJS	= $(SRC:.c=.o)
 
 WHITE				=	\e[00m

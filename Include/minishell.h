@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/05 11:30:29 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/06 13:15:41 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ void	exit_child(t_data *data, int code);
 int	if_bt4(t_data *data, int flag, t_pipe *args);
 int	if_bt5(t_data *data, int flag, t_pipe *args);
 int	if_bt6(t_data *data, int flag, t_pipe *args);
+int	Illegal_number(t_data *data);
 
 /*UTILS*/
 void	free_char_array(char **array);
