@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/06 13:15:41 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/09 00:45:58 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ int		child_prog(t_pipe *args, t_data *data);
 void	free_args(t_pipe *args);
 void	close_pipes(t_pipe *args, t_data *data);
 int		create_pipes(t_pipe *args, t_data *data);
+int		check_perm_cmd(t_pipe *args, t_data *data);
 
 /*PIPE Functions for builtins*/
 int		builtin_checker(char *str);
