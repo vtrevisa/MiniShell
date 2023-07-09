@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 22:33:51 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/28 16:46:22 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/09 22:32:26 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	parser(char *str, t_data *data)
 	while (data->cmd_split[i])
 		i++;
 	data->full_cmd = (char ***) ft_calloc(i + 1, sizeof(char ***));
+	data->flag_fullcmd = 1;
 	data->cmd_redir = (char ***) ft_calloc(i, sizeof(char ***));
 	parser.index = -1;
 	while (data->cmd_split[++parser.index])

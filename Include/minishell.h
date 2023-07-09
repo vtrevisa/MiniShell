@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/09 00:45:58 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/09 22:27:10 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct s_data
 	/*Roger check antes de exece*/
 	char	**cmd_split;
 	char	***full_cmd;
+	int		flag_fullcmd;
 	int		builtin;
 	/*Return code*/
 	int		rcode;

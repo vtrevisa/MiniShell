@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 04:04:24 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/06 13:29:19 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/09 22:37:53 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ void	exit_shell(t_data *data)
 	int	exit_code;
 
 	exit_code = 0;
-	if (data->full_cmd[0][1])
-		exit_code = handle_exit_code(data);
+	if (data->flag_fullcmd)
+		if (data->full_cmd[0][1])
+			exit_code = handle_exit_code(data);
 	if (data->linetyped == 1)
 	{
 		free_full_cmd(data);
