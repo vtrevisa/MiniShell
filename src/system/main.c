@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/05 03:43:35 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/09 23:34:07 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,9 @@ int	prompt_loop(t_data *data)
 			data->redir_error = 0;
 			parser(data->line, data);
 			free_char_array(data->cmd_split);
-			if (data->redir_error == 0 && data->ctrl_c == 0 && \
+			//if (data->redir_error == 0 && data->ctrl_c == 0 && \
 			data->full_cmd[0][0])
+			if (data->ctrl_c == 0 && data->full_cmd[0][0])
 				command_exec(data);
 			else if (data->ctrl_c == 1)
 				if_ctrl_c1(data);

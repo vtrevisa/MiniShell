@@ -6,17 +6,34 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 13:05:07 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/21 13:24:38 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/10 00:19:09 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-void	if_cmdredir_childstart_case1(int *fd, t_data *data, t_pipe *args)
+int	fd_error(t_data *data, t_pipe *args)
 {
+	char	*str;
+
+	str = ft_strjoin("minishell: ", data->cmd_redir[args->cmd_n][1] + 1);
+	perror(str);
+	free(str);
+	close_pipes(args, data);
+	if (args->builtin == 0)
+		free(args->fpath);
+	return (1);
+}
+
+int	if_cmdredir_childstart_case1(int *fd, t_data *data, t_pipe *args)
+{
+	char	*str;
+
 	if (data->cmd_redir[args->cmd_n][1][0] == '0')
 	{
 		*fd = open(data->cmd_redir[args->cmd_n][1] + 1, O_RDONLY);
+		if (*fd == -1)
+			return (fd_error(data, args));
 		dup2(*fd, STDIN_FILENO);
 		close(*fd);
 	}
@@ -26,23 +43,29 @@ void	if_cmdredir_childstart_case1(int *fd, t_data *data, t_pipe *args)
 		write(args->pipes[1], data->cmd_redir[args->cmd_n][1] + 1, \
 	ft_strlen(data->cmd_redir[args->cmd_n][1] + 1));
 	}
+	return (0);
 }
 
-void	if_cmdredir_childstart_case2(int *fd, t_data *data, t_pipe *args)
+int	if_cmdredir_childstart_case2(int *fd, t_data *data, t_pipe *args)
 {
 	if (data->cmd_redir[args->cmd_n][0][0] == '0')
-		*fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY);
+		*fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY | O_CREAT);
 	else
-		*fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY | O_APPEND);
+		*fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY | O_APPEND | O_CREAT);
+	if (*fd == -1)
+		return (fd_error(data, args));
 	dup2(*fd, STDOUT_FILENO);
 	close(*fd);
+	return (0);
 }
 
-void	if_cmdredir_childmiddle_case1(int *fd, t_data *data, t_pipe *args)
+int	if_cmdredir_childmiddle_case1(int *fd, t_data *data, t_pipe *args)
 {
 	if (data->cmd_redir[args->cmd_n][1][0] == '0')
 	{
 		*fd = open(data->cmd_redir[args->cmd_n][1] + 1, O_RDONLY);
+		if (*fd == -1)
+			return (fd_error(data, args));
 		dup2(*fd, STDIN_FILENO);
 		close(*fd);
 	}
@@ -52,13 +75,16 @@ void	if_cmdredir_childmiddle_case1(int *fd, t_data *data, t_pipe *args)
 		write(args->pipes[args->pipe_i + 3], data->cmd_redir[args-> \
 	cmd_n][1] + 1, ft_strlen(data->cmd_redir[args->cmd_n][1] + 1));
 	}
+	return (0);
 }
 
-void	if_cmdredir_childend_case1(int *fd, t_data *data, t_pipe *args)
+int	if_cmdredir_childend_case1(int *fd, t_data *data, t_pipe *args)
 {
 	if (data->cmd_redir[args->cmd_n][1][0] == '0')
 	{
 		*fd = open(data->cmd_redir[args->cmd_n][1] + 1, O_RDONLY);
+		if (*fd == -1)
+			return (fd_error(data, args));
 		dup2(*fd, STDIN_FILENO);
 		close(*fd);
 	}
@@ -68,4 +94,5 @@ void	if_cmdredir_childend_case1(int *fd, t_data *data, t_pipe *args)
 		write(args->pipes[args->pipe_i + 3], data->cmd_redir \
 	[args->cmd_n][1] + 1, ft_strlen(data->cmd_redir[args->cmd_n][1] + 1));
 	}
+	return (0);
 }

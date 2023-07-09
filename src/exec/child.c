@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 22:49:22 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/09 00:39:21 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/10 00:19:04 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ static int	child_start(t_pipe *args, t_data *data)
 	if (data->qtd_cmd > 1)
 		dup2(args->pipes[1], STDOUT_FILENO);
 	if (data->cmd_redir[args->cmd_n][1])
-		if_cmdredir_childstart_case1(&fd, data, args);
+		if (if_cmdredir_childstart_case1(&fd, data, args) == 1)
+			return (1); //--> curiosamente o errno eh 2, mas o bash retorna 1...
 	if (data->cmd_redir[args->cmd_n][0])
-		if_cmdredir_childstart_case2(&fd, data, args);
+		if (if_cmdredir_childstart_case2(&fd, data, args) == 1)
+			return (1);
 	close_pipes(args, data);
 	if (args->builtin == 0)
 	{
@@ -42,13 +44,16 @@ static int	child_middle(t_pipe *args, t_data *data)
 	int	fd;
 
 	if (data->cmd_redir[args->cmd_n][1])
-		if_cmdredir_childmiddle_case1(&fd, data, args);
+		if (if_cmdredir_childmiddle_case1(&fd, data, args) == 1)
+			return (1);
 	if (data->cmd_redir[args->cmd_n][0])
 	{
 		if (data->cmd_redir[args->cmd_n][0][0] == '0')
-			fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY);
+			fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY | O_CREAT);
 		else
-			fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY | O_APPEND);
+			fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY | O_APPEND | O_CREAT);
+		if (fd == -1)
+			return (fd_error(data, args));
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
 	}
@@ -71,13 +76,16 @@ static int	child_end(t_pipe *args, t_data *data)
 
 	dup2(args->pipes[args->pipe_i], STDIN_FILENO);
 	if (data->cmd_redir[args->cmd_n][1])
-		if_cmdredir_childend_case1(&fd, data, args);
+		if (if_cmdredir_childend_case1(&fd, data, args) == 1)
+			return (1);
 	if (data->cmd_redir[args->cmd_n][0])
 	{
 		if (data->cmd_redir[args->cmd_n][0][0] == '0')
-			fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY);
+			fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY | O_CREAT);
 		else
-			fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY | O_APPEND);
+			fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY | O_APPEND | O_CREAT);
+		if (fd == -1)
+			return (fd_error(data, args));
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
 	}

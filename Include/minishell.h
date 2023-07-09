@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/09 22:27:10 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/10 00:07:51 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,10 +213,11 @@ void	sigint_handler(int sig);
 void	print_user_dir(t_data *data);
 
 /*CHILD UTILS*/
-void	if_cmdredir_childstart_case1(int *fd, t_data *data, t_pipe *args);
-void	if_cmdredir_childstart_case2(int *fd, t_data *data, t_pipe *args);
-void	if_cmdredir_childmiddle_case1(int *fd, t_data *data, t_pipe *args);
-void	if_cmdredir_childend_case1(int *fd, t_data *data, t_pipe *args);
+int		if_cmdredir_childstart_case1(int *fd, t_data *data, t_pipe *args);
+int		if_cmdredir_childstart_case2(int *fd, t_data *data, t_pipe *args);
+int		if_cmdredir_childmiddle_case1(int *fd, t_data *data, t_pipe *args);
+int		if_cmdredir_childend_case1(int *fd, t_data *data, t_pipe *args);
+int		fd_error(t_data *data, t_pipe *args);
 
 /*MAIN_UTILS*/
 void	if_data_cmd_redir0(t_data *data, int *fd, int flag);
