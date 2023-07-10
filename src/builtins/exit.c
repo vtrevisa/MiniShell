@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 04:04:24 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/09 22:37:53 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/10 03:32:17 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	exit_shell(t_data *data)
 		free(data->full_cmd);
 		free(data->line);
 	}
+	else
+		ft_printf("\n");
 	free(data->user);
 	free(data->cmd);
 	free_char_array(data->envp);
