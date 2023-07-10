@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   defs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/10 17:53:25 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/10 17:15:49 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef DEFS_H
 
-/*LIBRARIES*/
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/wait.h>
-# include <fcntl.h>
-# include <sys/stat.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <unistd.h>
-# include <limits.h>
-# include <errno.h>
-# include <signal.h>
-
-/*LOCAL HEADERS*/
-# include "../Libft/Include/libft.h"
-# include "./defs.h"
-# include "./structs.h"
-# include "./source.h"
+# define DEFS_H
+# define EXIT_CODE 1
+# define FILE_STDIN 4
+# define FILE_STDIN_CONC 5
+# define FILE_STDOUT 6
+# define FILE_STDOUT_CONC 7
+# define PIPE 8
+# define PATH_MAX 4096
 
 #endif

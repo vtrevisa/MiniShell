@@ -1,28 +1,31 @@
 #--STANDARD--
 NAME	= minishell
-CFLAGS	= -Wall -Wextra -Werror -g3 -lreadline
+CFLAGS	= -Wall -Wextra -Werror -g3
 VPATH	= $(addprefix $(SRC_D)/, $(DIRS))
-HEADER	= ./Include/minishell.h
 
 #--LIBFT--
 LIB		= $(addprefix $(LPATH)/, libft.a)
-LPATH	= ./Libft/
+LPATH	= ./Libft
 
 #--DIRS--
-SRC_D	= ./src/
-DIRS	= . builtins exec parser_lexer system 
-OBJ_D	= ./objects
+SRC_D		= ./src/
+DIRS		= . builtins exec parser_lexer system 
+OBJ_D		= ./objects
+INCLUDE_D	= ./Include
+LIB_INC_D	= $(LPATH)/Include
 
 #--FILES--
 SRC		= $(BTIN) $(EXEC) $(PRLX) $(SYST)
 
 BTIN	= echo.c change_dir.c pwd.c env.c export.c unset.c builtin_checker.c exit.c \
 			builtin_checker_utils.c exit_error_codes.c
-EXEC	= child_and_pipes.c child.c child_utils.c path_search.c pipe_input.c pipe_input_utils.c check_perm.c
+EXEC	= child.c child_utils.c path_search.c pipe_input.c pipe_input_utils.c \
+			check_perm.c child_utils2.c
 PRLX	= args_str_treatment.c parser.c parse_redir.c parse_redir_utils.c parser_utils.c \
 			parser_utils2.c replace_var.c parse_redir_utils2.c replace_var_redir.c
-SYST	= main.c main_utils.c read_line.c init.c error_exit.c utils.c here-doc.c signals.c 
-
+SYST	= main.c main_utils.c read_line.c init.c here-doc.c signals.c \
+			main_utils2.c
+INCLUDE	= -I $(INCLUDE_D) -I $(LIB_INC_D)
 #--OBJECTS--
 OBJ		= $(SRC:%.c=$(OBJ_D)/%.o)
 
@@ -40,7 +43,7 @@ all: $(NAME)
 
 $(NAME): $(LIB) $(OBJ) $(OBJ_D)
 	@echo "$(BLUE)Compiling $(WHITE)Minishell"
-	@cc $(OBJ) $(LIB) $(CFLAGS) -o $@
+	@cc $(CFLAGS) $(INCLUDE) $(OBJ) -lreadline $(LIB) -o $@
 	@echo "$(GREEN)Compiled $(WHITE)Minishell"
 
 $(LIB):
