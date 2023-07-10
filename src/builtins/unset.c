@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 10:01:15 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/05 11:23:02 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/10 10:50:28 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static void	if_invalid(const char *str, t_data *data)
 	}
 }
 
-static int	set_i_to_remove(int *count, const char *str, char **envpl, int *i_to_remove)
+static int	set_i_to_remove(int *count, const char *str, \
+char **envpl, int *i_to_remove)
 {
 	while (envpl[++*count])
 	{

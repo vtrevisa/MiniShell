@@ -6,13 +6,13 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:13 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/09 22:31:15 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/10 14:15:43 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-char	**copy_double_str(char **envp)
+static char	**copy_double_str(char **envp)
 {
 	int		count;
 	int		i;
@@ -36,7 +36,7 @@ char	**copy_double_str(char **envp)
 	return (copy);
 }
 
-char	*pathfinder(char *envp[])
+static char	*pathfinder(char *envp[])
 {
 	int	index;
 
@@ -46,7 +46,7 @@ char	*pathfinder(char *envp[])
 	return (envp[index] + 5);
 }
 
-char	*userfinder(char *envp[])
+static char	*userfinder(char *envp[])
 {
 	int	index;
 

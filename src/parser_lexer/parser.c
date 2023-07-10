@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 22:33:51 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/09 22:32:26 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/10 14:03:08 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	if_str_slash(char *str, t_data *data, t_parser *parse, int flag)
 		parse->i = parse->j;
 }
 
-void	parse_var(char *str, t_data *data, t_parser *parse)
+static void	parse_var(char *str, t_data *data, t_parser *parse)
 {
 	int	flag;
 

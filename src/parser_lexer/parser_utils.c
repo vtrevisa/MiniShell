@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:44:35 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/30 16:52:20 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/10 14:01:11 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*trim(char *str, t_data *data, t_parser *p)
 	return (new_str);
 }
 
-char	**remove_empty(char **str, int i_to_remove, t_parser *p)
+static char	**remove_empty(char **str, int i_to_remove, t_parser *p)
 {
 	int		count;
 	char	**copy;

@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 13:05:07 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/10 01:43:57 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/10 10:54:05 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,11 @@ int	if_cmdredir_childstart_case1(int *fd, t_data *data, t_pipe *args)
 int	if_cmdredir_childstart_case2(int *fd, t_data *data, t_pipe *args)
 {
 	if (data->cmd_redir[args->cmd_n][0][0] == '0')
-		*fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY | O_CREAT, 0664);
+		*fd = open(data->cmd_redir[args->cmd_n][0] + 1, \
+	O_WRONLY | O_CREAT, 0664);
 	else
-		*fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY | O_APPEND | O_CREAT, 0664);
+		*fd = open(data->cmd_redir[args->cmd_n][0] + 1, \
+	O_WRONLY | O_APPEND | O_CREAT, 0664);
 	if (*fd == -1)
 		return (fd_error(data, args));
 	dup2(*fd, STDOUT_FILENO);

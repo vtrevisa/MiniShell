@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check_perm.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 00:36:56 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/10 03:19:37 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/10 10:53:06 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-static int exec_null(t_pipe *args, t_data *data)
+static int	exec_null(t_pipe *args, t_data *data)
 {
 	if (args->fpath == NULL)
 	{
@@ -37,8 +37,8 @@ static int exec_null(t_pipe *args, t_data *data)
 
 int	check_perm_cmd(t_pipe *args, t_data *data)
 {
-	struct stat status;
-	int	code;
+	struct stat	status;
+	int			code;
 
 	code = exec_null(args, data);
 	if (code != 0)

@@ -6,33 +6,33 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 04:04:24 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/10 03:32:17 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/10 10:51:12 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-static int check_arg2(t_data *data)
+static int	check_arg2(t_data *data)
 {
 	int				i;
 	long long int	code;
 
 	i = 0;
-	while(data->full_cmd[0][1][i] == '+')
+	while (data->full_cmd[0][1][i] == '+')
 		i++;
 	if (data->full_cmd[0][1][i] == '-')
-		code = Illegal_number(data);
-	else if(is_all_num(data->full_cmd[0][1] + i))
+		code = illegal_number(data);
+	else if (is_all_num(data->full_cmd[0][1] + i))
 	{
 		if (ft_strncmp(data->full_cmd[0][1], "2147483647", 11) > 0 && \
 	ft_strlen(data->full_cmd[0][1]) > 9)
-			code = Illegal_number(data);
+			code = illegal_number(data);
 		else
 			code = ft_atoli(data->full_cmd[0][1] + i);
 	}
-	else if(is_all_alph(data->full_cmd[0][1] + i))
+	else if (is_all_alph(data->full_cmd[0][1] + i))
 	{
-		code = Illegal_number(data);
+		code = illegal_number(data);
 	}
 	return (code);
 }
@@ -42,14 +42,13 @@ static int	handle_exit_code(t_data *data)
 	int	code;
 
 	code = 0;
-	if(data->full_cmd[0][2])
+	if (data->full_cmd[0][2])
 	{
 		ft_printf_fd(2, " too many arguments");
 		exit(1);
 	}
 	code = check_arg2(data);
-/* 	ft_printf("$?: %d\n", code % 256); */
-	return(code % 256);
+	return (code % 256);
 }
 
 void	exit_shell(t_data *data)

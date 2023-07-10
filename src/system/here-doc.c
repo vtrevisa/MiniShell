@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 00:49:21 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/05 03:42:09 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/10 11:23:06 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ char	*here_doc(char *str)
 	read = ft_calloc(1, sizeof(read));
 	while_heredoc(str, read, &new_line);
 	free(str);
-	//free(read); --> double free 
 	if (g_var.ctrl_c == 0)
 		close(g_var.saved_stdin);
 	read = ft_strjoin("1", new_line);

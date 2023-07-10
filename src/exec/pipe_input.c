@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 22:54:48 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/10 02:49:50 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/10 13:52:08 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ static void	pipe_to_pipe(t_pipe *args, t_data *data)
 		if (retv < 0)
 		{
 			free_args(args);
-			exit_child(data, 255);//exit(255);
+			exit_child(data, 255);
 		}
 		args->cmd_n++;
 		args->pipe_i += 2;
 	}
 }
 
-void	wait_pipes(t_pipe *args, t_data *data)
+static void	wait_pipes(t_pipe *args, t_data *data)
 {
 	int	i;
 	int	status;
@@ -64,8 +64,6 @@ void	wait_pipes(t_pipe *args, t_data *data)
 		if (WIFEXITED(status))
 		{
 			exit_status = WEXITSTATUS(status);
- 			/*ft_printf("[%d]Exit status of child %d was %d\n", i, \
-		args->pid[i], exit_status); */
 			data->rcode = exit_status;
 		}
 	}
