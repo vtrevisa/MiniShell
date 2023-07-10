@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 02:55:31 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/30 17:09:35 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/10 03:20:30 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,14 @@ static char	*if_path_to_exec_true(char *envp[], char **path, char ***paths, \
 	return (*path);
 }
 
-char	*path_search(char *envp[], const char *cmd)
+char	*path_search(char *envp[], const char *cmd, t_data *data)
 {
 	char	*path;
 	char	*tmppath;
 	char	**paths;
+	char	*str;
 
+	//printf("cmd is: %s\n",cmd);
 	if (path_to_exec(cmd) == 0)
 		return (if_path_to_exec_true(envp, &path, &paths, cmd));
 	else
@@ -75,6 +77,12 @@ char	*path_search(char *envp[], const char *cmd)
 		if (access(cmd, F_OK) != -1)
 			return (ft_strdup(cmd));
 		else
+		{
+			str = ft_strjoin("minishell: ", cmd);
+			perror(str);
+			free(str);
+			data->rcode = 127;
 			return (NULL);
+		}
 	}
 }

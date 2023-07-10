@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 22:49:22 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/10 02:34:04 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/10 03:26:23 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,8 @@ int	child_prog(t_pipe *args, t_data *data)
 	args->builtin = builtin_checker(data->full_cmd[args->cmd_n][0]);
 	if (args->builtin == 0)
 	{
-		args->fpath = path_search(data->envp, data->full_cmd[args->cmd_n][0]);
+		args->fpath = path_search(data->envp, data->full_cmd[args->cmd_n][0], data);
+		//printf("args->fpath: %s\n",args->fpath);
 		/*if (args->fpath == NULL)
 		{
 			dup2(STDERR_FILENO, STDOUT_FILENO);

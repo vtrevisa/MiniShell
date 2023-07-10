@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/10 01:25:08 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/10 03:18:52 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ void	piper(t_data *data);
 
 /*PIPE Functions*/
 char	**treat_str(char *str);
-char	*path_search(char *envp[], const char *cmd);
+char	*path_search(char *envp[], const char *cmd, t_data *data);
 int		child_prog(t_pipe *args, t_data *data);
 void	free_args(t_pipe *args);
 void	close_pipes(t_pipe *args, t_data *data);

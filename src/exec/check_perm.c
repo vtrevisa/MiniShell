@@ -6,7 +6,7 @@
 /*   By: romachad <romachad@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 00:36:56 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/09 00:43:53 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/10 03:19:37 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,12 @@ static int exec_null(t_pipe *args, t_data *data)
 {
 	if (args->fpath == NULL)
 	{
-		dup2(STDERR_FILENO, STDOUT_FILENO);
-		ft_printf("minishell: %s: command not found\n", \
-	data->full_cmd[args->cmd_n][0]);
+		if (data->rcode != 127)
+		{
+			dup2(STDERR_FILENO, STDOUT_FILENO);
+			ft_printf("minishell: %s: command not found\n", \
+					data->full_cmd[args->cmd_n][0]);
+		}
 		close_pipes(args, data);
 		return (127);
 	}
