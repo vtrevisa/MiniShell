@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/10 00:07:51 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/10 01:25:08 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,8 +220,8 @@ int		if_cmdredir_childend_case1(int *fd, t_data *data, t_pipe *args);
 int		fd_error(t_data *data, t_pipe *args);
 
 /*MAIN_UTILS*/
-void	if_data_cmd_redir0(t_data *data, int *fd, int flag);
-void	if_data_cmd_redir1(t_data *data, int *fd, int flag);
+int		if_data_cmd_redir0(t_data *data, int *fd, int flag);
+int		if_data_cmd_redir1(t_data *data, int *fd, int flag);
 void	free_full_cmd(t_data *data);
 void	if_ctrl_c1(t_data *data);
 #endif

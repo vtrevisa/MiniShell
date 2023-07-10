@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 22:49:22 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/10 00:19:04 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/10 02:34:04 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ static int	child_middle(t_pipe *args, t_data *data)
 	if (data->cmd_redir[args->cmd_n][0])
 	{
 		if (data->cmd_redir[args->cmd_n][0][0] == '0')
-			fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY | O_CREAT);
+			fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY | O_CREAT, 0664);
 		else
-			fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY | O_APPEND | O_CREAT);
+			fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY | O_APPEND | O_CREAT, 0664);
 		if (fd == -1)
 			return (fd_error(data, args));
 		dup2(fd, STDOUT_FILENO);
@@ -81,9 +81,9 @@ static int	child_end(t_pipe *args, t_data *data)
 	if (data->cmd_redir[args->cmd_n][0])
 	{
 		if (data->cmd_redir[args->cmd_n][0][0] == '0')
-			fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY | O_CREAT);
+			fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY | O_CREAT, 0664);
 		else
-			fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY | O_APPEND | O_CREAT);
+			fd = open(data->cmd_redir[args->cmd_n][0] + 1, O_WRONLY | O_APPEND | O_CREAT, 0664);
 		if (fd == -1)
 			return (fd_error(data, args));
 		dup2(fd, STDOUT_FILENO);
@@ -114,6 +114,13 @@ static int	child_exec(t_pipe *args, t_data *data)
 int	child_prog(t_pipe *args, t_data *data)
 {
 	int	code;
+
+	if (data->cmd_redir[args->cmd_n][0])
+		if (data->cmd_redir[args->cmd_n][0][0] == '2')
+			return (1);
+	if (data->cmd_redir[args->cmd_n][1])
+		if (data->cmd_redir[args->cmd_n][1][0] == '2')
+			return (1);
 	args->builtin = builtin_checker(data->full_cmd[args->cmd_n][0]);
 	if (args->builtin == 0)
 	{

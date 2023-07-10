@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 22:54:48 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/10 00:09:23 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/10 02:49:50 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static int	call_fork(t_pipe *args, t_data *data)
 	{
 		args->pid[args->cmd_n] = child_prog(args, data);
 		data->rcode = args->pid[args->cmd_n];
+		close_pipes(args, data);
 		free_args(args);
 		free_char_array(data->envp);
 		exit_child(data, data->rcode);
