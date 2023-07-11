@@ -17,7 +17,7 @@ LIB_INC_D	= $(LPATH)/Include
 #--FILES--
 SRC		= $(BTIN) $(EXEC) $(PRLX) $(SYST)
 
-BTIN	= echo.c change_dir.c pwd.c env.c export.c unset.c builtin_checker.c exit.c \
+BTIN	= echo.c change_dir.c pwd.c env.c export_utils.c export.c unset.c builtin_checker.c exit.c \
 			builtin_checker_utils.c exit_error_codes.c
 EXEC	= child.c child_utils.c path_search.c pipe_input.c pipe_input_utils.c \
 			check_perm.c child_utils2.c

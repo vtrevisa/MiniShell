@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/10 17:20:32 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/11 17:17:23 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int		illegal_number(t_data *data);
 /*EXIT*/
 void	exit_shell(t_data *data);
 void	exit_child(t_data *data, int code);
+/*EXPORT UTILS*/
+void	export_empty(char **envp);
 /*EXPORT*/
 char	**export(char **envp, char **str, t_data *data);
 /*PWD*/
