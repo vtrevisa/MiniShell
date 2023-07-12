@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 10:00:20 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/11 17:16:59 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:15:34 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,3 @@ void	export_empty(char **envp)
 		ft_putstr_fd("\"\n", STDOUT_FILENO);
 	}
 }
-

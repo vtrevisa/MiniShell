@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 04:04:24 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/10 10:51:12 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:15:47 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,21 @@ static int	check_arg2(t_data *data)
 	i = 0;
 	while (data->full_cmd[0][1][i] == '+')
 		i++;
-	if (data->full_cmd[0][1][i] == '-')
-		code = illegal_number(data);
-	else if (is_all_num(data->full_cmd[0][1] + i))
+	if (data->full_cmd[0][1][i] == '-' && ft_strlen(data->full_cmd[0][1]) <= 9)
+		return (156);
+	while (data->full_cmd[0][1][i] == '-')
+		i++;
+	if (is_all_num(data->full_cmd[0][1] + i))
 	{
-		if (ft_strncmp(data->full_cmd[0][1], "2147483647", 11) > 0 && \
-	ft_strlen(data->full_cmd[0][1]) > 9)
-			code = illegal_number(data);
+		if ((ft_strncmp(data->full_cmd[0][1], "2147483647", 11) > 0 && \
+	ft_strlen(data->full_cmd[0][1]) > 9) || \
+	ft_strlen(data->full_cmd[0][1]) > 10)
+			code = big_number(data->full_cmd[0][1]);
 		else
 			code = ft_atoli(data->full_cmd[0][1] + i);
 	}
 	else if (is_all_alph(data->full_cmd[0][1] + i))
-	{
-		code = illegal_number(data);
-	}
+		code = illegal_number();
 	return (code);
 }
 
@@ -43,11 +44,9 @@ static int	handle_exit_code(t_data *data)
 
 	code = 0;
 	if (data->full_cmd[0][2])
-	{
-		ft_printf_fd(2, " too many arguments");
-		exit(1);
-	}
-	code = check_arg2(data);
+		code = too_many_args();
+	else if (data->full_cmd[0][1])
+		code = check_arg2(data);
 	return (code % 256);
 }
 

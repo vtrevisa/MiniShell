@@ -6,14 +6,14 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/11 17:17:23 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:21:00 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef SOURCE_H
 # define SOURCE_H
-
+/*TEST APAGAR*/
+void	show_data(t_data *data);
 /*--------BUILTINS---------*/
 /*BUILTIN CHECKER UTILS*/
 int		if_bt4(t_data *data, int flag, t_pipe *args);
@@ -30,7 +30,9 @@ int		echo_n(char **text);
 /*ENV*/
 void	env(char **envp);
 /*EXIT_ERROR_CODES*/
-int		illegal_number(t_data *data);
+int		illegal_number(void);
+int		too_many_args(void);
+int		big_number(char *str);
 /*EXIT*/
 void	exit_shell(t_data *data);
 void	exit_child(t_data *data, int code);
@@ -43,7 +45,6 @@ int		pwd(void);
 /*UNSET*/
 char	**unset(char **envpl, const char *str, t_data *data);
 char	**prep_unset(char **envpl, const char **str, t_data *data);
-
 
 /*--------EXEC---------*/
 /*CHECK PERM*/
@@ -67,9 +68,7 @@ int		create_pipes(t_pipe *args, t_data *data);
 /*PIPE INPUT*/
 void	piper(t_data *data);
 
-
 /*--------PARSER-LEXER---------*/
-
 /*ARGS STR TREATMENT*/
 char	**treat_str(char *str);
 /*PARSE REDIR UTILS*/
@@ -78,7 +77,8 @@ void	parse_var_redir(t_data *data, t_parser *parser);
 char	*parse_var_heredoc(char *str, t_data *data);
 /*PARSE REDIR UTILS 2*/
 char	**remove_redir(char **parsed, t_parser *p, char *redir_type);
-void	create_redir_str(char **parsed, t_parser *p, t_data *data, char *redir_type);
+void	create_redir_str(char **parsed, t_parser *p, t_data *data, \
+	char *redir_type);
 int		check_outfile(char *outfile, char mode);
 int		check_infile(char *infile);
 /*PARSER REDIR*/

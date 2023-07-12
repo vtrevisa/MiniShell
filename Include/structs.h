@@ -6,10 +6,9 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/10 17:32:39 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:20:16 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
@@ -97,7 +96,6 @@ typedef struct s_var
 	char	*name;
 	char	*value;
 	char	*n_str;
-} t_var;
-
+}	t_var;
 
 #endif
