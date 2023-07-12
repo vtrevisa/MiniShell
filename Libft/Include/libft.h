@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 23:14:48 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/12 16:22:46 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:26:31 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void		ft_lstiter(t_list *lst, void (*f)(void *));
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 /* ------GNL------ */
-char		get_next_line(int fd);
+char		*get_next_line(int fd);
 size_t		gn_strlen(const char *s);
 char		*gn_strjoin(char *s1, char *s2);
 char		*gn_strchr(char *s, int c);
