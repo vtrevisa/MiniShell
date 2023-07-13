@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 22:37:26 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/28 17:13:33 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/13 04:24:09 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ char	*parse_var_heredoc(char *str, t_data *data)
 
 	p.str = str;
 	p.i = -1;
+	if (p.str == NULL)
+		return (p.str);
 	while (p.str[++p.i])
 	{
 		if (p.str[p.i] == '$')

@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:09:55 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/28 11:18:01 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/13 03:59:57 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	print_user_dir(t_data *data)
 		ft_printf("~%s", cwd + index);
 }
 
-void	*read_line(t_data *data)
+void	read_line(t_data *data)
 {
 	data->linetyped = 0;
 	print_user_dir(data);

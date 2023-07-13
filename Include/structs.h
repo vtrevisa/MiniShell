@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/12 16:20:16 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/13 04:30:34 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,7 @@
 # define STRUCTS_H
 # include "./minishell.h"
 
-/*Structs and ENUM for PARSER*/
-typedef enum s_state
-{
-	NORMAL,
-	ESPACE,
-	SINGLE_QUOTE,
-	DOUBLE_QUOTE,
-	VARIABLE,
-	VARIABLE_IN_DQ,
-}	t_state;
-
+/*Struct for PARSER*/
 typedef struct s_parser
 {
 	int		i;
@@ -33,7 +23,6 @@ typedef struct s_parser
 	int		index2;
 	int		redir_type;
 	char	*str;
-	t_state	st;
 }	t_parser;
 
 /*General struct (GLOBAL)*/
