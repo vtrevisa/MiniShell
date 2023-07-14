@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 10:00:20 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/12 16:16:03 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:11:58 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,9 @@ static void	if_valid(char ***envp, char *str, t_data *data, int valid)
 
 char	**export(char **envp, char **str, t_data *data)
 {
-	int		result;
 	int		i;
 	int		valid;
 
-	result = 0;
 	i = -1;
 	if (str[0])
 	{
@@ -96,7 +94,6 @@ char	**export(char **envp, char **str, t_data *data)
 			if (valid == 1)
 			{
 				data->rcode = 1;
-				result = 1;
 				ft_printf_fd(2, "export: `%s': not a valid identifier\n", \
 			str[i]);
 			}

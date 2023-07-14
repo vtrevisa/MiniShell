@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/14 05:38:38 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:29:36 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,6 @@ void	command_exec(t_data *data)
 
 int	prompt_loop(t_data *data)
 {
-	int		status;
-
-	status = 0;
 	while (1)
 	{
 		read_line(data);
@@ -84,6 +81,10 @@ int	prompt_loop(t_data *data)
 
 int	main(int argc, char **argv, char **envp)
 {	
+	while (argc || !argc)
+		break ;
+	while (argv || !argv)
+		break ;
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 	show_display();

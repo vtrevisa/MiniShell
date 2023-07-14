@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 22:49:22 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/14 05:37:52 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:27:45 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 static int	child_start(t_pipe *args, t_data *data)
 {
 	int	fd;
-//ft_printf("heredoc: %d\n",data->here_doc);
+
 	if (data->qtd_cmd > 1)
 	{
-		if(data->is_here_doc == 1)
+		if (data->is_here_doc == 1)
 			dup2(args->pipes[3], STDOUT_FILENO);
 		else
 			dup2(args->pipes[1], STDOUT_FILENO);
@@ -31,10 +31,7 @@ static int	child_start(t_pipe *args, t_data *data)
 			return (1);
 	close_pipes(args, data);
 	if (args->builtin == 0)
-	{
-		execve(args->fpath, data->full_cmd[args->cmd_n], data->envp);
-		free(args->fpath);
-	}
+		call_exec(data, args);
 	else
 		builtin_exec_pipe(args, data);
 	if (args->builtin == 0)
@@ -51,10 +48,8 @@ static int	child_middle(t_pipe *args, t_data *data)
 		if (if_cmdredir_childmiddle_case1(&fd, data, args) == 1)
 			return (1);
 	if (data->cmd_redir[args->cmd_n][0])
-	{
 		if (if_cmd_redir(data, args, &fd))
 			return (fd_error(data, args));
-	}
 	if (data->is_here_doc == 1)
 	{
 		dup2(args->pipes[args->pipe_i + 2], STDIN_FILENO);
@@ -67,10 +62,7 @@ static int	child_middle(t_pipe *args, t_data *data)
 	}
 	close_pipes(args, data);
 	if (args->builtin == 0)
-	{
-		execve(args->fpath, data->full_cmd[args->cmd_n], data->envp);
-		free(args->fpath);
-	}
+		call_exec(data, args);
 	else
 		builtin_exec_pipe(args, data);
 	return (errno);

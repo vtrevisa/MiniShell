@@ -51,7 +51,7 @@ $(LIB):
 	@$(MAKE)	-C $(LPATH) --no-print-directory
 
 $(OBJ_D)/%.o: %.c Makefile | $(OBJ_D)
-	@cc -c $< -o $@
+	@cc -c $(CFLAGS) $< -o $@
 	@echo -n "$(YELLOW)Compiling $(WHITE)$$(( $(PROGRESS) * 100 / $(NUMBER_OF_SRC_FILES)))%\r"
 	$(eval PROGRESS=$(shell echo $$(($(PROGRESS)+1))))
 

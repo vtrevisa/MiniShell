@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 13:05:07 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/10 10:54:05 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:15:02 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ int	fd_error(t_data *data, t_pipe *args)
 
 int	if_cmdredir_childstart_case1(int *fd, t_data *data, t_pipe *args)
 {
-	char	*str;
-
 	if (data->cmd_redir[args->cmd_n][1][0] == '0')
 	{
 		*fd = open(data->cmd_redir[args->cmd_n][1] + 1, O_RDONLY);

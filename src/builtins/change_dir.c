@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 10:14:04 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/04 10:13:13 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:11:28 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static int	check_path(char **paths)
 
 int	change_directory(char **paths, char **envp)
 {
-	char	cwd[PATH_MAX];
 	char	flag;
 	char	*path;
 

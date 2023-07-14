@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 01:12:41 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/21 09:57:56 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:12:15 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	if_bt5(t_data *data, int flag, t_pipe *args)
 	}
 }
 
-int	if_bt6(t_data *data, int flag, t_pipe *args)
+int	if_bt6(t_data *data, int flag)
 {
 	if (flag == 1)
 	{

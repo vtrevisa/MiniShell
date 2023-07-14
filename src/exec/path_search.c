@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 02:55:31 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/10 11:18:08 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:15:23 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static char	*if_path_to_exec_true(char *envp[], char **path, char ***paths, \
 char	*path_search(char *envp[], const char *cmd, t_data *data)
 {
 	char	*path;
-	char	*tmppath;
 	char	**paths;
 	char	*str;
 

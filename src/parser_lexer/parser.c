@@ -6,13 +6,13 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 22:33:51 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/10 14:03:08 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:18:22 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-static void	if_str_slash(char *str, t_data *data, t_parser *parse, int flag)
+static void	if_str_slash(t_parser *parse)
 {
 	parse->j = parse->i + 1;
 	while (parse->str[parse->j] && parse->str[parse->j] != '\'')
@@ -34,7 +34,7 @@ static void	parse_var(char *str, t_data *data, t_parser *parse)
 			flag = check_close_dq(parse->str + parse->i);
 		if (parse->str[parse->i] == '\'' && \
 	parse->str[parse->i + 1] && flag == 0)
-			if_str_slash(str, data, parse, flag);
+			if_str_slash(parse);
 		parse->j = 0;
 		if (parse->str[parse->i] == '$' && \
 	(ft_isalnum(parse->str[parse->i + 1]) || \
@@ -46,7 +46,7 @@ static void	parse_var(char *str, t_data *data, t_parser *parse)
 	}
 }
 
-static void	while_cmd_split(char *str, t_data *data, t_parser *parser)
+static void	while_cmd_split(t_data *data, t_parser *parser)
 {
 	parse_quote(data->cmd_split[parser->index], data, parser->index, parser);
 	data->cmd_redir[parser->index] = (char **) ft_calloc(2, sizeof(char **));
@@ -65,7 +65,6 @@ static void	while_cmd_split(char *str, t_data *data, t_parser *parser)
 void	parser(char *str, t_data *data)
 {
 	int			i;
-	int			j;
 	t_parser	parser;
 
 	i = 0;
@@ -77,5 +76,5 @@ void	parser(char *str, t_data *data)
 	data->cmd_redir = (char ***) ft_calloc(i, sizeof(char ***));
 	parser.index = -1;
 	while (data->cmd_split[++parser.index])
-		while_cmd_split(str, data, &parser);
+		while_cmd_split(data, &parser);
 }

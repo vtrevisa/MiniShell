@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:12:35 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/06/30 16:39:14 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:20:04 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	if_return_code_var(t_var *var, t_parser *p, t_data *data)
 	free(var->name);
 }
 
-static void	if_var_value(t_var *var, t_parser *p, t_data *data, char flag)
+static void	if_var_value(t_var *var, t_parser *p, char flag)
 {
 	var->n_str = ft_calloc((p->i + ft_strlen(var->value) + (ft_strlen(p->str) \
 		- p->i - var->len)), sizeof(p->str));
@@ -53,7 +53,7 @@ void	replace_var_redir(t_parser *p, t_data *data)
 		var.len++;
 	}
 	if (var.value)
-		if_var_value(&var, p, data, flag);
+		if_var_value(&var, p, flag);
 	else
 	{
 		var.n_str = ft_calloc((ft_strlen(p->str) - (var.len + 1)), \

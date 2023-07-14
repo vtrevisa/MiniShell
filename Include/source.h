@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/13 04:00:08 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:26:48 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	show_data(t_data *data);
 /*BUILTIN CHECKER UTILS*/
 int		if_bt4(t_data *data, int flag, t_pipe *args);
 int		if_bt5(t_data *data, int flag, t_pipe *args);
-int		if_bt6(t_data *data, int flag, t_pipe *args);
+int		if_bt6(t_data *data, int flag);
 /*BUILTIN CHECKER*/
 int		builtin_exec_main(t_data *data);
 int		builtin_checker(char *str);
@@ -57,6 +57,7 @@ int		if_cmdredir_childend_case1(int *fd, t_data *data, t_pipe *args);
 int		fd_error(t_data *data, t_pipe *args);
 /*CHILD UTILS 2*/
 int		if_cmd_redir(t_data *data, t_pipe *args, int *fd);
+void	call_exec(t_data *data, t_pipe *args);
 /*CHILD*/
 int		child_prog(t_pipe *args, t_data *data);
 /*PATH SEARCH*/

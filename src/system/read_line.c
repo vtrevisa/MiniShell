@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:09:55 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/13 03:59:57 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:28:13 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	print_user_dir(t_data *data)
 {
-	char	cwd[1024];
-	int		index;
+	char		cwd[1024];
+	size_t		index;
 
 	index = 0;
 	getcwd(cwd, sizeof(cwd));

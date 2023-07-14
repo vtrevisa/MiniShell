@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 01:12:41 by romachad          #+#    #+#             */
-/*   Updated: 2023/06/21 09:58:20 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:14:20 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	builtin_exec_main(t_data *data)
 	if (data->builtin == 5)
 		return (if_bt5(data, 1, NULL));
 	if (data->builtin == 6)
-		return (if_bt6(data, 1, NULL));
+		return (if_bt6(data, 1));
 	if (data->builtin == 7)
 		exit_shell(data);
 	return (0);
@@ -63,7 +63,7 @@ int	builtin_exec_pipe(t_pipe *args, t_data *data)
 	if (args->builtin == 5)
 		return (if_bt5(data, 2, args));
 	if (args->builtin == 6)
-		return (if_bt6(data, 2, args));
+		return (if_bt6(data, 2));
 	if (args->builtin == 7)
 		exit_shell(data);
 	return (0);
