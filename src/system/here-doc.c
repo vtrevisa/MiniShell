@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 00:49:21 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/14 01:24:30 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/14 05:41:07 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,6 @@ char	*here_doc(char *str)
 	read = ft_strjoin("1", new_line);
 	g_var.here_doc = 0;
 	free(new_line);
+	g_var.is_here_doc = 1;
 	return (read);
 }

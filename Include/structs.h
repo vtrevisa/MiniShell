@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/13 04:30:34 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/14 05:32:13 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_data
 	int		rcode;
 	int		ctrl_c;
 	int		here_doc;
+	int		is_here_doc;
 	char	***cmd_redir;
 	int		redir_error;
 	int		qtd_cmd;
