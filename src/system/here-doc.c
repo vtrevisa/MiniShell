@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 00:49:21 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/10 11:23:06 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/14 01:24:30 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*add_line(char *new, char *current)
 	char	*str;
 	char	*copy;
 
-	if (current)
+	if (current && *current)
 	{
 		str = ft_strjoin(current, "\n");
 		copy = str;
@@ -27,41 +27,55 @@ static char	*add_line(char *new, char *current)
 		str = ft_strdup(new);
 	if (current)
 	{
-		free(copy);
+		if (*current)
+			free(copy);
 		free(current);
 	}
 	return (str);
 }
 
-static char	*add_new_line(char *str)
+static char	*add_new_line(char *str, int *flag)
 {
 	char	*new;
 
-	if (str)
+	if (str && flag == 0)
 	{
 		new = ft_strjoin(str, "\n");
 		free(str);
 	}
 	else
-		new = ft_strdup("\n");
+	{
+		if (*flag == 0)
+		{
+			new = ft_strjoin(str, "\n");
+			free(str);
+		}
+		else
+			return (str);
+	}
 	return (new);
 }
 
-static void	if_read_while_heredoc(char *str, char *read, char **new_line)
+static void	if_read_while_heredoc(char *str, char *read, \
+		char **new_line, int *flag)
 {
 	if (ft_strlen(read))
 	{
 		if (ft_strncmp(str + 1, read, ft_strlen(str + 1) + \
 	ft_strlen(read)) == 0)
-			*new_line = add_new_line(*new_line);
+		{
+			if (**new_line == 0)
+				*flag = 1;
+			*new_line = add_new_line(*new_line, flag);
+		}
 		else
 			*new_line = add_line(read, *new_line);
 	}
 	else
-		*new_line = add_new_line(*new_line);
+		*new_line = add_new_line(*new_line, flag);
 }
 
-static void	while_heredoc(char *str, char *read, char **new_line)
+static void	while_heredoc(char *str, char *read, char **new_line, int *flag)
 {
 	while (ft_strncmp(str + 1, read, ft_strlen(str + 1) + ft_strlen(read)) != 0)
 	{
@@ -69,12 +83,12 @@ static void	while_heredoc(char *str, char *read, char **new_line)
 			free(read);
 		read = readline("> ");
 		if (read != NULL)
-			if_read_while_heredoc(str, read, new_line);
+			if_read_while_heredoc(str, read, new_line, flag);
 		else
 		{
 			if (g_var.ctrl_c == 1)
 				break ;
-			*new_line = add_new_line(*new_line);
+			*new_line = add_new_line(*new_line, 0);
 			break ;
 		}
 	}
@@ -84,12 +98,14 @@ char	*here_doc(char *str)
 {
 	char	*read;
 	char	*new_line;
+	int		flag;
 
+	flag = 0;
 	g_var.here_doc = 1;
 	g_var.saved_stdin = dup(STDIN_FILENO);
-	new_line = NULL;
+	new_line = ft_calloc(1, sizeof(new_line));
 	read = ft_calloc(1, sizeof(read));
-	while_heredoc(str, read, &new_line);
+	while_heredoc(str, read, &new_line, &flag);
 	free(str);
 	if (g_var.ctrl_c == 0)
 		close(g_var.saved_stdin);
