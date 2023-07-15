@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 04:04:24 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/12 16:15:47 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/15 02:04:16 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static int	check_arg2(t_data *data)
 	int				i;
 	long long int	code;
 
+	code = 0;
 	i = 0;
 	while (data->full_cmd[0][1][i] == '+')
 		i++;

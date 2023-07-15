@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 23:20:32 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/14 20:22:42 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/15 02:10:28 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	sigint_handler(int sig)
 {
-	if (sig)
-		sig = sig;
+	while (sig)
+		break ;
 	if (g_var.ctrl_c != 1 && g_var.here_doc != 1)
 	{
 		ft_printf("\n");
