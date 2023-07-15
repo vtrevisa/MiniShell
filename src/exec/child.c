@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 22:49:22 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/14 20:27:45 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/16 00:02:28 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int	child_prog(t_pipe *args, t_data *data)
 {
 	int	code;
 
+	data->rcode = 0;
 	if (data->cmd_redir[args->cmd_n][0])
 		if (data->cmd_redir[args->cmd_n][0][0] == '2')
 			return (1);
@@ -120,6 +121,8 @@ int	child_prog(t_pipe *args, t_data *data)
 	{
 		args->fpath = path_search(data->envp, \
 	data->full_cmd[args->cmd_n][0], data);
+		if (data->rcode == 127)
+			return (data->rcode);
 		code = check_perm_cmd(args, data);
 		if (code != 0)
 			return (code);
