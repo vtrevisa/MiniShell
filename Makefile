@@ -25,6 +25,7 @@ PRLX	= args_str_treatment.c parser.c parse_redir.c parse_redir_utils.c parser_ut
 			parser_utils2.c replace_var.c parse_redir_utils2.c replace_var_redir.c
 SYST	= main.c main_utils.c read_line.c init.c here-doc.c signals.c \
 			main_utils2.c
+HEADERS	= ./Include/defs.h ./Include/minishell.h ./Include/source.h ./Include/structs.h
 INCLUDE	= -I $(INCLUDE_D) -I $(LIB_INC_D)
 #--OBJECTS--
 OBJ		= $(SRC:%.c=$(OBJ_D)/%.o)
@@ -41,7 +42,7 @@ PROGRESS			=	0
 
 all: $(NAME)
 
-$(NAME): $(LIB) $(OBJ) $(OBJ_D)
+$(NAME): $(LIB) $(OBJ) $(OBJ_D) $(HEADERS)
 	@echo "$(BLUE)Compiling $(WHITE)Minishell"
 	@cc $(CFLAGS) $(INCLUDE) $(OBJ) -lreadline $(LIB) -o $@
 	@echo "$(GREEN)Compiled $(WHITE)Minishell"

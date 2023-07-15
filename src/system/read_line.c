@@ -6,38 +6,34 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:09:55 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/14 20:28:13 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/15 22:01:32 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-void	print_user_dir(t_data *data)
+static char	*create_prompt(void)
 {
-	char		cwd[1024];
-	size_t		index;
+	char	*name;
+	char	cwd[PATH_MAX];
 
-	index = 0;
-	getcwd(cwd, sizeof(cwd));
-	while (cwd[index] == data->user[index] && cwd[index])
-		index++;
-	if (index >= ft_strlen(cwd))
-		ft_printf("~");
+	if (getcwd(cwd, PATH_MAX) != NULL)
+		name = ft_strjoin(cwd, " $ ");
 	else
-		ft_printf("~%s", cwd + index);
+		name = ft_strdup(" $ ");
+	return (name);
 }
 
 void	read_line(t_data *data)
 {
+	char	*prompt;
+
+	prompt = create_prompt();
 	data->linetyped = 0;
-	print_user_dir(data);
-	data->line = readline("$ ");
+	data->line = readline(prompt);
+	free(prompt);
 	while ((data->line != NULL))
 	{
-		if (*data->line == '\0')
-		{
-			print_user_dir(data);
-		}
 		if (ft_strlen(data->line))
 		{
 			add_history(data->line);
@@ -46,7 +42,9 @@ void	read_line(t_data *data)
 		}
 		else
 			free(data->line);
-		data->line = readline("$ ");
+		prompt = create_prompt();
+		data->line = readline(prompt);
+		free(prompt);
 	}
 	if (!data->line)
 		exit_shell(data);

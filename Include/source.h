@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/14 20:26:48 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/15 22:11:14 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ void	free_all(char **str);
 void	free_char_array(char **array);
 void	error_exit(char *str);
 /*READ LINE*/
-void	print_user_dir(t_data *data);
 void	read_line(t_data *data);
 /*SIGNALS*/
 void	sigint_handler(int sig);
