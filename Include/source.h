@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/15 22:11:14 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/16 08:39:17 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,6 @@ void	error_exit(char *str);
 void	read_line(t_data *data);
 /*SIGNALS*/
 void	sigint_handler(int sig);
+void	sigquit_parent(int sig);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 22:54:48 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/14 05:38:25 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/16 08:44:05 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,40 @@ static void	pipe_to_pipe(t_pipe *args, t_data *data)
 
 static void	wait_pipes(t_pipe *args, t_data *data)
 {
+	/*int	num_exited;
+	pid_t	exited_pid;
+	int	status;
+	int	exit_status;
+
+	num_exited = 0;
+	data->ctrl_c = 1;
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, sigquit_parent);
+	while (num_exited < args->cmd_n)
+	{
+		exited_pid = waitpid(-1, &status, 0);
+		if (exited_pid > 0)
+		{
+			num_exited++;
+			if (WIFEXITED(status))
+			{
+				exit_status = WEXITSTATUS(status);
+				printf("pid[%d] rcode= %d\n",exited_pid,exit_status);
+				data->rcode = exit_status;
+			}
+			else if (WIFSIGNALED(status))
+			{
+				exit_status = WTERMSIG(status);
+				printf("pid[%d] rcode= %d\n",exited_pid,exit_status);
+				data->rcode = 128 + WTERMSIG(status);
+			}
+		}
+	}
+	data->ctrl_c = 0;
+	data->is_here_doc = 0;*/
+
+
+
 	int	i;
 	int	status;
 	int	exit_status;
@@ -60,11 +94,20 @@ static void	wait_pipes(t_pipe *args, t_data *data)
 	data->ctrl_c = 1;
 	while (++i < args->cmd_n)
 	{
+		//signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, sigquit_parent);
 		waitpid(args->pid[i], &status, 0);
 		if (WIFEXITED(status))
 		{
 			exit_status = WEXITSTATUS(status);
+			//printf("pid[%d] rcode= %d\n",i,exit_status);
 			data->rcode = exit_status;
+		}
+		else if (WIFSIGNALED(status))
+		{
+			exit_status = WTERMSIG(status);
+			//printf("pid[%d] rcode= %d\n",i,exit_status);
+			data->rcode = 128 + WTERMSIG(status);
 		}
 	}
 	data->ctrl_c = 0;

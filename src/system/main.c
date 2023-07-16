@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/14 20:29:36 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/16 08:09:42 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	prompt_loop(t_data *data)
 {
 	while (1)
 	{
+		signal(SIGINT, sigint_handler);
+		signal(SIGQUIT, SIG_IGN);
 		read_line(data);
 		if (data->linetyped == 1)
 		{
@@ -85,12 +87,8 @@ int	main(int argc, char **argv, char **envp)
 		break ;
 	while (argv || !argv)
 		break ;
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, SIG_IGN);
 	show_display();
 	init_data(&g_var, envp);
 	prompt_loop(&g_var);
-	free (g_var.user);
-	free_all (g_var.paths);
 	return (0);
 }

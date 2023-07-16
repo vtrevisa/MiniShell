@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 04:04:24 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/15 02:04:16 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/16 08:10:46 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,7 @@ void	exit_shell(t_data *data)
 	}
 	else
 		ft_printf("\n");
-	free(data->user);
-	free(data->cmd);
 	free_char_array(data->envp);
-	free_char_array(data->paths);
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);
@@ -87,9 +84,6 @@ void	exit_child(t_data *data, int code)
 		free(data->full_cmd);
 		free(data->line);
 	}
-	free(data->user);
-	free(data->cmd);
-	free_char_array(data->paths);
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);

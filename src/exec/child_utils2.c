@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 13:05:07 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/14 20:26:29 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/16 08:09:55 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	if_cmd_redir(t_data *data, t_pipe *args, int *fd)
 
 void	call_exec(t_data *data, t_pipe *args)
 {
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
 	execve(args->fpath, data->full_cmd[args->cmd_n], data->envp);
 	free(args->fpath);
 }

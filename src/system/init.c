@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:13 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/14 05:38:56 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/16 03:32:46 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	**copy_double_str(char **envp)
 	return (copy);
 }
 
-static char	*pathfinder(char *envp[])
+/*static char	*pathfinder(char *envp[])
 {
 	int	index;
 
@@ -44,9 +44,9 @@ static char	*pathfinder(char *envp[])
 	while (!ft_strnstr(envp[index], "PATH=", 5))
 		index++;
 	return (envp[index] + 5);
-}
+}*/
 
-static char	*userfinder(char *envp[])
+/*static char	*userfinder(char *envp[])
 {
 	int	index;
 
@@ -54,20 +54,20 @@ static char	*userfinder(char *envp[])
 	while (!ft_strnstr(envp[index], "HOME=", 5))
 		index++;
 	return (envp[index] + 5);
-}
+}*/
 
 void	init_data(t_data *data, char **envp)
 {
-	data->paths = ft_split(pathfinder(envp), ':');
-	data->user = ft_strdup(userfinder(envp));
-	data->file_fds_index = 0;
-	data->cmd = malloc (sizeof (char *) * 3);
+	//data->paths = ft_split(pathfinder(envp), ':');
+	//data->user = ft_strdup(userfinder(envp));
+	//data->file_fds_index = 0;
+	//data->cmd = malloc (sizeof (char *) * 3);
 	data->envp = copy_double_str(envp);
 	data->ctrl_c = 0;
-	data->count_cmd = 0;
-	data->fd_in = 0;
-	data->fd_out = 0;
-	data->count_pipe = 0;
+	//data->count_cmd = 0;
+	//data->fd_in = 0;
+	//data->fd_out = 0;
+	//data->count_pipe = 0;
 	data->rcode = 0;
 	data->flag_fullcmd = 0;
 	data->is_here_doc = 0;
