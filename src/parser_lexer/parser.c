@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 22:33:51 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/14 20:18:22 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/17 00:28:18 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ static void	parse_var(char *str, t_data *data, t_parser *parse)
 	parse->i = -1;
 	while (parse->str[++parse->i])
 	{
-		if (parse->str[parse->i] == '"')
+		if (parse->str[parse->i] == '"' && flag == 0)
 			flag = check_close_dq(parse->str + parse->i);
+		else if (parse->str[parse->i] == '"' && flag == 1)
+			flag = 0;
 		if (parse->str[parse->i] == '\'' && \
 	parse->str[parse->i + 1] && flag == 0)
 			if_str_slash(parse);
