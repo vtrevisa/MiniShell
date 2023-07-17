@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/16 04:07:19 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/16 23:41:02 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,7 @@ typedef struct s_data
 {
 	char	*line;
 	char	linetyped;
-	//char	*tmp;
-	//char	**line_splitted;
-	//int		file_fds_index;
-	//int		*file_fds;
-	//int		count_cmd;
-	//int		count_pipe;
-	//char	*cmd_path;
-	//int		*lexed_class;
-	//char	**paths;
-	//char	**cmd;
-	//char	*user;
 	char	**envp;
-	//int		fd[2]; --> sera?
-	//int		fd_in;
-	//int		fd_out;
-	//int		pipes;
 	char	**cmd_split;
 	char	***full_cmd;
 	int		flag_fullcmd;
@@ -59,7 +44,6 @@ typedef struct s_data
 	int		qtd_cmd;
 	int		saved_stdin;
 	int		saved_stdout;
-	//int		saved_stderr;
 	int		*pid;
 }	t_data;
 

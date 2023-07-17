@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 23:20:32 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/16 08:25:24 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/16 23:40:21 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,5 @@ void	sigint_handler(int sig)
 void	sigquit_parent(int sig)
 {
 	(void)sig;
-	//ft_printf("Hola, usted me llamou?\n");
-	//g_var.rcode = 131;
 	ft_putstr_fd("Quit\n", STDERR_FILENO);
-	/*int	ret;
-	for (int i=g_var.qtd_cmd -1; i>= 0; i--)
-	//for (int i=0; i< g_var.qtd_cmd; i++)
-	{
-		//ft_printf("This is your child: %d\n",g_var.pid[i]);
-		ret = kill(g_var.pid[i], SIGKILL);
-		//ret = kill(g_var.pid[i], SIGQUIT);
-		ft_printf("kill return code: %d\n", ret);
-	}*/
 }

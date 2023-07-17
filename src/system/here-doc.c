@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 00:49:21 by romachad          #+#    #+#             */
-/*   Updated: 2023/07/17 03:00:27 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/16 23:39:15 by vtrevisa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ static void	while_heredoc(char *str, char *read, char **new_line, int *flag)
 			if (g_var.ctrl_c == 1)
 				break ;
 			*new_line = add_new_line(*new_line, 0);
-			ft_printf ("minishell: warning: here-document delimited by end-of-file (wanted `%s')\n", str + 1);
+			ft_printf ("minishell: warning: here-document delimited by end-of-file \
+		(wanted `%s')\n", str + 1);
 			break ;
 		}
 	}
