@@ -59,9 +59,6 @@ $(OBJ_D)/%.o: %.c Makefile | $(OBJ_D)
 $(OBJ_D):
 	@mkdir -p $@
 
-val: all
-	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --trace-children=yes --trace-children-skip='*/bin/*,*/sbin/*' --suppressions=readline.supp ./minishell
-
 clean:
 	@echo "$(BLUE)Removing $(WHITE)Minishell objects"
 	@rm -rf $(OBJ_D)
