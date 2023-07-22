@@ -6,28 +6,11 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:46:37 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/10 14:18:49 by vtrevisa         ###   ########.fr       */
+/*   Updated: 2023/07/22 23:32:30 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
-
-void	show_display(void)
-{
-	int		fd;
-	char	*line;
-
-	fd = open ("./src/system/display", O_RDONLY);
-	while (fd != -1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		ft_printf("%s", line);
-		free(line);
-	}
-	close(fd);
-}
 
 void	free_all(char **str)
 {

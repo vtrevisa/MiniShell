@@ -6,7 +6,7 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:03:52 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/16 08:09:42 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/22 23:32:18 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int	main(int argc, char **argv, char **envp)
 		break ;
 	while (argv || !argv)
 		break ;
-	show_display();
 	init_data(&g_var, envp);
 	prompt_loop(&g_var);
 	return (0);

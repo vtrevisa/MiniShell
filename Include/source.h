@@ -6,14 +6,12 @@
 /*   By: vtrevisa <vtrevisa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:21:06 by vtrevisa          #+#    #+#             */
-/*   Updated: 2023/07/16 08:39:17 by romachad         ###   ########.fr       */
+/*   Updated: 2023/07/22 23:31:54 by romachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SOURCE_H
 # define SOURCE_H
-/*TEST APAGAR*/
-void	show_data(t_data *data);
 /*--------BUILTINS---------*/
 /*BUILTIN CHECKER UTILS*/
 int		if_bt4(t_data *data, int flag, t_pipe *args);
@@ -110,7 +108,6 @@ int		if_data_cmd_redir1(t_data *data, int *fd, int flag);
 void	free_full_cmd(t_data *data);
 void	if_ctrl_c1(t_data *data);
 /*MAIN UTILS 2*/
-void	show_display(void);
 void	free_all(char **str);
 void	free_char_array(char **array);
 void	error_exit(char *str);
